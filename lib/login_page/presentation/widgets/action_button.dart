@@ -3,8 +3,8 @@ import 'package:firebase_auth_flow/l10n/extension.dart';
 import 'package:firebase_auth_flow/login_page/presentation/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
 
-class AuthActionButton extends StatelessWidget {
-  const AuthActionButton(
+class ActionButton extends StatelessWidget {
+  const ActionButton(
     this.dep, {
     super.key,
     required this.isTypeLogin,
