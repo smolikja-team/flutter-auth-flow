@@ -1,29 +1,22 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
-import 'package:firebase_auth_flow/login_page/presentation/widgets/about_widget.dart';
-import 'package:firebase_auth_flow/login_page/presentation/widgets/buttons_widget.dart';
-import 'package:firebase_auth_flow/login_page/presentation/widgets/email_input_widget.dart';
-import 'package:firebase_auth_flow/login_page/presentation/widgets/pass_input_widget.dart';
-import 'package:firebase_auth_flow/login_page/presentation/widgets/title_text_widget.dart';
+import 'package:firebase_auth_flow/login_page/widgets/about_widget.dart';
+import 'package:firebase_auth_flow/login_page/widgets/buttons_widget.dart';
+import 'package:firebase_auth_flow/login_page/widgets/email_input_widget.dart';
+import 'package:firebase_auth_flow/login_page/widgets/pass_input_widget.dart';
+import 'package:firebase_auth_flow/login_page/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// TODO: naming - Login page?
-class AuthPageContent extends ConsumerStatefulWidget {
-  const AuthPageContent(this.dep, {super.key});
+class LoginPageContent extends ConsumerWidget {
+  const LoginPageContent(this.dep, {super.key});
+
+  static const SizedBox kSpacerHeight32 = SizedBox(height: 32.0);
 
   final FirebaseAuthFlowDependencies dep;
 
   @override
-  ConsumerState<AuthPageContent> createState() => _AuthPageScreenState();
-}
-
-// TODO: naming
-class _AuthPageScreenState extends ConsumerState<AuthPageContent> {
-  static const SizedBox kSpacerHeight32 = SizedBox(height: 32.0);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: SingleChildScrollView(
         child: Padding(
@@ -39,23 +32,23 @@ class _AuthPageScreenState extends ConsumerState<AuthPageContent> {
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               kSpacerHeight32,
-              EmailInputWidget(widget.dep),
+              EmailInputWidget(dep),
               const SizedBox(height: 16.0),
               PassInputWidget(
-                widget.dep,
+                dep,
                 validation: false,
               ),
               if (!isTypeLogin)
                 PassInputWidget(
-                  widget.dep,
+                  dep,
                   validation: true,
                 ),
               const SizedBox(height: 48.0),
-              ButtonsWidget(widget.dep),
+              ButtonsWidget(dep),
               kSpacerHeight32,
               AboutWidget(
-                text: widget.dep.loginAboutText,
-                onTap: widget.dep.onLoginAboutText,
+                text: dep.loginAboutText,
+                onTap: dep.onLoginAboutText,
               ),
             ],
           ),

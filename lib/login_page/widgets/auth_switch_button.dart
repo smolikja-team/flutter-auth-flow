@@ -1,10 +1,10 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
-import 'package:firebase_auth_flow/login_page/presentation/widgets/title_text_widget.dart';
+import 'package:firebase_auth_flow/login_page/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
 
-class ActionButton extends StatelessWidget {
-  const ActionButton(
+class AuthSwitchButton extends StatelessWidget {
+  const AuthSwitchButton(
     this.dep, {
     super.key,
     required this.isTypeLogin,
@@ -17,24 +17,21 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return OutlinedButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
         padding: const EdgeInsets.all(16.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(dep.borderRadius),
         ),
+        backgroundColor: Colors.transparent,
       ),
       child: TitleTextWidget(
         text: isTypeLogin
-            ? context.l10n.auth_button_action_login
-            : context.l10n.auth_button_action_register,
+            ? context.l10n.auth_button_switch_register
+            : context.l10n.auth_button_switch_login,
         alignment: Alignment.center,
-        style: Theme.of(context)
-            .textTheme
-            .labelLarge
-            ?.copyWith(color: Theme.of(context).colorScheme.primary),
+        style: Theme.of(context).textTheme.labelLarge,
       ),
     );
   }
