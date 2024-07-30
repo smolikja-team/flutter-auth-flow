@@ -1,7 +1,8 @@
 library firebase_auth_flow;
 
-export 'package:firebase_auth_flow/presentation/firebase_auth_flow.dart'
-    show
-        FirebaseAuthFlow,
-        FirebaseAuthFlowProvider,
-        FirebaseAuthFlowDependencies;
+export 'package:firebase_auth_flow/core/firebase_auth_flow.dart'
+    show FirebaseAuthFlow;
+export 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart'
+    show FirebaseAuthFlowDependencies;
+export 'package:firebase_auth_flow/core/firebase_auth_flow_provider.dart'
+    show FirebaseAuthFlowProvider;

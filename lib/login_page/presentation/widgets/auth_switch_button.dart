@@ -1,4 +1,4 @@
-import 'package:firebase_auth_flow/core/firebase_auth_flow.dart';
+import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
 import 'package:firebase_auth_flow/login_page/presentation/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';

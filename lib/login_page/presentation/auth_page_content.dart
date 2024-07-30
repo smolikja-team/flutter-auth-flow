@@ -1,4 +1,4 @@
-import 'package:firebase_auth_flow/core/firebase_auth_flow.dart';
+import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
 import 'package:firebase_auth_flow/login_page/presentation/widgets/about_widget.dart';
 import 'package:firebase_auth_flow/login_page/presentation/widgets/buttons_widget.dart';
@@ -8,7 +8,7 @@ import 'package:firebase_auth_flow/login_page/presentation/widgets/title_text_wi
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// TODO: naming
+// TODO: naming - Login page?
 class AuthPageContent extends ConsumerStatefulWidget {
   const AuthPageContent(this.dep, {super.key});
 
@@ -21,7 +21,6 @@ class AuthPageContent extends ConsumerStatefulWidget {
 // TODO: naming
 class _AuthPageScreenState extends ConsumerState<AuthPageContent> {
   static const SizedBox kSpacerHeight32 = SizedBox(height: 32.0);
-  static const Color kColorHyperlinkBlue = Color(0xff2a64c5);
 
   @override
   Widget build(BuildContext context) {
