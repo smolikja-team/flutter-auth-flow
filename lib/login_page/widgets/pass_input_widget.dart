@@ -6,24 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PassInputWidget extends ConsumerWidget {
-  const PassInputWidget(this.dep, {required this.validation, super.key});
+  const PassInputWidget(this.dep, {required this.isConfirmating, super.key});
 
   final FirebaseAuthFlowDependencies dep;
-  final bool validation;
+  final bool isConfirmating;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final title = validation
+    final title = isConfirmating
         ? context.l10n.auth_label_password_again
         : context.l10n.auth_label_password;
 
-    final hintText = validation
+    final hintText = isConfirmating
         ? context.l10n.auth_hint_password_again
         : context.l10n.auth_hint_password;
 
     return Column(
       children: [
-        if (validation) const SizedBox(height: 16),
+        if (isConfirmating) const SizedBox(height: 16),
         TitleTextWidget(
           text: title,
           style: Theme.of(context).textTheme.titleSmall,
@@ -36,7 +36,7 @@ class PassInputWidget extends ConsumerWidget {
           hintText: hintText,
           onChanged: (newPass) {
             setState(() {
-              if (widget.validation) {
+              if (isConfirmating) {
                 passAgain = newPass;
               } else {
                 pass = newPass;
