@@ -1,5 +1,6 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
+import 'package:firebase_auth_flow/login_page/providers/login_provider.dart';
 import 'package:firebase_auth_flow/login_page/widgets/auth_text_field_widget.dart';
 import 'package:firebase_auth_flow/login_page/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +25,7 @@ class EmailInputWidget extends ConsumerWidget {
           dep,
           isPassword: false,
           hintText: context.l10n.auth_hint_email,
-          onChanged: (newEmail) {
-            setState(() {
-              email = newEmail;
-            });
-          },
+          onChanged: ref.read(loginProvider.notifier).setEmail,
         ),
       ],
     );

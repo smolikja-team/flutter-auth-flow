@@ -10,6 +10,17 @@ class LoginNotifier extends StateNotifier<LoginState> {
     // _setListener();
   }
 
+  void setEmail(String email) {
+    state = state.copyWith(email: email);
+  }
+
+  void setPassword(String newPass) {
+    state = state.copyWith(password: newPass);
+  }
+
+  void setPasswordConf(String newPass) {
+    state = state.copyWith(passwordConf: newPass);
+  }
   // void _setListener() {
   //   FirebaseAuth.instance.userChanges().listen((User? user) {
   //     if (user == null) {

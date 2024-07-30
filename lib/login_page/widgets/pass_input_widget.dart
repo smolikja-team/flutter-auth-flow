@@ -1,5 +1,6 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
+import 'package:firebase_auth_flow/login_page/providers/login_provider.dart';
 import 'package:firebase_auth_flow/login_page/widgets/auth_text_field_widget.dart';
 import 'package:firebase_auth_flow/login_page/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class PassInputWidget extends ConsumerWidget {
         ? context.l10n.auth_hint_password_again
         : context.l10n.auth_hint_password;
 
+    final loginNotifier = ref.read(loginProvider.notifier);
+
     return Column(
       children: [
         if (isConfirmating) const SizedBox(height: 16),
@@ -34,15 +37,9 @@ class PassInputWidget extends ConsumerWidget {
           dep,
           isPassword: true,
           hintText: hintText,
-          onChanged: (newPass) {
-            setState(() {
-              if (isConfirmating) {
-                passAgain = newPass;
-              } else {
-                pass = newPass;
-              }
-            });
-          },
+          onChanged: isConfirmating
+              ? loginNotifier.setPasswordConf
+              : loginNotifier.setPassword,
         ),
       ],
     );
