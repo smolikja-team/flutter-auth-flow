@@ -1,4 +1,4 @@
-import 'package:firebase_auth_flow/presentation/auth_page_content.dart';
+import 'package:firebase_auth_flow/login_page/presentation/auth_page_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
