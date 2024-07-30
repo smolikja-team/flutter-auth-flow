@@ -1,5 +1,6 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
+import 'package:firebase_auth_flow/login_page/providers/login_provider.dart';
 import 'package:firebase_auth_flow/login_page/widgets/about_widget.dart';
 import 'package:firebase_auth_flow/login_page/widgets/buttons_widget.dart';
 import 'package:firebase_auth_flow/login_page/widgets/email_input_widget.dart';
@@ -17,6 +18,8 @@ class LoginPageContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isTypeLogin = ref.watch(loginProvider).isTypeLogin;
+
     return Center(
       child: SingleChildScrollView(
         child: Padding(
