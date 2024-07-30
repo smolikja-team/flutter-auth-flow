@@ -1,5 +1,6 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
+import 'package:firebase_auth_flow/login_page/presentation/widgets/about_widget.dart';
 import 'package:firebase_auth_flow/login_page/presentation/widgets/buttons_widget.dart';
 import 'package:firebase_auth_flow/login_page/presentation/widgets/email_input_widget.dart';
 import 'package:firebase_auth_flow/login_page/presentation/widgets/pass_input_widget.dart';
@@ -53,15 +54,9 @@ class _AuthPageScreenState extends ConsumerState<AuthPageContent> {
               const SizedBox(height: 48.0),
               ButtonsWidget(widget.dep),
               kSpacerHeight32,
-              InkWell(
-                onTap: _launchMCompURL,
-                child: Text(
-                  context.l10n.auth_title_mcomp,
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium
-                      ?.copyWith(color: kColorHyperlinkBlue),
-                ),
+              AboutWidget(
+                text: widget.dep.loginAboutText,
+                onTap: widget.dep.onLoginAboutText,
               ),
             ],
           ),
