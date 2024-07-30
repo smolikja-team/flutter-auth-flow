@@ -36,5 +36,5 @@
   "error_auth_weak_password": "Slabé heslo",
   "@error_auth_weak_password": {},
   "error_auth_wrong_password": "Nesprávné heslo",
-  "@error_auth_wrong_password": {},
+  "@error_auth_wrong_password": {}
 }
