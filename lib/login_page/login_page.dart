@@ -1,9 +1,9 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/login_page/login_page_content.dart';
+import 'package:firebase_auth_flow/login_page/providers/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// TODO: naming - Login page?
 class LoginPage extends ConsumerWidget {
   const LoginPage(this.dep, {super.key});
 
@@ -11,18 +11,20 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isLoading = ref.watch(loginProvider).isLoading;
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
         children: [
           AbsorbPointer(
-            absorbing: false, // TODO: z provideru pokdu se loaduje
+            absorbing: isLoading,
             child: LoginPageContent(dep),
           ),
-          if (true)
+          if (isLoading)
             Center(
               child: dep.activityIndicator,
-            ), // TODO: z provideru pokud se loaduje ukazat loading
+            ),
         ],
       ),
     );

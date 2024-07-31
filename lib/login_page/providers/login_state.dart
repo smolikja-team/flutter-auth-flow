@@ -5,6 +5,7 @@ part 'login_state.freezed.dart';
 @freezed
 class LoginState with _$LoginState {
   factory LoginState({
+    @Default(false) bool isLoading,
     @Default(true) bool isTypeLogin,
     @Default('') String email,
     @Default('') String password,

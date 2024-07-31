@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LoginState {
+  bool get isLoading => throw _privateConstructorUsedError;
   bool get isTypeLogin => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
@@ -33,7 +34,11 @@ abstract class $LoginStateCopyWith<$Res> {
       _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
   $Res call(
-      {bool isTypeLogin, String email, String password, String passwordConf});
+      {bool isLoading,
+      bool isTypeLogin,
+      String email,
+      String password,
+      String passwordConf});
 }
 
 /// @nodoc
@@ -49,12 +54,17 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
     Object? isTypeLogin = null,
     Object? email = null,
     Object? password = null,
     Object? passwordConf = null,
   }) {
     return _then(_value.copyWith(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       isTypeLogin: null == isTypeLogin
           ? _value.isTypeLogin
           : isTypeLogin // ignore: cast_nullable_to_non_nullable
@@ -84,7 +94,11 @@ abstract class _$$LoginStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool isTypeLogin, String email, String password, String passwordConf});
+      {bool isLoading,
+      bool isTypeLogin,
+      String email,
+      String password,
+      String passwordConf});
 }
 
 /// @nodoc
@@ -98,12 +112,17 @@ class __$$LoginStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
     Object? isTypeLogin = null,
     Object? email = null,
     Object? password = null,
     Object? passwordConf = null,
   }) {
     return _then(_$LoginStateImpl(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       isTypeLogin: null == isTypeLogin
           ? _value.isTypeLogin
           : isTypeLogin // ignore: cast_nullable_to_non_nullable
@@ -128,11 +147,15 @@ class __$$LoginStateImplCopyWithImpl<$Res>
 
 class _$LoginStateImpl implements _LoginState {
   _$LoginStateImpl(
-      {this.isTypeLogin = true,
+      {this.isLoading = false,
+      this.isTypeLogin = true,
       this.email = '',
       this.password = '',
       this.passwordConf = ''});
 
+  @override
+  @JsonKey()
+  final bool isLoading;
   @override
   @JsonKey()
   final bool isTypeLogin;
@@ -148,7 +171,7 @@ class _$LoginStateImpl implements _LoginState {
 
   @override
   String toString() {
-    return 'LoginState(isTypeLogin: $isTypeLogin, email: $email, password: $password, passwordConf: $passwordConf)';
+    return 'LoginState(isLoading: $isLoading, isTypeLogin: $isTypeLogin, email: $email, password: $password, passwordConf: $passwordConf)';
   }
 
   @override
@@ -156,6 +179,8 @@ class _$LoginStateImpl implements _LoginState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoginStateImpl &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             (identical(other.isTypeLogin, isTypeLogin) ||
                 other.isTypeLogin == isTypeLogin) &&
             (identical(other.email, email) || other.email == email) &&
@@ -166,8 +191,8 @@ class _$LoginStateImpl implements _LoginState {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isTypeLogin, email, password, passwordConf);
+  int get hashCode => Object.hash(
+      runtimeType, isLoading, isTypeLogin, email, password, passwordConf);
 
   @JsonKey(ignore: true)
   @override
@@ -178,11 +203,14 @@ class _$LoginStateImpl implements _LoginState {
 
 abstract class _LoginState implements LoginState {
   factory _LoginState(
-      {final bool isTypeLogin,
+      {final bool isLoading,
+      final bool isTypeLogin,
       final String email,
       final String password,
       final String passwordConf}) = _$LoginStateImpl;
 
+  @override
+  bool get isLoading;
   @override
   bool get isTypeLogin;
   @override
