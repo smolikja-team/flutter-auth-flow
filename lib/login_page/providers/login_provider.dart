@@ -21,6 +21,25 @@ class LoginNotifier extends StateNotifier<LoginState> {
   void setPasswordConf(String newPass) {
     state = state.copyWith(passwordConf: newPass);
   }
+
+  void switchToRegister() {
+    state = state.copyWith(isTypeLogin: false);
+  }
+
+  void switchToLogin() {
+    state = state.copyWith(isTypeLogin: true);
+  }
+
+  void onLoginPressed() {
+    state = state.copyWith(isLoading: true);
+    // TODO: login pressed flow
+  }
+
+  void onRegisterPressed() {
+    state = state.copyWith(isLoading: true);
+    // TODO: register pressed flow
+  }
+
   // void _setListener() {
   //   FirebaseAuth.instance.userChanges().listen((User? user) {
   //     if (user == null) {
