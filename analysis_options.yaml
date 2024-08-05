@@ -6,6 +6,7 @@ analyzer:
     - "**/*.freezed.dart"
     - "**/*.gr.dart"
     - "bricks/**/*.dart"
+    - lib/l10n/**
 
   # See https://dart.dev/guides/language/analysis-options#enabling-additional-type-checks
   # strong-mode:
