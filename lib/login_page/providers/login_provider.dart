@@ -30,14 +30,40 @@ class LoginNotifier extends StateNotifier<LoginState> {
     state = state.copyWith(isTypeLogin: true);
   }
 
-  void onLoginPressed() {
+  void onLoginPressed(
+    void Function(
+      String email,
+      String password,
+      void Function(bool) onLoginDone,
+    ) onLoginPressed,
+  ) {
     state = state.copyWith(isLoading: true);
-    // TODO: login pressed flow
+    onLoginPressed(state.email, state.password, _onLoginDone);
   }
 
-  void onRegisterPressed() {
-    state = state.copyWith(isLoading: true);
-    // TODO: register pressed flow
+  void onRegisterPressed(
+    void Function(
+      String email,
+      String password,
+      void Function(bool) onRegisterDone,
+    ) onRegisterPressed,
+  ) {
+    if (state.password == state.passwordConf) {
+      state = state.copyWith(isLoading: true);
+      onRegisterPressed(state.email, state.password, _onRegisterDone);
+    } else {
+      // TODO: hesla se neshoduji
+    }
+  }
+
+  void _onLoginDone(bool succeeded) {
+    state = state.copyWith(isLoading: false);
+    print("=== login succeeded $succeeded");
+  }
+
+  void _onRegisterDone(bool succeeded) {
+    state = state.copyWith(isLoading: false);
+    print("=== register succeeded $succeeded");
   }
 
   // void _setListener() {

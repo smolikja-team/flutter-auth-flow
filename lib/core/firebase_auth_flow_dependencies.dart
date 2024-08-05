@@ -7,6 +7,8 @@ class FirebaseAuthFlowDependencies {
     required this.activityIndicator,
     required this.loginAboutText,
     required this.onLoginAboutText,
+    required this.onLoginPressed,
+    required this.onRegisterPressed,
     this.disabledOpacity = 0.65,
     this.borderRadius = 12.0,
   });
@@ -15,9 +17,18 @@ class FirebaseAuthFlowDependencies {
 
   final FirebaseAuthFlowProvider provider;
   final Widget activityIndicator;
-
   final String loginAboutText;
   final void Function() onLoginAboutText;
+  final void Function(
+    String email,
+    String password,
+    void Function(bool) onLoginDone,
+  ) onLoginPressed;
+  final void Function(
+    String email,
+    String password,
+    void Function(bool) onRegisterDone,
+  ) onRegisterPressed;
 
   // MARK: - optional
 

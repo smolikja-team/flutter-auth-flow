@@ -20,9 +20,9 @@ class ButtonsWidget extends ConsumerWidget {
         ActionButton(
           dep,
           isTypeLogin: isTypeLogin,
-          onPressed: isTypeLogin
-              ? loginNotifier.onLoginPressed
-              : loginNotifier.onRegisterPressed,
+          onPressed: () => isTypeLogin
+              ? loginNotifier.onLoginPressed(dep.onLoginPressed)
+              : loginNotifier.onRegisterPressed(dep.onRegisterPressed),
         ),
         const SizedBox(height: 16.0),
         AuthSwitchButton(
