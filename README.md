@@ -11,29 +11,81 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+# Firebase Auth Flow
 
-## Features
+Flutter widget package for handling a Firebase Authentication Flow.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## FirebaseAuthFlowDependencies
+
+- `provider` => The type of authentication provider,
+- `activityIndicator` => Widget that indicates some activity,
+- `loginAboutText` => String navigating to help/support,
+- `onLoginAboutText` => action for the help/support,
+- `disabledOpacity` => opacity of disabled,
+- `borderRadius` => border radius.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- Add Firebase Auth Flow's `localizationsDelegates` to your `MaterialApp`'s ones,
+- make sure that app's supported locales are also `firebase_auth_flow`'s supported locales. If not, contribute to Firebase Auth Flow, please.
 
-## Usage
+``` dart
+import 'package:firebase_auth_flow/l10n/app_localizations.dart'
+    as firebase_auth_flow;
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+class App extends StatelessWidget {
+  const App({super.key});
 
-```dart
-const like = 'sample';
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: Flavors.title,
+      localizationsDelegates: _localizationsDelegates,
+      supportedLocales: _supportedLocales,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      routerConfig: appRouter,
+    );
+  }
+
+  Iterable<LocalizationsDelegate<dynamic>>? get _localizationsDelegates => [
+        ...AppLocalizations.localizationsDelegates,
+        ...firebase_auth_flow.AppLocalizations.localizationsDelegates,
+      ];
+
+  Iterable<Locale> get _supportedLocales {
+    // Make sure app's supported locales are also firebase_auth_flow's supported locales
+    for (final loca in AppLocalizations.supportedLocales) {
+      if (!firebase_auth_flow.AppLocalizations.supportedLocales
+          .contains(loca)) {
+        throw UnsupportedError(
+          "Not all app's supported locales are also firebase_auth_flow's supported locales. Head to firebase_auth_flow's doc.",
+        );
+      }
+    }
+    return AppLocalizations.supportedLocales;
+  }
+}
 ```
 
-## Additional information
+### Usage
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+``` dart
+FirebaseAuthFlowDependencies(
+    provider: FirebaseAuthFlowProvider.email,
+    activityIndicator: const PlatformActivityIndicator(),
+    loginAboutText: 'Need help',
+    onLoginAboutText: () => print('Need help tapped'),
+)
+```
+
+## Contribution
+
+### build runner
+
+`flutter packages pub run build_runner build --verbose --delete-conflicting-outputs`
+
+### loca gen
+
+`flutter gen-l10n`
