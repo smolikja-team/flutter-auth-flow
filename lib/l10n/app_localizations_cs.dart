@@ -50,7 +50,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get error_auth_email_invalid => 'Nesprávný email';
 
   @override
-  String get error_auth_pass_not_match => 'Neshodná hesla';
+  String get error_auth_pass_not_matching => 'Neshodná hesla';
 
   @override
   String get error_auth_user_not_found => 'Uživatel nenalezen';
@@ -60,4 +60,10 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get error_auth_wrong_password => 'Nesprávné heslo';
+
+  @override
+  String get error_auth_operation_not_allowed => 'Operace nepodporována';
+
+  @override
+  String get error_auth_user_disabled => 'Uživatel zablokován';
 }

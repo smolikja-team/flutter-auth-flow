@@ -29,12 +29,16 @@
   "@error_auth_email_in_use": {},
   "error_auth_email_invalid": "Nesprávný email",
   "@error_auth_email_invalid": {},
-  "error_auth_pass_not_match": "Neshodná hesla",
-  "@error_auth_pass_not_match": {},
+  "error_auth_pass_not_matching": "Neshodná hesla",
+  "@error_auth_pass_not_matching": {},
   "error_auth_user_not_found": "Uživatel nenalezen",
   "@error_auth_user_not_found": {},
   "error_auth_weak_password": "Slabé heslo",
   "@error_auth_weak_password": {},
   "error_auth_wrong_password": "Nesprávné heslo",
-  "@error_auth_wrong_password": {}
+  "@error_auth_wrong_password": {},
+  "error_auth_operation_not_allowed": "Operace nepodporována",
+  "@error_auth_operation_not_allowed": {},
+  "error_auth_user_disabled": "Uživatel zablokován",
+  "@error_auth_user_disabled": {}
 }

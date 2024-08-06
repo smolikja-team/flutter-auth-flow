@@ -181,11 +181,11 @@ abstract class AppLocalizations {
   /// **'Nesprávný email'**
   String get error_auth_email_invalid;
 
-  /// No description provided for @error_auth_pass_not_match.
+  /// No description provided for @error_auth_pass_not_matching.
   ///
   /// In cs, this message translates to:
   /// **'Neshodná hesla'**
-  String get error_auth_pass_not_match;
+  String get error_auth_pass_not_matching;
 
   /// No description provided for @error_auth_user_not_found.
   ///
@@ -204,6 +204,18 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Nesprávné heslo'**
   String get error_auth_wrong_password;
+
+  /// No description provided for @error_auth_operation_not_allowed.
+  ///
+  /// In cs, this message translates to:
+  /// **'Operace nepodporována'**
+  String get error_auth_operation_not_allowed;
+
+  /// No description provided for @error_auth_user_disabled.
+  ///
+  /// In cs, this message translates to:
+  /// **'Uživatel zablokován'**
+  String get error_auth_user_disabled;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
