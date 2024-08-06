@@ -21,6 +21,8 @@ Flutter widget package for handling a Firebase Authentication Flow.
 - `activityIndicator` => Widget that indicates some activity,
 - `loginAboutText` => String navigating to help/support,
 - `onLoginAboutText` => action for the help/support,
+- `onLoginPressed` => action for Log in button,
+- `onRegisterPressed` => action for register button,
 - `disabledOpacity` => opacity of disabled,
 - `borderRadius` => border radius.
 
@@ -28,6 +30,9 @@ Flutter widget package for handling a Firebase Authentication Flow.
 
 - Add Firebase Auth Flow's `localizationsDelegates` to your `MaterialApp`'s ones,
 - make sure that app's supported locales are also `firebase_auth_flow`'s supported locales. If not, contribute to Firebase Auth Flow, please.
+
+<details>
+<summary>Example</summary>
 
 ``` dart
 import 'package:firebase_auth_flow/l10n/app_localizations.dart'
@@ -69,16 +74,127 @@ class App extends StatelessWidget {
 }
 ```
 
+</details>
+
 ### Usage
 
 ``` dart
-FirebaseAuthFlowDependencies(
-    provider: FirebaseAuthFlowProvider.email,
-    activityIndicator: const PlatformActivityIndicator(),
-    loginAboutText: 'Need help',
-    onLoginAboutText: () => print('Need help tapped'),
+FirebaseAuthFlow(
+    FirebaseAuthFlowDependencies(
+        provider: FirebaseAuthFlowProvider.email,
+        activityIndicator: const PlatformActivityIndicator(),
+        loginAboutText: 'test',
+        onLoginAboutText: () => print('test'),
+        onLoginPressed: _login,
+        onRegisterPressed: _registerEmail,
+    ),
 )
 ```
+
+<details>
+<summary>_login</summary>
+
+``` dart
+Future<void> login({
+    required String email,
+    required String password,
+    required void Function({String? errorCode}) onLoginDone,
+}) async {
+    try {
+        await _signIntoFirebase(email: email, password: password)
+        .catchError((errorCode) {
+            throw errorCode;
+        });
+        onLoginDone(errorCode: null);
+    } catch (errorCode) {
+        onLoginDone(
+            errorCode: errorCode.toString(),
+        );
+    }
+}
+
+Future<void> _signIntoFirebase({
+    required String email,
+    required String password,
+}) async {
+    try {
+        await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
+        Logging.log.info('$runtimeType -> _signIntoFirebase: signed in');
+    } on FirebaseAuthException catch (e, stackTrace) {
+        Logging.log.severe(
+            '$runtimeType -> _signIntoFirebase: ${e.toString()}',
+            e,
+            stackTrace,
+        );
+        return Future.error(e.code);
+    } catch (e, stackTrace) {
+        Logging.log.severe(
+            '$runtimeType -> _signIntoFirebase: ${e.toString()}',
+            e,
+            stackTrace,
+        );
+        return Future.error(FirebaseAuthFlowError.universal);
+    }
+}
+```
+
+</details>
+
+<details>
+<summary>_registerEmail</summary>
+
+``` dart
+Future<void> registerEmail({
+    required String email,
+    required String password,
+    required void Function({String? errorCode}) onRegisterDone,
+}) async {
+    try {
+        await _createFirebaseAccount(
+            email: email,
+            password: password,
+        ).catchError((errorCode) {
+            throw errorCode;
+        });
+        await sendEmailVerification();
+        onRegisterDone(errorCode: null);
+    } catch (errorCode) {
+        onRegisterDone(
+            errorCode: errorCode.toString(),
+        );
+    }
+}
+
+Future<void> _createFirebaseAccount({
+    required String email,
+    required String password,
+}) async {
+    try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+        );
+        Logging.log.info('$runtimeType -> _createFirebaseAccount: created');
+    } on FirebaseAuthException catch (e, stackTrace) {
+        Logging.log.severe(
+            '$runtimeType -> log_createFirebaseAccountOut: ${e.toString()}',
+            e,
+            stackTrace,
+        );
+        return Future.error(e.code);
+    } catch (e, stackTrace) {
+        Logging.log.severe(
+            '$runtimeType -> log_createFirebaseAccountOut: ${e.toString()}',
+            e,
+            stackTrace,
+        );
+        return Future.error(FirebaseAuthFlowError.universal);
+    }
+}
+```
+
+</details>
 
 ## Contribution
 
