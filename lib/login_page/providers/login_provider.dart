@@ -66,12 +66,14 @@ class LoginNotifier extends StateNotifier<LoginState> {
 
   void _onLoginDone({String? errorCode}) {
     state = state.copyWith(isLoading: false);
-    print("=== login succeeded $errorCode"); // TODO: loca
+    // FirebaseAuthFlowError.fromCode(errorCode).message(context); => get error message
+    print("=== login succeeded $errorCode");
   }
 
   void _onRegisterDone({String? errorCode}) {
     state = state.copyWith(isLoading: false);
-    print("=== register succeeded $errorCode"); // TODO: loca
+    // FirebaseAuthFlowError.fromCode(errorCode).message(context); => get error message
+    print("=== register succeeded $errorCode");
   }
 
   // void _setListener() {

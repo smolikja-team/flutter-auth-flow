@@ -26,8 +26,15 @@ enum FirebaseAuthFlowError {
   operationNotAllowed('operation-not-allowed'),
   userDisabled('user-disabled');
 
-  const FirebaseAuthFlowError(this.code);
-  final String code;
+  const FirebaseAuthFlowError(this._code);
+  final String _code;
+
+  static FirebaseAuthFlowError fromCode(String code) {
+    return FirebaseAuthFlowError.values.firstWhere(
+      (error) => error._code == code,
+      orElse: () => FirebaseAuthFlowError.universal,
+    );
+  }
 
   String message(BuildContext context) {
     switch (this) {
