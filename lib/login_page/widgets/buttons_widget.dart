@@ -1,4 +1,6 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
+import 'package:firebase_auth_flow/core/firebase_auth_flow_error.dart';
+import 'package:firebase_auth_flow/core/widgets/error_snack_bar.dart';
 import 'package:firebase_auth_flow/login_page/providers/login_provider.dart';
 import 'package:firebase_auth_flow/login_page/widgets/action_button.dart';
 import 'package:firebase_auth_flow/login_page/widgets/auth_switch_button.dart';
@@ -15,14 +17,30 @@ class ButtonsWidget extends ConsumerWidget {
     final isTypeLogin = ref.watch(loginProvider).isTypeLogin;
     final loginNotifier = ref.read(loginProvider.notifier);
 
+    void showSnackBar({required FirebaseAuthFlowError error}) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        errorSnackBar(
+          message: error.message(context),
+          context: context,
+          dependencies: dep,
+        ),
+      );
+    }
+
     return Column(
       children: [
         ActionButton(
           dep,
           isTypeLogin: isTypeLogin,
           onPressed: () => isTypeLogin
-              ? loginNotifier.onLoginPressed(dep.onLoginPressed)
-              : loginNotifier.onRegisterPressed(dep.onRegisterPressed),
+              ? loginNotifier.onLoginPressed(
+                  dep.onLoginPressed,
+                  onError: showSnackBar,
+                )
+              : loginNotifier.onRegisterPressed(
+                  dep.onRegisterPressed,
+                  onError: showSnackBar,
+                ),
         ),
         const SizedBox(height: 16.0),
         AuthSwitchButton(

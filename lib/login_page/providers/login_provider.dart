@@ -1,3 +1,4 @@
+import 'package:firebase_auth_flow/core/firebase_auth_flow_error.dart';
 import 'package:firebase_auth_flow/login_page/providers/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -35,13 +36,16 @@ class LoginNotifier extends StateNotifier<LoginState> {
       required String email,
       required String password,
       required void Function({String? errorCode}) onLoginDone,
-    }) onLoginPressed,
-  ) {
+    }) onLoginPressed, {
+    required void Function({required FirebaseAuthFlowError error}) onError,
+  }) {
     state = state.copyWith(isLoading: true);
     onLoginPressed(
       email: state.email,
       password: state.password,
-      onLoginDone: _onLoginDone,
+      onLoginDone: ({String? errorCode}) {
+        _onLoginDone(errorCode: errorCode, onError: onError);
+      },
     );
   }
 
@@ -50,30 +54,47 @@ class LoginNotifier extends StateNotifier<LoginState> {
       required String email,
       required String password,
       required void Function({String? errorCode}) onRegisterDone,
-    }) onRegisterPressed,
-  ) {
+    }) onRegisterPressed, {
+    required void Function({required FirebaseAuthFlowError error}) onError,
+  }) {
     if (state.password == state.passwordConf) {
       state = state.copyWith(isLoading: true);
       onRegisterPressed(
         email: state.email,
         password: state.password,
-        onRegisterDone: _onRegisterDone,
+        onRegisterDone: ({String? errorCode}) {
+          _onRegisterDone(errorCode: errorCode, onError: onError);
+        },
       );
     } else {
-      // TODO: hesla se neshoduji
+      onError(error: FirebaseAuthFlowError.passwordNotMatching);
     }
   }
 
-  void _onLoginDone({String? errorCode}) {
+  void _onLoginDone({
+    String? errorCode,
+    required void Function({required FirebaseAuthFlowError error}) onError,
+  }) {
     state = state.copyWith(isLoading: false);
-    // FirebaseAuthFlowError.fromCode(errorCode).message(context); => get error message
-    print("=== login succeeded $errorCode");
+    if (errorCode != null) {
+      final error = FirebaseAuthFlowError.fromCode(errorCode);
+      onError(error: error);
+      return;
+    }
+    print("=== login succeeded");
   }
 
-  void _onRegisterDone({String? errorCode}) {
+  void _onRegisterDone({
+    String? errorCode,
+    required void Function({required FirebaseAuthFlowError error}) onError,
+  }) {
     state = state.copyWith(isLoading: false);
-    // FirebaseAuthFlowError.fromCode(errorCode).message(context); => get error message
-    print("=== register succeeded $errorCode");
+    if (errorCode != null) {
+      final error = FirebaseAuthFlowError.fromCode(errorCode);
+      onError(error: error);
+      return;
+    }
+    print("=== register succeeded");
   }
 
   // void _setListener() {
