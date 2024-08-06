@@ -19,16 +19,16 @@ class FirebaseAuthFlowDependencies {
   final Widget activityIndicator;
   final String loginAboutText;
   final void Function() onLoginAboutText;
-  final void Function(
-    String email,
-    String password,
-    void Function(bool) onLoginDone,
-  ) onLoginPressed;
-  final void Function(
-    String email,
-    String password,
-    void Function(bool) onRegisterDone,
-  ) onRegisterPressed;
+  final void Function({
+    required String email,
+    required String password,
+    required void Function({String? errorCode}) onLoginDone,
+  }) onLoginPressed;
+  final void Function({
+    required String email,
+    required String password,
+    required void Function({String? errorCode}) onRegisterDone,
+  }) onRegisterPressed;
 
   // MARK: - optional
 

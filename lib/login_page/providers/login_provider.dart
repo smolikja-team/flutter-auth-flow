@@ -31,39 +31,47 @@ class LoginNotifier extends StateNotifier<LoginState> {
   }
 
   void onLoginPressed(
-    void Function(
-      String email,
-      String password,
-      void Function(bool) onLoginDone,
-    ) onLoginPressed,
+    void Function({
+      required String email,
+      required String password,
+      required void Function({String? errorCode}) onLoginDone,
+    }) onLoginPressed,
   ) {
     state = state.copyWith(isLoading: true);
-    onLoginPressed(state.email, state.password, _onLoginDone);
+    onLoginPressed(
+      email: state.email,
+      password: state.password,
+      onLoginDone: _onLoginDone,
+    );
   }
 
   void onRegisterPressed(
-    void Function(
-      String email,
-      String password,
-      void Function(bool) onRegisterDone,
-    ) onRegisterPressed,
+    void Function({
+      required String email,
+      required String password,
+      required void Function({String? errorCode}) onRegisterDone,
+    }) onRegisterPressed,
   ) {
     if (state.password == state.passwordConf) {
       state = state.copyWith(isLoading: true);
-      onRegisterPressed(state.email, state.password, _onRegisterDone);
+      onRegisterPressed(
+        email: state.email,
+        password: state.password,
+        onRegisterDone: _onRegisterDone,
+      );
     } else {
       // TODO: hesla se neshoduji
     }
   }
 
-  void _onLoginDone(bool succeeded) {
+  void _onLoginDone({String? errorCode}) {
     state = state.copyWith(isLoading: false);
-    print("=== login succeeded $succeeded");
+    print("=== login succeeded $errorCode"); // TODO: loca
   }
 
-  void _onRegisterDone(bool succeeded) {
+  void _onRegisterDone({String? errorCode}) {
     state = state.copyWith(isLoading: false);
-    print("=== register succeeded $succeeded");
+    print("=== register succeeded $errorCode"); // TODO: loca
   }
 
   // void _setListener() {
