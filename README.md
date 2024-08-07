@@ -95,7 +95,7 @@ FirebaseAuthFlow(
 <summary>_login</summary>
 
 ``` dart
-Future<void> login({
+Future<void> _login({
     required String email,
     required String password,
     required void Function({String? errorCode}) onLoginDone,
@@ -145,7 +145,7 @@ Future<void> _signIntoFirebase({
 <summary>_registerEmail</summary>
 
 ``` dart
-Future<void> registerEmail({
+Future<void> _registerEmail({
     required String email,
     required String password,
     required void Function({String? errorCode}) onRegisterDone,
