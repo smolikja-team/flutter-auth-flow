@@ -216,6 +216,12 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Uživatel zablokován'**
   String get error_auth_user_disabled;
+
+  /// No description provided for @error_auth_invalid_credential.
+  ///
+  /// In cs, this message translates to:
+  /// **'Neplatné údaje'**
+  String get error_auth_invalid_credential;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

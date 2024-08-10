@@ -24,7 +24,8 @@ enum FirebaseAuthFlowError {
   emailInvalid('invalid-email'),
   passwordNotMatching('pass-not-match'),
   operationNotAllowed('operation-not-allowed'),
-  userDisabled('user-disabled');
+  userDisabled('user-disabled'),
+  invalidCredential('invalid-credential');
 
   const FirebaseAuthFlowError(this._code);
   final String _code;
@@ -56,6 +57,8 @@ enum FirebaseAuthFlowError {
         return context.l10n.error_auth_operation_not_allowed;
       case FirebaseAuthFlowError.userDisabled:
         return context.l10n.error_auth_user_disabled;
+      case FirebaseAuthFlowError.invalidCredential:
+        return context.l10n.error_auth_invalid_credential;
     }
   }
 }

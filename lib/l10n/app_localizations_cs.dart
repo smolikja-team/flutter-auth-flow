@@ -66,4 +66,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get error_auth_user_disabled => 'Uživatel zablokován';
+
+  @override
+  String get error_auth_invalid_credential => 'Neplatné údaje';
 }
