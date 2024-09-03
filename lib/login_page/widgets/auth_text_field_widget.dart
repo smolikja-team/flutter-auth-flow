@@ -21,8 +21,8 @@ class AuthTextFieldWidget extends StatelessWidget {
     final hintStyle = Theme.of(context)
         .textTheme
         .labelLarge
-        ?.withOpacity(dep.disabledOpacity)
-        ?.copyWith(color: dep.colorOnPrimary);
+        ?.copyWith(color: dep.colorPrimary)
+        .withOpacity(dep.disabledOpacity);
 
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(dep.borderRadius),
@@ -40,8 +40,8 @@ class AuthTextFieldWidget extends StatelessWidget {
         .labelLarge
         ?.copyWith(color: dep.colorPrimary);
 
-    final cursorColor = dep.colorPrimary?.withOpacity(dep.disabledOpacity) ??
-        Theme.of(context).colorScheme.primary.withOpacity(dep.disabledOpacity);
+    final cursorColor =
+        dep.colorPrimary ?? Theme.of(context).colorScheme.primary;
 
     return TextField(
       decoration: InputDecoration(
@@ -56,7 +56,7 @@ class AuthTextFieldWidget extends StatelessWidget {
       enableSuggestions: isPassword ? false : true,
       obscureText: isPassword ? true : false,
       style: style,
-      cursorColor: cursorColor,
+      cursorColor: cursorColor.withOpacity(dep.disabledOpacity),
       cursorOpacityAnimates: true,
       cursorWidth: 1.5,
       onChanged: onChanged,
