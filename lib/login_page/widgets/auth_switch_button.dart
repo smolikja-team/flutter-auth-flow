@@ -1,6 +1,6 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
+import 'package:firebase_auth_flow/core/widgets/custom_outlined_button.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
-import 'package:firebase_auth_flow/login_page/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class AuthSwitchButton extends StatelessWidget {
@@ -20,26 +20,13 @@ class AuthSwitchButton extends StatelessWidget {
     final contentColor =
         dep.colorPrimary ?? Theme.of(context).colorScheme.primary;
 
-    return OutlinedButton(
+    return CustomOutlinedButton(
+      title: isTypeLogin
+          ? context.l10n.auth_button_switch_register
+          : context.l10n.auth_button_switch_login,
       onPressed: onPressed,
-      style: TextButton.styleFrom(
-        padding: const EdgeInsets.all(16.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dep.borderRadius),
-        ),
-        backgroundColor: Colors.transparent,
-        side: BorderSide(color: contentColor),
-      ),
-      child: TitleTextWidget(
-        text: isTypeLogin
-            ? context.l10n.auth_button_switch_register
-            : context.l10n.auth_button_switch_login,
-        alignment: Alignment.center,
-        style: Theme.of(context)
-            .textTheme
-            .labelLarge
-            ?.copyWith(color: contentColor),
-      ),
+      contentColor: contentColor,
+      borderRadius: dep.borderRadius,
     );
   }
 }
