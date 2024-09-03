@@ -1,15 +1,5 @@
 /// A FirebaseAuthException maybe thrown with the following error code:
-/// - **email-already-in-use**:
-///  - Thrown if there already exists an account with the given email address.
-/// - **invalid-email**:
-///  - Thrown if the email address is not valid.
-/// - **operation-not-allowed**:
-///  - Thrown if email/password accounts are not enabled. Enable
-///    email/password accounts in the Firebase Console, under the Auth tab.
-/// - **weak-password**:
-///  - Thrown if the password is not strong enough.
-/// - **user-disabled**:
-///  - Thrown if the user corresponding to the given email has been disabled.
+/// https://firebase.google.com/docs/auth/admin/errors
 library;
 
 import 'package:firebase_auth_flow/l10n/extension.dart';
