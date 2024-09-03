@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class EmailVerificationPageContent extends ConsumerWidget {
   const EmailVerificationPageContent(this.dep, {super.key});
 
-  static const SizedBox kSpacerHeight32 = SizedBox(height: 32.0);
+  static const SizedBox kSpacerHeight48 = SizedBox(height: 48.0);
   static const SizedBox kSpacerHeight16 = SizedBox(height: 16.0);
 
   final FirebaseAuthFlowDependencies dep;
@@ -50,7 +50,7 @@ class EmailVerificationPageContent extends ConsumerWidget {
             color: dep.colorPrimary,
           ),
         ),
-        kSpacerHeight32,
+        kSpacerHeight48,
         CustomFilledButton(
           title: 'Zkontrolovat',
           onPressed: () => {},
@@ -64,7 +64,7 @@ class EmailVerificationPageContent extends ConsumerWidget {
           contentColor: dep.colorPrimary,
           borderRadius: dep.borderRadius,
         ),
-        kSpacerHeight32,
+        kSpacerHeight48,
         logOutButton,
       ],
     );
