@@ -26,6 +26,17 @@ class EmailVerificationPageContent extends ConsumerWidget {
       alignment: Alignment.center,
     );
 
+    final logOutButton = InkWell(
+      onTap: () => {},
+      child: Text(
+        'Odhlasit se',
+        style: Theme.of(context)
+            .textTheme
+            .labelLarge
+            ?.copyWith(color: dep.colorAbout),
+      ),
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -54,31 +65,7 @@ class EmailVerificationPageContent extends ConsumerWidget {
           borderRadius: dep.borderRadius,
         ),
         kSpacerHeight32,
-        Text(
-          'Odhlasit se',
-        ),
-        // TextButton(
-        //   onPressed: () => {},
-        //   child: const Text(
-        //     'Potvrdit',
-        //     style: TextStyle(color: ConstColors.hyperlinkBlue),
-        //   ),
-        // ),
-        // TextButton(
-        //   onPressed: () => AuthenticationHelper().sendEmailVerification(),
-        //   child: const Text(
-        //     'Znovu odeslat',
-        //     style: TextStyle(color: ConstColors.hyperlinkBlue),
-        //   ),
-        // ),
-        // TextButton(
-        //   onPressed: () =>
-        //       AuthenticationHelper().logOut(context: context),
-        //   child: const Text(
-        //     'Odhlásit se',
-        //     style: TextStyle(color: ConstColors.hyperlinkBlue),
-        //   ),
-        // ),
+        logOutButton,
       ],
     );
   }
