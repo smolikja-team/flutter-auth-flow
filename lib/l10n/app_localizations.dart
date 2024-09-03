@@ -7,6 +7,8 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_cs.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of AppLocalizations
 /// returned by `AppLocalizations.of(context)`.
 ///
@@ -222,6 +224,36 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Neplatné údaje'**
   String get error_auth_invalid_credential;
+
+  /// No description provided for @verification_title.
+  ///
+  /// In cs, this message translates to:
+  /// **'Potvrďte prosím email'**
+  String get verification_title;
+
+  /// No description provided for @verification_subtitle.
+  ///
+  /// In cs, this message translates to:
+  /// **'Email s potvrzením naleznete ve své emailové schránce.'**
+  String get verification_subtitle;
+
+  /// No description provided for @verification_button_check.
+  ///
+  /// In cs, this message translates to:
+  /// **'Zkontrolovat'**
+  String get verification_button_check;
+
+  /// No description provided for @verification_button_resend.
+  ///
+  /// In cs, this message translates to:
+  /// **'Odeslat znovu'**
+  String get verification_button_resend;
+
+  /// No description provided for @verification_button_logout.
+  ///
+  /// In cs, this message translates to:
+  /// **'Odhlásit se'**
+  String get verification_button_logout;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

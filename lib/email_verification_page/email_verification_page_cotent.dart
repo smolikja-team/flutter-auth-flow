@@ -1,6 +1,8 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/core/widgets/custom_filled_button.dart';
 import 'package:firebase_auth_flow/core/widgets/custom_outlined_button.dart';
+import 'package:firebase_auth_flow/l10n/extension.dart';
+import 'package:firebase_auth_flow/login_page/widgets/action_button.dart';
 import 'package:firebase_auth_flow/login_page/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +20,7 @@ class EmailVerificationPageContent extends ConsumerWidget {
     // final isTypeLogin = ref.watch(loginProvider).isTypeLogin;
 
     final title = TitleTextWidget(
-      text: 'Ověřte prosím email',
+      text: context.l10n.verification_title,
       style: Theme.of(context)
           .textTheme
           .headlineMedium
@@ -29,7 +31,7 @@ class EmailVerificationPageContent extends ConsumerWidget {
     final logOutButton = InkWell(
       onTap: () => {},
       child: Text(
-        'Odhlasit se',
+        context.l10n.verification_button_logout,
         style: Theme.of(context)
             .textTheme
             .labelLarge
@@ -44,7 +46,7 @@ class EmailVerificationPageContent extends ConsumerWidget {
         title,
         kSpacerHeight16,
         Text(
-          'Email s ověřením naleznete ve své emailové schránce.',
+          context.l10n.verification_subtitle,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: dep.colorPrimary,
@@ -52,14 +54,14 @@ class EmailVerificationPageContent extends ConsumerWidget {
         ),
         kSpacerHeight48,
         CustomFilledButton(
-          title: 'Zkontrolovat',
+          title: context.l10n.verification_button_check,
           onPressed: () => {},
           backgroundColor: dep.colorPrimary,
           borderRadius: dep.borderRadius,
         ),
         kSpacerHeight16,
         CustomOutlinedButton(
-          title: 'Odeslat znovu',
+          title: context.l10n.verification_button_resend,
           onPressed: () => {},
           contentColor: dep.colorPrimary,
           borderRadius: dep.borderRadius,

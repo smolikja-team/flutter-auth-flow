@@ -42,5 +42,15 @@
   "error_auth_user_disabled": "Uživatel zablokován",
   "@error_auth_user_disabled": {},
   "error_auth_invalid_credential": "Neplatné údaje",
-  "@error_auth_invalid_credential": {}
+  "@error_auth_invalid_credential": {},
+  "verification_title": "Potvrďte prosím email",
+  "@verification_title": {},
+  "verification_subtitle": "Email s potvrzením naleznete ve své emailové schránce.",
+  "@verification_subtitle": {},
+  "verification_button_check": "Zkontrolovat",
+  "@verification_button_check": {},
+  "verification_button_resend": "Odeslat znovu",
+  "@verification_button_resend": {},
+  "verification_button_logout": "Odhlásit se",
+  "@verification_button_logout": {}
 }
