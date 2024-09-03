@@ -7,8 +7,7 @@ SnackBar errorSnackBar({
   required BuildContext context,
   required FirebaseAuthFlowDependencies dependencies,
 }) {
-  final titleColor =
-      dependencies.colorPrimary ?? Theme.of(context).colorScheme.primary;
+  final titleColor = Theme.of(context).scaffoldBackgroundColor;
 
   final bgColor =
       dependencies.colorError ?? Theme.of(context).colorScheme.error;

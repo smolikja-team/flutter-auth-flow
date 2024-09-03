@@ -12,7 +12,6 @@ class FirebaseAuthFlowDependencies {
     this.disabledOpacity = 0.65,
     this.borderRadius = 12.0,
     this.colorPrimary = Colors.black, // TODO: remove colors
-    this.colorOnPrimary = Colors.amber,
     this.colorSecondary = Colors.green,
     this.colorOnSecondary = Colors.grey,
     this.colorAbout = const Color(0xff2a64c5),
@@ -42,7 +41,6 @@ class FirebaseAuthFlowDependencies {
   final double borderRadius;
 
   final Color? colorPrimary;
-  final Color? colorOnPrimary;
   final Color? colorSecondary;
   final Color? colorOnSecondary;
   final Color? colorAbout;
