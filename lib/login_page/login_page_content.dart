@@ -20,23 +20,21 @@ class LoginPageContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isTypeLogin = ref.watch(loginProvider).isTypeLogin;
 
-    TitleTextWidget getTitle() {
-      return TitleTextWidget(
-        text: isTypeLogin
-            ? context.l10n.auth_title_login
-            : context.l10n.auth_title_register,
-        style: Theme.of(context)
-            .textTheme
-            .headlineMedium
-            ?.copyWith(color: dep.colorPrimary),
-      );
-    }
+    final title = TitleTextWidget(
+      text: isTypeLogin
+          ? context.l10n.auth_title_login
+          : context.l10n.auth_title_register,
+      style: Theme.of(context)
+          .textTheme
+          .headlineMedium
+          ?.copyWith(color: dep.colorPrimary),
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        getTitle(),
+        title,
         kSpacerHeight32,
         EmailInputWidget(dep),
         const SizedBox(height: 16.0),

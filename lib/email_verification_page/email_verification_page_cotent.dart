@@ -12,56 +12,65 @@ class EmailVerificationPageContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final isTypeLogin = ref.watch(loginProvider).isTypeLogin;
 
-    return const Center(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TitleTextWidget(
-                text: 'Ověřte email, prosím',
-                alignment: Alignment.center,
-              ),
-              Text(
-                'Email s ověřením naleznete ve své emailové schránce.',
-              ),
-              Text(
-                'Zkontrolovat',
-              ),
-              Text(
-                'Odeslat znovu',
-              ),
-              Text(
-                'Odhlasit se',
-              ),
-              // TextButton(
-              //   onPressed: () => {},
-              //   child: const Text(
-              //     'Potvrdit',
-              //     style: TextStyle(color: ConstColors.hyperlinkBlue),
-              //   ),
-              // ),
-              // TextButton(
-              //   onPressed: () => AuthenticationHelper().sendEmailVerification(),
-              //   child: const Text(
-              //     'Znovu odeslat',
-              //     style: TextStyle(color: ConstColors.hyperlinkBlue),
-              //   ),
-              // ),
-              // TextButton(
-              //   onPressed: () =>
-              //       AuthenticationHelper().logOut(context: context),
-              //   child: const Text(
-              //     'Odhlásit se',
-              //     style: TextStyle(color: ConstColors.hyperlinkBlue),
-              //   ),
-              // ),
-            ],
+    final title = TitleTextWidget(
+      text: 'Ověřte prosím email',
+      style: Theme.of(context)
+          .textTheme
+          .headlineMedium
+          ?.copyWith(color: dep.colorPrimary),
+      alignment: Alignment.center,
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        title,
+        const SizedBox(
+          height: 16.0,
+        ),
+        Text(
+          'Email s ověřením naleznete ve své emailové schránce.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: dep.colorPrimary,
           ),
         ),
-      ),
+        const SizedBox(
+          height: 32.0,
+        ),
+        Text(
+          'Zkontrolovat',
+        ),
+        Text(
+          'Odeslat znovu',
+        ),
+        Text(
+          'Odhlasit se',
+        ),
+        // TextButton(
+        //   onPressed: () => {},
+        //   child: const Text(
+        //     'Potvrdit',
+        //     style: TextStyle(color: ConstColors.hyperlinkBlue),
+        //   ),
+        // ),
+        // TextButton(
+        //   onPressed: () => AuthenticationHelper().sendEmailVerification(),
+        //   child: const Text(
+        //     'Znovu odeslat',
+        //     style: TextStyle(color: ConstColors.hyperlinkBlue),
+        //   ),
+        // ),
+        // TextButton(
+        //   onPressed: () =>
+        //       AuthenticationHelper().logOut(context: context),
+        //   child: const Text(
+        //     'Odhlásit se',
+        //     style: TextStyle(color: ConstColors.hyperlinkBlue),
+        //   ),
+        // ),
+      ],
     );
   }
 }
