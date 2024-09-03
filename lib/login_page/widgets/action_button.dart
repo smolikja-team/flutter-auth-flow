@@ -17,10 +17,13 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bgColor = dep.onPrimary ?? Theme.of(context).colorScheme.onPrimary;
+    final textColor = dep.primary ?? Theme.of(context).colorScheme.primary;
+
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: bgColor,
         padding: const EdgeInsets.all(16.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(dep.borderRadius),
@@ -31,10 +34,9 @@ class ActionButton extends StatelessWidget {
             ? context.l10n.auth_button_action_login
             : context.l10n.auth_button_action_register,
         alignment: Alignment.center,
-        style: Theme.of(context)
-            .textTheme
-            .labelLarge
-            ?.copyWith(color: Theme.of(context).colorScheme.primary),
+        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: textColor,
+            ),
       ),
     );
   }

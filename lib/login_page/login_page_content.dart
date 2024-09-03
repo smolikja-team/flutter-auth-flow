@@ -20,6 +20,18 @@ class LoginPageContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isTypeLogin = ref.watch(loginProvider).isTypeLogin;
 
+    TitleTextWidget getTitle() {
+      return TitleTextWidget(
+        text: isTypeLogin
+            ? context.l10n.auth_title_login
+            : context.l10n.auth_title_register,
+        style: Theme.of(context)
+            .textTheme
+            .headlineMedium
+            ?.copyWith(color: dep.onPrimary),
+      );
+    }
+
     return Center(
       child: SingleChildScrollView(
         child: Padding(
@@ -28,12 +40,7 @@ class LoginPageContent extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TitleTextWidget(
-                text: isTypeLogin
-                    ? context.l10n.auth_title_login
-                    : context.l10n.auth_title_register,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
+              getTitle(),
               kSpacerHeight32,
               EmailInputWidget(dep),
               const SizedBox(height: 16.0),
@@ -52,6 +59,7 @@ class LoginPageContent extends ConsumerWidget {
               AboutWidget(
                 text: dep.loginAboutText,
                 onTap: dep.onLoginAboutText,
+                color: dep.colorAbout,
               ),
             ],
           ),

@@ -17,6 +17,9 @@ class AuthSwitchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final contentColor =
+        dep.onPrimary ?? Theme.of(context).colorScheme.onPrimary;
+
     return OutlinedButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
@@ -25,13 +28,17 @@ class AuthSwitchButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(dep.borderRadius),
         ),
         backgroundColor: Colors.transparent,
+        side: BorderSide(color: contentColor),
       ),
       child: TitleTextWidget(
         text: isTypeLogin
             ? context.l10n.auth_button_switch_register
             : context.l10n.auth_button_switch_login,
         alignment: Alignment.center,
-        style: Theme.of(context).textTheme.labelLarge,
+        style: Theme.of(context)
+            .textTheme
+            .labelLarge
+            ?.copyWith(color: contentColor),
       ),
     );
   }

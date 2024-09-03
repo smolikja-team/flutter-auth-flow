@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 class AboutWidget extends StatelessWidget {
-  const AboutWidget({super.key, required this.text, required this.onTap});
+  const AboutWidget({
+    super.key,
+    required this.text,
+    required this.onTap,
+    required this.color,
+  });
 
   final String text;
   final void Function() onTap;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +18,7 @@ class AboutWidget extends StatelessWidget {
       onTap: onTap,
       child: Text(
         text,
-        style: Theme.of(context)
-            .textTheme
-            .labelMedium
-            ?.copyWith(color: const Color(0xff2a64c5)),
+        style: Theme.of(context).textTheme.labelMedium?.copyWith(color: color),
       ),
     );
   }
