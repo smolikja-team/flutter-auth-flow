@@ -9,6 +9,7 @@ final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(
 class LoginNotifier extends StateNotifier<LoginState> {
   LoginNotifier() : super(LoginState()) {
     // _setListener();
+    // TODO: cleaning
   }
 
   void setEmail(String email) {
