@@ -1,4 +1,5 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
+import 'package:firebase_auth_flow/core/widgets/main_scaffold.dart';
 import 'package:firebase_auth_flow/login_page/login_page_content.dart';
 import 'package:firebase_auth_flow/login_page/providers/login_provider.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = ref.watch(loginProvider).isLoading;
 
-    return Scaffold(
+    return MainScaffold(
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -27,8 +28,6 @@ class LoginPage extends ConsumerWidget {
             ),
         ],
       ),
-      backgroundColor:
-          dep.colorOnPrimary ?? Theme.of(context).colorScheme.onPrimary,
     );
   }
 }
