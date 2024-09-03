@@ -32,36 +32,32 @@ class LoginPageContent extends ConsumerWidget {
       );
     }
 
-    return Center(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            getTitle(),
-            kSpacerHeight32,
-            EmailInputWidget(dep),
-            const SizedBox(height: 16.0),
-            PassInputWidget(
-              dep,
-              isConfirmating: false,
-            ),
-            if (!isTypeLogin)
-              PassInputWidget(
-                dep,
-                isConfirmating: true,
-              ),
-            const SizedBox(height: 48.0),
-            ButtonsWidget(dep),
-            kSpacerHeight32,
-            AboutWidget(
-              text: dep.loginAboutText,
-              onTap: dep.onLoginAboutText,
-              color: dep.colorAbout,
-            ),
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        getTitle(),
+        kSpacerHeight32,
+        EmailInputWidget(dep),
+        const SizedBox(height: 16.0),
+        PassInputWidget(
+          dep,
+          isConfirmating: false,
         ),
-      ),
+        if (!isTypeLogin)
+          PassInputWidget(
+            dep,
+            isConfirmating: true,
+          ),
+        const SizedBox(height: 48.0),
+        ButtonsWidget(dep),
+        kSpacerHeight32,
+        AboutWidget(
+          text: dep.loginAboutText,
+          onTap: dep.onLoginAboutText,
+          color: dep.colorAbout,
+        ),
+      ],
     );
   }
 }
