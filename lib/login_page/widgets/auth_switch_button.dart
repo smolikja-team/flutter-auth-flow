@@ -18,7 +18,7 @@ class AuthSwitchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contentColor =
-        dep.onPrimary ?? Theme.of(context).colorScheme.onPrimary;
+        dep.colorPrimary ?? Theme.of(context).colorScheme.primary;
 
     return OutlinedButton(
       onPressed: onPressed,

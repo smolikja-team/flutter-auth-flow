@@ -22,7 +22,7 @@ class AuthTextFieldWidget extends StatelessWidget {
         .textTheme
         .labelLarge
         ?.withOpacity(dep.disabledOpacity)
-        ?.copyWith(color: dep.primary);
+        ?.copyWith(color: dep.colorOnPrimary);
 
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(dep.borderRadius),
@@ -32,16 +32,16 @@ class AuthTextFieldWidget extends StatelessWidget {
       ),
     );
 
-    final fillColor = dep.secondary ?? Theme.of(context).colorScheme.secondary;
+    final fillColor =
+        dep.colorOnSecondary ?? Theme.of(context).colorScheme.onSecondary;
 
-    final style =
-        Theme.of(context).textTheme.labelLarge?.copyWith(color: dep.onPrimary);
+    final style = Theme.of(context)
+        .textTheme
+        .labelLarge
+        ?.copyWith(color: dep.colorPrimary);
 
-    final cursorColor = dep.onPrimary?.withOpacity(dep.disabledOpacity) ??
-        Theme.of(context)
-            .colorScheme
-            .onPrimary
-            .withOpacity(dep.disabledOpacity);
+    final cursorColor = dep.colorPrimary?.withOpacity(dep.disabledOpacity) ??
+        Theme.of(context).colorScheme.primary.withOpacity(dep.disabledOpacity);
 
     return TextField(
       decoration: InputDecoration(

@@ -27,6 +27,8 @@ class LoginPage extends ConsumerWidget {
             ),
         ],
       ),
+      backgroundColor:
+          dep.colorOnPrimary ?? Theme.of(context).colorScheme.onPrimary,
     );
   }
 }

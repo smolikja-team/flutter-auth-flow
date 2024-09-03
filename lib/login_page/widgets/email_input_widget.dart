@@ -20,7 +20,7 @@ class EmailInputWidget extends ConsumerWidget {
           style: Theme.of(context)
               .textTheme
               .titleSmall
-              ?.copyWith(color: dep.onPrimary),
+              ?.copyWith(color: dep.colorPrimary),
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
         ),
         const SizedBox(height: 8.0),

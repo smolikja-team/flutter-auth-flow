@@ -17,8 +17,9 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = dep.onPrimary ?? Theme.of(context).colorScheme.onPrimary;
-    final textColor = dep.primary ?? Theme.of(context).colorScheme.primary;
+    final bgColor = dep.colorPrimary ?? Theme.of(context).colorScheme.primary;
+    final textColor =
+        dep.colorOnPrimary ?? Theme.of(context).colorScheme.onPrimary;
 
     return TextButton(
       onPressed: onPressed,

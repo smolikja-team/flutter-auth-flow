@@ -28,7 +28,7 @@ class LoginPageContent extends ConsumerWidget {
         style: Theme.of(context)
             .textTheme
             .headlineMedium
-            ?.copyWith(color: dep.onPrimary),
+            ?.copyWith(color: dep.colorPrimary),
       );
     }
 

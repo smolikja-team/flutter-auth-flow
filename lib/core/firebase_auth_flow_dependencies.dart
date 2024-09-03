@@ -11,11 +11,12 @@ class FirebaseAuthFlowDependencies {
     required this.onRegisterPressed,
     this.disabledOpacity = 0.65,
     this.borderRadius = 12.0,
-    this.primary = Colors.amber, // TODO: remove colors
-    this.onPrimary = Colors.black,
-    this.secondary = Colors.grey,
-    this.onSecondary = Colors.green,
+    this.colorPrimary = Colors.black, // TODO: remove colors
+    this.colorOnPrimary = Colors.amber,
+    this.colorSecondary = Colors.green,
+    this.colorOnSecondary = Colors.grey,
     this.colorAbout = const Color(0xff2a64c5),
+    this.colorError,
   });
 
   // MARK: - required
@@ -40,9 +41,10 @@ class FirebaseAuthFlowDependencies {
   final double disabledOpacity;
   final double borderRadius;
 
-  final Color? primary;
-  final Color? onPrimary;
-  final Color? secondary;
-  final Color? onSecondary;
+  final Color? colorPrimary;
+  final Color? colorOnPrimary;
+  final Color? colorSecondary;
+  final Color? colorOnSecondary;
   final Color? colorAbout;
+  final Color? colorError;
 }

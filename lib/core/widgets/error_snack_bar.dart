@@ -7,16 +7,22 @@ SnackBar errorSnackBar({
   required BuildContext context,
   required FirebaseAuthFlowDependencies dependencies,
 }) {
+  final titleColor =
+      dependencies.colorPrimary ?? Theme.of(context).colorScheme.primary;
+
+  final bgColor =
+      dependencies.colorError ?? Theme.of(context).colorScheme.error;
+
   return SnackBar(
     content: TitleTextWidget(
       text: message,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: Theme.of(context).colorScheme.primary,
+            color: titleColor,
             fontWeight: FontWeight.bold,
           ),
       alignment: Alignment.center,
     ),
-    backgroundColor: Theme.of(context).colorScheme.error,
+    backgroundColor: bgColor,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(dependencies.borderRadius),
     ),
