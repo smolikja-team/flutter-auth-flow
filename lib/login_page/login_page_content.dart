@@ -52,7 +52,7 @@ class LoginPageContent extends ConsumerWidget {
         kSpacerHeight32,
         AboutWidget(
           text: dep.loginAboutText,
-          onTap: dep.onLoginAboutText,
+          onTap: dep.onLoginAboutTextPressed,
           color: dep.colorAbout,
         ),
       ],

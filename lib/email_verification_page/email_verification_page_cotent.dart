@@ -28,7 +28,7 @@ class EmailVerificationPageContent extends ConsumerWidget {
     );
 
     final logOutButton = InkWell(
-      onTap: () => {},
+      onTap: dep.onLogoutPressed,
       child: Text(
         context.l10n.verification_button_logout,
         style: Theme.of(context)
@@ -54,14 +54,14 @@ class EmailVerificationPageContent extends ConsumerWidget {
         kSpacerHeight48,
         CustomFilledButton(
           title: context.l10n.verification_button_check,
-          onPressed: () => {},
+          onPressed: dep.onCheckConfirmationPressed,
           backgroundColor: dep.colorPrimary,
           borderRadius: dep.borderRadius,
         ),
         kSpacerHeight16,
         CustomOutlinedButton(
           title: context.l10n.verification_button_resend,
-          onPressed: () => {},
+          onPressed: dep.onResendConfirmationPressed,
           contentColor: dep.colorPrimary,
           borderRadius: dep.borderRadius,
         ),

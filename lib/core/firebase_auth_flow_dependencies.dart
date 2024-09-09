@@ -6,12 +6,15 @@ class FirebaseAuthFlowDependencies {
     required this.provider,
     required this.activityIndicator,
     required this.loginAboutText,
-    required this.onLoginAboutText,
+    required this.onLoginAboutTextPressed,
     required this.onLoginPressed,
     required this.onRegisterPressed,
+    required this.onCheckConfirmationPressed,
+    required this.onResendConfirmationPressed,
+    required this.onLogoutPressed,
     this.disabledOpacity = 0.65,
     this.borderRadius = 12.0,
-    this.colorPrimary = Colors.black, // TODO: remove colors
+    this.colorPrimary = Colors.black, // TODO: remove mock colors
     this.colorOnSecondary = Colors.grey,
     this.colorAbout = const Color(0xff2a64c5),
     this.colorError,
@@ -22,7 +25,7 @@ class FirebaseAuthFlowDependencies {
   final FirebaseAuthFlowProvider provider;
   final Widget activityIndicator;
   final String loginAboutText;
-  final void Function() onLoginAboutText;
+  final void Function() onLoginAboutTextPressed;
   final void Function({
     required String email,
     required String password,
@@ -33,6 +36,9 @@ class FirebaseAuthFlowDependencies {
     required String password,
     required void Function({String? errorCode}) onRegisterDone,
   }) onRegisterPressed;
+  final void Function() onCheckConfirmationPressed;
+  final void Function() onResendConfirmationPressed;
+  final void Function() onLogoutPressed;
 
   // MARK: - optional
 
