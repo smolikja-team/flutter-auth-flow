@@ -1,6 +1,9 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
+import 'package:firebase_auth_flow/core/firebase_auth_flow_error.dart';
 import 'package:firebase_auth_flow/core/widgets/custom_filled_button.dart';
 import 'package:firebase_auth_flow/core/widgets/custom_outlined_button.dart';
+import 'package:firebase_auth_flow/core/widgets/error_snack_bar.dart';
+import 'package:firebase_auth_flow/email_verification_page/providers/email_verification_provider.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
 import 'package:firebase_auth_flow/login_page/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +19,18 @@ class EmailVerificationPageContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final isTypeLogin = ref.watch(loginProvider).isTypeLogin;
+    final emailVerificationNotifier =
+        ref.read(emailVerificationProvider.notifier);
+
+    void showSnackBar({required FirebaseAuthFlowError error}) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        errorSnackBar(
+          message: error.message(context),
+          context: context,
+          dependencies: dep,
+        ),
+      );
+    }
 
     final title = TitleTextWidget(
       text: context.l10n.verification_title,
@@ -28,7 +42,11 @@ class EmailVerificationPageContent extends ConsumerWidget {
     );
 
     final logOutButton = InkWell(
-      onTap: dep.onLogoutPressed,
+      onTap: () => emailVerificationNotifier.onActionPressed(
+        ({required void Function({String? errorCode}) onActionDone}) =>
+            dep.onLogoutPressed(onLogoutDone: onActionDone),
+        onError: showSnackBar,
+      ),
       child: Text(
         context.l10n.verification_button_logout,
         style: Theme.of(context)
@@ -54,14 +72,22 @@ class EmailVerificationPageContent extends ConsumerWidget {
         kSpacerHeight48,
         CustomFilledButton(
           title: context.l10n.verification_button_check,
-          onPressed: dep.onCheckConfirmationPressed,
+          onPressed: () => emailVerificationNotifier.onActionPressed(
+            ({required void Function({String? errorCode}) onActionDone}) =>
+                dep.onCheckConfirmationPressed(onCheckDone: onActionDone),
+            onError: showSnackBar,
+          ),
           backgroundColor: dep.colorPrimary,
           borderRadius: dep.borderRadius,
         ),
         kSpacerHeight16,
         CustomOutlinedButton(
           title: context.l10n.verification_button_resend,
-          onPressed: dep.onResendConfirmationPressed,
+          onPressed: () => emailVerificationNotifier.onActionPressed(
+            ({required void Function({String? errorCode}) onActionDone}) =>
+                dep.onResendConfirmationPressed(onResendDone: onActionDone),
+            onError: showSnackBar,
+          ),
           contentColor: dep.colorPrimary,
           borderRadius: dep.borderRadius,
         ),

@@ -36,9 +36,15 @@ class FirebaseAuthFlowDependencies {
     required String password,
     required void Function({String? errorCode}) onRegisterDone,
   }) onRegisterPressed;
-  final void Function() onCheckConfirmationPressed;
-  final void Function() onResendConfirmationPressed;
-  final void Function() onLogoutPressed;
+  final void Function({
+    required void Function({String? errorCode}) onCheckDone,
+  }) onCheckConfirmationPressed;
+  final void Function({
+    required void Function({String? errorCode}) onResendDone,
+  }) onResendConfirmationPressed;
+  final void Function({
+    required void Function({String? errorCode}) onLogoutDone,
+  }) onLogoutPressed;
 
   // MARK: - optional
 
