@@ -15,14 +15,16 @@ enum FirebaseAuthFlowError {
   passwordNotMatching('pass-not-match'),
   operationNotAllowed('operation-not-allowed'),
   userDisabled('user-disabled'),
-  invalidCredential('invalid-credential');
+  invalidCredential('invalid-credential'),
+  emailNotVerified('email-not-verified'),
+  userLoggedOut('user-logged-out');
 
-  const FirebaseAuthFlowError(this._code);
-  final String _code;
+  const FirebaseAuthFlowError(this.code);
+  final String code;
 
   static FirebaseAuthFlowError fromCode(String code) {
     return FirebaseAuthFlowError.values.firstWhere(
-      (error) => error._code == code,
+      (error) => error.code == code,
       orElse: () => FirebaseAuthFlowError.universal,
     );
   }
@@ -49,6 +51,10 @@ enum FirebaseAuthFlowError {
         return context.l10n.error_auth_user_disabled;
       case FirebaseAuthFlowError.invalidCredential:
         return context.l10n.error_auth_invalid_credential;
+      case FirebaseAuthFlowError.emailNotVerified:
+        return context.l10n.error_email_not_verified;
+      case FirebaseAuthFlowError.userLoggedOut:
+        return context.l10n.error_user_logged_out;
     }
   }
 }

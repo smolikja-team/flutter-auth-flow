@@ -225,6 +225,18 @@ abstract class AppLocalizations {
   /// **'Neplatné údaje'**
   String get error_auth_invalid_credential;
 
+  /// No description provided for @error_email_not_verified.
+  ///
+  /// In cs, this message translates to:
+  /// **'Email neověřen'**
+  String get error_email_not_verified;
+
+  /// No description provided for @error_user_logged_out.
+  ///
+  /// In cs, this message translates to:
+  /// **'Jste odhlášeni'**
+  String get error_user_logged_out;
+
   /// No description provided for @verification_title.
   ///
   /// In cs, this message translates to:

@@ -73,6 +73,12 @@ class AppLocalizationsCs extends AppLocalizations {
   String get error_auth_invalid_credential => 'Neplatné údaje';
 
   @override
+  String get error_email_not_verified => 'Email neověřen';
+
+  @override
+  String get error_user_logged_out => 'Jste odhlášeni';
+
+  @override
   String get verification_title => 'Potvrďte prosím email';
 
   @override
