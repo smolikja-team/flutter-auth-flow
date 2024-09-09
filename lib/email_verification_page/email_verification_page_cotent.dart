@@ -74,7 +74,7 @@ class EmailVerificationPageContent extends ConsumerWidget {
           title: context.l10n.verification_button_check,
           onPressed: () => emailVerificationNotifier.onActionPressed(
             ({required void Function({String? errorCode}) onActionDone}) =>
-                dep.onCheckConfirmationPressed(onCheckDone: onActionDone),
+                dep.onCheckVerificationPressed(onCheckDone: onActionDone),
             onError: showSnackBar,
           ),
           backgroundColor: dep.colorPrimary,
@@ -85,7 +85,7 @@ class EmailVerificationPageContent extends ConsumerWidget {
           title: context.l10n.verification_button_resend,
           onPressed: () => emailVerificationNotifier.onActionPressed(
             ({required void Function({String? errorCode}) onActionDone}) =>
-                dep.onResendConfirmationPressed(onResendDone: onActionDone),
+                dep.onResendVerificationPressed(onResendDone: onActionDone),
             onError: showSnackBar,
           ),
           contentColor: dep.colorPrimary,

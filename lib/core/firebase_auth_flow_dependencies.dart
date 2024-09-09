@@ -9,8 +9,8 @@ class FirebaseAuthFlowDependencies {
     required this.onLoginAboutTextPressed,
     required this.onLoginPressed,
     required this.onRegisterPressed,
-    required this.onCheckConfirmationPressed,
-    required this.onResendConfirmationPressed,
+    required this.onCheckVerificationPressed,
+    required this.onResendVerificationPressed,
     required this.onLogoutPressed,
     this.disabledOpacity = 0.65,
     this.borderRadius = 12.0,
@@ -38,10 +38,10 @@ class FirebaseAuthFlowDependencies {
   }) onRegisterPressed;
   final void Function({
     required void Function({String? errorCode}) onCheckDone,
-  }) onCheckConfirmationPressed;
+  }) onCheckVerificationPressed;
   final void Function({
     required void Function({String? errorCode}) onResendDone,
-  }) onResendConfirmationPressed;
+  }) onResendVerificationPressed;
   final void Function({
     required void Function({String? errorCode}) onLogoutDone,
   }) onLogoutPressed;
