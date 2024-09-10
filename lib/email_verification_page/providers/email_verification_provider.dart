@@ -15,11 +15,16 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
       required void Function({String? errorCode}) onActionDone,
     }) onActionPressed, {
     required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function() onSuccess,
   }) {
     state = state.copyWith(isLoading: true);
     onActionPressed(
       onActionDone: ({String? errorCode}) {
-        _onActionDone(errorCode: errorCode, onError: onError);
+        _onActionDone(
+          errorCode: errorCode,
+          onError: onError,
+          onSuccess: onSuccess,
+        );
       },
     );
   }
@@ -27,6 +32,7 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   void _onActionDone({
     String? errorCode,
     required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function() onSuccess,
   }) {
     state = state.copyWith(isLoading: false);
     if (errorCode != null) {
@@ -34,6 +40,6 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
       onError(error: error);
       return;
     }
-    print("=== action succeeded");
+    onSuccess();
   }
 }

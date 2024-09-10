@@ -7,10 +7,7 @@ final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(
 );
 
 class LoginNotifier extends StateNotifier<LoginState> {
-  LoginNotifier() : super(LoginState()) {
-    // _setListener();
-    // TODO: cleaning
-  }
+  LoginNotifier() : super(LoginState());
 
   void setEmail(String email) {
     state = state.copyWith(email: email);
@@ -39,13 +36,18 @@ class LoginNotifier extends StateNotifier<LoginState> {
       required void Function({String? errorCode}) onLoginDone,
     }) onLoginPressed, {
     required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: true);
     onLoginPressed(
       email: state.email,
       password: state.password,
       onLoginDone: ({String? errorCode}) {
-        _onLoginDone(errorCode: errorCode, onError: onError);
+        _onLoginDone(
+          errorCode: errorCode,
+          onError: onError,
+          onLoggedIn: onLoggedIn,
+        );
       },
     );
   }
@@ -57,6 +59,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
       required void Function({String? errorCode}) onRegisterDone,
     }) onRegisterPressed, {
     required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function() onRegistered,
   }) {
     if (state.password == state.passwordConf) {
       state = state.copyWith(isLoading: true);
@@ -64,7 +67,11 @@ class LoginNotifier extends StateNotifier<LoginState> {
         email: state.email,
         password: state.password,
         onRegisterDone: ({String? errorCode}) {
-          _onRegisterDone(errorCode: errorCode, onError: onError);
+          _onRegisterDone(
+            errorCode: errorCode,
+            onError: onError,
+            onRegistered: onRegistered,
+          );
         },
       );
     } else {
@@ -75,6 +82,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
   void _onLoginDone({
     String? errorCode,
     required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: false);
     if (errorCode != null) {
@@ -82,12 +90,13 @@ class LoginNotifier extends StateNotifier<LoginState> {
       onError(error: error);
       return;
     }
-    print("=== login succeeded");
+    onLoggedIn();
   }
 
   void _onRegisterDone({
     String? errorCode,
     required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function() onRegistered,
   }) {
     state = state.copyWith(isLoading: false);
     if (errorCode != null) {
@@ -95,20 +104,6 @@ class LoginNotifier extends StateNotifier<LoginState> {
       onError(error: error);
       return;
     }
-    print("=== register succeeded");
+    onRegistered();
   }
-
-  // void _setListener() {
-  //   FirebaseAuth.instance.userChanges().listen((User? user) {
-  //     if (user == null) {
-  //       Logging.log.info(
-  //         '$runtimeType -> _setListener: User is currently signed out!',
-  //       );
-  //       state = state.copyWith(isLoggedIn: false);
-  //     } else {
-  //       Logging.log.info('$runtimeType -> _setListener: User is signed in!');
-  //       state = state.copyWith(isLoggedIn: true);
-  //     }
-  //   });
-  // }
 }

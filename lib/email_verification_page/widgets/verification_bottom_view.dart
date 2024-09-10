@@ -18,10 +18,21 @@ class VerificationBottomView extends ConsumerWidget {
     final emailVerificationNotifier =
         ref.read(emailVerificationProvider.notifier);
 
-    void showSnackBar({required FirebaseAuthFlowError error}) {
+    void showErrorSnackBar({required FirebaseAuthFlowError error}) {
       ScaffoldMessenger.of(context).showSnackBar(
         errorSnackBar(
           message: error.message(context),
+          context: context,
+          dependencies: dep,
+        ),
+      );
+    }
+
+    void showResendSnackBar() {
+      // TODO: success snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        errorSnackBar(
+          message: 'Odesláno',
           context: context,
           dependencies: dep,
         ),
@@ -32,7 +43,8 @@ class VerificationBottomView extends ConsumerWidget {
       onTap: () => emailVerificationNotifier.onActionPressed(
         ({required void Function({String? errorCode}) onActionDone}) =>
             dep.onLogoutPressed(onLogoutDone: onActionDone),
-        onError: showSnackBar,
+        onError: showErrorSnackBar,
+        onSuccess: dep.onLoggedOut,
       ),
       child: Text(
         context.l10n.verification_button_logout,
@@ -52,7 +64,8 @@ class VerificationBottomView extends ConsumerWidget {
           onPressed: () => emailVerificationNotifier.onActionPressed(
             ({required void Function({String? errorCode}) onActionDone}) =>
                 dep.onCheckVerificationPressed(onCheckDone: onActionDone),
-            onError: showSnackBar,
+            onError: showErrorSnackBar,
+            onSuccess: dep.onLoggedIn,
           ),
           backgroundColor: dep.colorPrimary,
           borderRadius: dep.borderRadius,
@@ -63,7 +76,8 @@ class VerificationBottomView extends ConsumerWidget {
           onPressed: () => emailVerificationNotifier.onActionPressed(
             ({required void Function({String? errorCode}) onActionDone}) =>
                 dep.onResendVerificationPressed(onResendDone: onActionDone),
-            onError: showSnackBar,
+            onError: showErrorSnackBar,
+            onSuccess: showResendSnackBar,
           ),
           contentColor: dep.colorPrimary,
           borderRadius: dep.borderRadius,

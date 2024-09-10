@@ -36,10 +36,12 @@ class ButtonsWidget extends ConsumerWidget {
               ? loginNotifier.onLoginPressed(
                   dep.onLoginPressed,
                   onError: showSnackBar,
+                  onLoggedIn: dep.onLoggedIn,
                 )
               : loginNotifier.onRegisterPressed(
                   dep.onRegisterPressed,
                   onError: showSnackBar,
+                  onRegistered: dep.onLoggedIn,
                 ),
         ),
         const SizedBox(height: 16.0),
