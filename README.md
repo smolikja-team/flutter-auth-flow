@@ -189,10 +189,8 @@ Future<void> _registerEmail({
         await _createFirebaseAccount(
             email: email,
             password: password,
-        ).catchError((errorCode) {
-            throw errorCode;
-        });
-        await sendEmailVerification();
+        );
+        await _sendEmailVerification();
         onRegisterDone(errorCode: null);
     } catch (errorCode) {
         onRegisterDone(
@@ -213,18 +211,29 @@ Future<void> _createFirebaseAccount({
         Logging.log.info('$runtimeType -> _createFirebaseAccount: created');
     } on FirebaseAuthException catch (e, stackTrace) {
         Logging.log.severe(
-            '$runtimeType -> log_createFirebaseAccountOut: ${e.toString()}',
+            '$runtimeType -> _createFirebaseAccountOut: ${e.toString()}',
             e,
             stackTrace,
         );
         return Future.error(e.code);
     } catch (e, stackTrace) {
         Logging.log.severe(
-            '$runtimeType -> log_createFirebaseAccountOut: ${e.toString()}',
+            '$runtimeType -> _createFirebaseAccountOut: ${e.toString()}',
             e,
             stackTrace,
         );
-        return Future.error(FirebaseAuthFlowError.universal);
+        return Future.error(FirebaseAuthFlowError.universal.code);
+    }
+}
+
+Future<void> _sendEmailVerification() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+        Logging.log.info('$runtimeType -> sendEmailVerification: sent');
+    } else {
+        return Future.error(FirebaseAuthFlowError.userLoggedOut.code);
     }
 }
 ```
