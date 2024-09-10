@@ -134,14 +134,13 @@ return FirebaseAuthFlow(
 Future<void> _login({
     required String email,
     required String password,
-    required void Function({String? errorCode}) onLoginDone,
+    required void Function({String? errorCode, bool? isEmailVerified})
+    onLoginDone,
 }) async {
     try {
-        await _signIntoFirebase(email: email, password: password)
-        .catchError((errorCode) {
-            throw errorCode;
-        });
-        onLoginDone(errorCode: null);
+        await _signIntoFirebase(email: email, password: password);
+        await FirebaseAuth.instance.currentUser?.reload();
+        onLoginDone(errorCode: null, isEmailVerified: isEmailVerified);
     } catch (errorCode) {
         onLoginDone(
             errorCode: errorCode.toString(),
@@ -170,7 +169,7 @@ Future<void> _signIntoFirebase({
             e,
             stackTrace,
         );
-        return Future.error(FirebaseAuthFlowError.universal);
+        return Future.error(FirebaseAuthFlowError.universal.code);
     }
 }
 ```
