@@ -237,6 +237,12 @@ abstract class AppLocalizations {
   /// **'Jste odhlášeni'**
   String get error_user_logged_out;
 
+  /// No description provided for @success_email_verification_sent.
+  ///
+  /// In cs, this message translates to:
+  /// **'Odesláno na email'**
+  String get success_email_verification_sent;
+
   /// No description provided for @verification_title.
   ///
   /// In cs, this message translates to:

@@ -20,6 +20,7 @@ class FirebaseAuthFlowDependencies {
     this.colorOnSecondary = Colors.grey,
     this.colorAbout = const Color(0xff2a64c5),
     this.colorError,
+    this.colorSuccess,
   });
 
   // MARK: - required
@@ -64,4 +65,5 @@ class FirebaseAuthFlowDependencies {
   final Color? colorOnSecondary;
   final Color? colorAbout;
   final Color? colorError;
+  final Color? colorSuccess;
 }

@@ -79,6 +79,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get error_user_logged_out => 'Jste odhlášeni';
 
   @override
+  String get success_email_verification_sent => 'Odesláno na email';
+
+  @override
   String get verification_title => 'Potvrďte prosím email';
 
   @override

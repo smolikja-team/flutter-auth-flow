@@ -2,7 +2,7 @@ import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/core/firebase_auth_flow_error.dart';
 import 'package:firebase_auth_flow/core/widgets/custom_filled_button.dart';
 import 'package:firebase_auth_flow/core/widgets/custom_outlined_button.dart';
-import 'package:firebase_auth_flow/core/widgets/error_snack_bar.dart';
+import 'package:firebase_auth_flow/core/widgets/custom_snack_bars.dart';
 import 'package:firebase_auth_flow/email_verification_page/providers/email_verification_provider.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
 import 'package:flutter/material.dart';
@@ -29,10 +29,9 @@ class VerificationBottomView extends ConsumerWidget {
     }
 
     void showResendSnackBar() {
-      // TODO: success snackbar
       ScaffoldMessenger.of(context).showSnackBar(
-        errorSnackBar(
-          message: 'Odesláno na email',
+        successSnackBar(
+          message: context.l10n.success_email_verification_sent,
           context: context,
           dependencies: dep,
         ),
