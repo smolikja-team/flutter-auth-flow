@@ -119,7 +119,7 @@ return FirebaseAuthFlow(
                _checkEmailVerification,
                onResendVerificationPressed:
                _resendEmailVerification,
-               onLogoutPressed: _logOut,
+               onLogoutPressed: _logout,
                onLoggedIn: () => {}, // action after user is logged in
                onLoggedOut: () => {}, // action after user is logged out
            ),
@@ -288,6 +288,8 @@ Future<bool> _isEmailVerified() async {
 }
 ```
 
+</details>
+
 <details>
 <summary>_resendEmailVerification</summary>
 
@@ -325,11 +327,30 @@ Future<void> _sendEmailVerification() async {
 }
 ```
 
+</details>
+
 <details>
-<summary>_registerEmail</summary>
+<summary>_logout</summary>
 
 ``` dart
-
+Future<void> _logout({
+    required void Function({String? errorCode}) onLogoutDone,
+}) async {
+    try {
+        await FirebaseAuth.instance.signOut();
+        Logging.log.info('$runtimeType -> logOut: logged out');
+        onLogoutDone(errorCode: null);
+    } catch (errorCode, stackTrace) {
+        Logging.log.severe(
+            '$runtimeType -> logOut: ${errorCode.toString()}',
+            errorCode,
+            stackTrace,
+        );
+        onLogoutDone(
+            errorCode: errorCode.toString(),
+        );
+    }
+}
 ```
 
 </details>
