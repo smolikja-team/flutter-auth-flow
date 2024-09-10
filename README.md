@@ -98,16 +98,33 @@ class App extends StatelessWidget {
 ## Firebase Auth Flow Usage
 
 ``` dart
-FirebaseAuthFlow(
-    FirebaseAuthFlowDependencies(
-        provider: FirebaseAuthFlowProvider.email,
-        activityIndicator: const PlatformActivityIndicator(),
-        loginAboutText: 'test',
-        onLoginAboutText: () => print('test'),
-        onLoginPressed: _login,
-        onRegisterPressed: _registerEmail,
-    ),
-)
+final FirebaseAuthFlowState firebaseAuthFlowState;
+
+// create Firebase Auth Flow state
+if (FirebaseAuth.instance.currentUser?.emailVerified == null) {
+    firebaseAuthFlowState = FirebaseAuthFlowState.login;
+} else {
+    firebaseAuthFlowState = FirebaseAuthFlowState.emailVerification;
+}
+
+return FirebaseAuthFlow(
+           FirebaseAuthFlowDependencies(
+               provider: FirebaseAuthFlowProvider.email,
+               activityIndicator: const PlatformActivityIndicator(),
+               loginAboutText: 'more',
+               onLoginAboutTextPressed: () => print('more'), // navigate to more/help
+               onLoginPressed: _login,
+               onRegisterPressed: _registerEmail,
+               onCheckVerificationPressed:
+               _checkEmailVerification,
+               onResendVerificationPressed:
+               _resendEmailVerification,
+               onLogoutPressed: _logOut,
+               onLoggedIn: () => {}, // action after user is logged in
+               onLoggedOut: () => {}, // action after user is logged out
+           ),
+          state: firebaseAuthFlowState,
+);
 ```
 
 <details>
