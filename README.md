@@ -21,7 +21,7 @@ Flutter widget package for handling a Firebase Authentication Flow.
 - make sure that app's supported locales are also `firebase_auth_flow`'s supported locales. If not, contribute to Firebase Auth Flow, please.
 
 <details>
-<summary>Example</summary>
+<summary>Get localization work!</summary>
 
 ``` dart
 import 'package:firebase_auth_flow/l10n/app_localizations.dart'
