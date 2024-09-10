@@ -289,10 +289,40 @@ Future<bool> _isEmailVerified() async {
 ```
 
 <details>
-<summary>_registerEmail</summary>
+<summary>_resendEmailVerification</summary>
 
 ``` dart
+Future<void> _resendEmailVerification({
+    required void Function({String? errorCode}) onResendDone,
+}) async {
+    try {
+        await _sendEmailVerification();
+        Logging.log.info(
+            '$runtimeType -> resendEmailConfirmation: email confirmation resent',
+        );
+        onResendDone(errorCode: null);
+    } catch (errorCode, stackTrace) {
+        Logging.log.severe(
+            '$runtimeType -> resendEmailConfirmation: ${errorCode.toString()}',
+            errorCode,
+            stackTrace,
+        );
+        onResendDone(
+            errorCode: errorCode.toString(),
+        );
+    }
+}
 
+Future<void> _sendEmailVerification() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+        Logging.log.info('$runtimeType -> sendEmailVerification: sent');
+    } else {
+        return Future.error(FirebaseAuthFlowError.userLoggedOut.code);
+    }
+}
 ```
 
 <details>
