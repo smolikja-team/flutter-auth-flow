@@ -240,6 +240,70 @@ Future<void> _sendEmailVerification() async {
 
 </details>
 
+<details>
+<summary>_checkEmailVerification</summary>
+
+``` dart
+Future<void> _checkEmailVerification({
+    required void Function({String? errorCode, bool? isEmailVerified})
+    onCheckDone,
+}) async {
+    try {
+        final isEmailVerified = await _isEmailVerified();
+        if (!isEmailVerified) {
+            Logging.log.info(
+                '$runtimeType -> checkEmailVerification: email is not verified',
+            );
+            onCheckDone(errorCode: FirebaseAuthFlowError.emailNotVerified.code);
+        } else {
+            Logging.log.info(
+                '$runtimeType -> checkEmailVerification: email is verified',
+            );
+            onCheckDone(errorCode: null, isEmailVerified: true);
+        }
+    } catch (errorCode, stackTrace) {
+        Logging.log.severe(
+            '$runtimeType -> checkEmailConfirmation: ${errorCode.toString()}',
+            errorCode,
+            stackTrace,
+        );
+        onCheckDone(
+            errorCode: errorCode.toString(),
+        );
+    }
+}
+
+Future<bool> _isEmailVerified() async {
+    await FirebaseAuth.instance.currentUser?.reload();
+    if (isEmailVerified == null) {
+        Logging.log.severe(
+            '$runtimeType -> _isEmailVerified: user: $user, emailVerified: $isEmailVerified',
+        );
+        return Future.error(FirebaseAuthFlowError.userLoggedOut.code);
+    }
+    Logging.log.info(
+        '$runtimeType -> _isEmailVerified: is emailVerified: $isEmailVerified',
+    );
+    return isEmailVerified ?? false;
+}
+```
+
+<details>
+<summary>_registerEmail</summary>
+
+``` dart
+
+```
+
+<details>
+<summary>_registerEmail</summary>
+
+``` dart
+
+```
+
+</details>
+
 ## Contribution
 
 ### build runner
