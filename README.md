@@ -15,31 +15,6 @@ and the Flutter guide for
 
 Flutter widget package for handling a Firebase Authentication Flow.
 
-## FirebaseAuthFlowProvider
-
-- `email`.
-
-## FirebaseAuthFlowDependencies
-
-- `provider` => The type of authentication provider,
-- `activityIndicator` => Widget that indicates some activity,
-- `loginAboutText` => String navigating to help/support,
-- `onLoginAboutTextPressed` => action for the help/support,
-- `onLoginPressed` => action for logging in,
-- `onRegisterPressed` => action for registration,
-- `onCheckVerificationPressed` => action for checking if email address is verified,
-- `onResendVerificationPressed` => action for sending email verification,
-- `onLogoutPressed` => action for logout,
-- `onLoggedIn` => callback when user logs in,
-- `onLoggedOut` => callback when user logs out,
-- `disabledOpacity` => opt. opacity of disabled,
-- `borderRadius` => opt. border radius,
-- `colorPrimary` => opt. primary color,
-- `colorOnSecondary` => opt. on secondary color,
-- `colorAbout` => opt. color of `loginAboutText`,
-- `colorError` => opt. Error sanck bar color,
-- `colorSuccess` => opt. Success snack bar color.
-
 ## Getting started
 
 - Add Firebase Auth Flow's `localizationsDelegates` to your `MaterialApp`'s ones,
@@ -90,7 +65,37 @@ class App extends StatelessWidget {
 
 </details>
 
-### Usage
+### FirebaseAuthFlowProvider
+
+- `email`.
+
+### FirebaseAuthFlowDependencies
+
+- `provider` => The type of authentication provider,
+- `activityIndicator` => Widget that indicates some activity,
+- `loginAboutText` => String navigating to help/support,
+- `onLoginAboutTextPressed` => action for the help/support,
+- `onLoginPressed` => action for logging in,
+- `onRegisterPressed` => action for registration,
+- `onCheckVerificationPressed` => action for checking if email address is verified,
+- `onResendVerificationPressed` => action for sending email verification,
+- `onLogoutPressed` => action for logout,
+- `onLoggedIn` => callback when user logs in,
+- `onLoggedOut` => callback when user logs out,
+- `disabledOpacity` => opt. opacity of disabled,
+- `borderRadius` => opt. border radius,
+- `colorPrimary` => opt. primary color,
+- `colorOnSecondary` => opt. on secondary color,
+- `colorAbout` => opt. color of `loginAboutText`,
+- `colorError` => opt. Error sanck bar color,
+- `colorSuccess` => opt. Success snack bar color.
+
+### FirebaseAuthFlowState
+
+- `login` => login page,
+- `emailVerification` => email verification page.
+
+## Firebase Auth Flow Usage
 
 ``` dart
 FirebaseAuthFlow(
