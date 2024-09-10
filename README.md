@@ -15,6 +15,8 @@ and the Flutter guide for
 
 Flutter widget package for handling a Firebase Authentication Flow.
 
+![Firebase Auth Flow preview](assets/docs/preview.jpg "preview")
+
 ## Getting started
 
 - Add Firebase Auth Flow's `localizationsDelegates` to your `MaterialApp`'s ones,
