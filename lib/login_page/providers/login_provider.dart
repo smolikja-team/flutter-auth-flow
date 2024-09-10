@@ -1,13 +1,17 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_error.dart';
+import 'package:firebase_auth_flow/core/firebase_auth_flow_state.dart';
+import 'package:firebase_auth_flow/core/providers/core_provider.dart';
 import 'package:firebase_auth_flow/login_page/providers/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(
-  (ref) => LoginNotifier(),
+  LoginNotifier.new,
 );
 
 class LoginNotifier extends StateNotifier<LoginState> {
-  LoginNotifier() : super(LoginState());
+  LoginNotifier(this.ref) : super(LoginState());
+
+  final Ref ref;
 
   void setEmail(String email) {
     state = state.copyWith(email: email);
@@ -53,16 +57,19 @@ class LoginNotifier extends StateNotifier<LoginState> {
     }
   }
 
-  void _onRegisterDone(
-      {String? errorCode,
-      required void Function({required FirebaseAuthFlowError error}) onError}) {
+  void _onRegisterDone({
+    String? errorCode,
+    required void Function({required FirebaseAuthFlowError error}) onError,
+  }) {
     state = state.copyWith(isLoading: false);
     if (errorCode != null) {
       final error = FirebaseAuthFlowError.fromCode(errorCode);
       onError(error: error);
       return;
     }
-    // TODO: jit na email verif page
+    ref
+        .read(coreProvider.notifier)
+        .setState(FirebaseAuthFlowState.emailVerification);
   }
 
   // MARK: - login
@@ -107,8 +114,9 @@ class LoginNotifier extends StateNotifier<LoginState> {
     if (isEmailVerified == true) {
       onLoggedIn();
     } else {
-      // TODO: jit na email verif page
-      print('neni verified');
+      ref
+          .read(coreProvider.notifier)
+          .setState(FirebaseAuthFlowState.emailVerification);
     }
   }
 }

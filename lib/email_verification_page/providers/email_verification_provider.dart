@@ -1,14 +1,18 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_error.dart';
+import 'package:firebase_auth_flow/core/firebase_auth_flow_state.dart';
+import 'package:firebase_auth_flow/core/providers/core_provider.dart';
 import 'package:firebase_auth_flow/email_verification_page/providers/email_verification_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final emailVerificationProvider =
     StateNotifierProvider<EmailVerificationNotifier, EmailVerificationState>(
-  (ref) => EmailVerificationNotifier(),
+  EmailVerificationNotifier.new,
 );
 
 class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
-  EmailVerificationNotifier() : super(EmailVerificationState());
+  EmailVerificationNotifier(this.ref) : super(EmailVerificationState());
+
+  final Ref ref;
 
   // MARK: - action
 
@@ -83,8 +87,9 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
     if (isEmailVerified == true) {
       onLoggedIn();
     } else {
-      // TODO: jit na email verif page
-      print('neni verified');
+      ref
+          .read(coreProvider.notifier)
+          .setState(FirebaseAuthFlowState.emailVerification);
     }
   }
 
@@ -120,7 +125,7 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
       onError(error: error);
       return;
     }
-    // TODO: jit na login page
+    ref.read(coreProvider.notifier).setState(FirebaseAuthFlowState.login);
     onLoggedOut();
   }
 }
