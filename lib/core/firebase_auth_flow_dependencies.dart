@@ -32,7 +32,8 @@ class FirebaseAuthFlowDependencies {
   final void Function({
     required String email,
     required String password,
-    required void Function({String? errorCode}) onLoginDone,
+    required void Function({String? errorCode, bool? isEmailVerified})
+        onLoginDone,
   }) onLoginPressed;
   final void Function({
     required String email,
@@ -41,7 +42,8 @@ class FirebaseAuthFlowDependencies {
   }) onRegisterPressed;
 
   final void Function({
-    required void Function({String? errorCode}) onCheckDone,
+    required void Function({String? errorCode, bool? isEmailVerified})
+        onCheckDone,
   }) onCheckVerificationPressed;
   final void Function({
     required void Function({String? errorCode}) onResendDone,

@@ -32,7 +32,7 @@ class VerificationBottomView extends ConsumerWidget {
       // TODO: success snackbar
       ScaffoldMessenger.of(context).showSnackBar(
         errorSnackBar(
-          message: 'Odesláno',
+          message: 'Odesláno na email',
           context: context,
           dependencies: dep,
         ),
@@ -40,11 +40,10 @@ class VerificationBottomView extends ConsumerWidget {
     }
 
     final logOutButton = InkWell(
-      onTap: () => emailVerificationNotifier.onActionPressed(
-        ({required void Function({String? errorCode}) onActionDone}) =>
-            dep.onLogoutPressed(onLogoutDone: onActionDone),
+      onTap: () => emailVerificationNotifier.onLogoutPressed(
+        dep.onLogoutPressed,
         onError: showErrorSnackBar,
-        onSuccess: dep.onLoggedOut,
+        onLoggedOut: dep.onLoggedOut,
       ),
       child: Text(
         context.l10n.verification_button_logout,
@@ -61,11 +60,10 @@ class VerificationBottomView extends ConsumerWidget {
       children: [
         CustomFilledButton(
           title: context.l10n.verification_button_check,
-          onPressed: () => emailVerificationNotifier.onActionPressed(
-            ({required void Function({String? errorCode}) onActionDone}) =>
-                dep.onCheckVerificationPressed(onCheckDone: onActionDone),
+          onPressed: () => emailVerificationNotifier.onCheckVerificationPressed(
+            dep.onCheckVerificationPressed,
             onError: showErrorSnackBar,
-            onSuccess: dep.onLoggedIn,
+            onLoggedIn: dep.onLoggedIn,
           ),
           backgroundColor: dep.colorPrimary,
           borderRadius: dep.borderRadius,
