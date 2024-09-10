@@ -8,3 +8,5 @@ export 'package:firebase_auth_flow/core/firebase_auth_flow_error.dart'
     show FirebaseAuthFlowError;
 export 'package:firebase_auth_flow/core/firebase_auth_flow_provider.dart'
     show FirebaseAuthFlowProvider;
+export 'package:firebase_auth_flow/core/firebase_auth_flow_state.dart'
+    show FirebaseAuthFlowState;
