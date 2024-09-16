@@ -9,16 +9,52 @@ import 'package:firebase_auth_flow/login_page/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginPageContent extends ConsumerWidget {
+class LoginPageContent extends ConsumerStatefulWidget {
   const LoginPageContent(this.dep, {super.key});
-
-  static const SizedBox kSpacerHeight32 = SizedBox(height: 32.0);
 
   final FirebaseAuthFlowDependencies dep;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LoginPageContent> createState() => _LoginPageContentState();
+}
+
+class _LoginPageContentState extends ConsumerState<LoginPageContent>
+    with SingleTickerProviderStateMixin {
+  static const SizedBox kSpacerHeight32 = SizedBox(height: 32.0);
+
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final isTypeLogin = ref.watch(loginProvider).isTypeLogin;
+    ref.read(loginProvider.notifier).addListener((state) {
+      if (state.isTypeLogin) {
+        _controller.reverse();
+      } else {
+        _controller.forward();
+      }
+    });
 
     final title = TitleTextWidget(
       text: isTypeLogin
@@ -27,7 +63,7 @@ class LoginPageContent extends ConsumerWidget {
       style: Theme.of(context)
           .textTheme
           .headlineMedium
-          ?.copyWith(color: dep.colorPrimary),
+          ?.copyWith(color: widget.dep.colorPrimary),
     );
 
     return Column(
@@ -36,24 +72,28 @@ class LoginPageContent extends ConsumerWidget {
       children: [
         title,
         kSpacerHeight32,
-        EmailInputWidget(dep),
+        EmailInputWidget(widget.dep),
         const SizedBox(height: 16.0),
         PassInputWidget(
-          dep,
+          widget.dep,
           isConfirming: false,
         ),
-        if (!isTypeLogin)
-          PassInputWidget(
-            dep,
-            isConfirming: true,
-          ),
+        FadeTransition(
+          opacity: _fadeAnimation,
+          child: isTypeLogin
+              ? const SizedBox.shrink()
+              : PassInputWidget(
+                  widget.dep,
+                  isConfirming: true,
+                ),
+        ),
         const SizedBox(height: 48.0),
-        ButtonsWidget(dep),
+        ButtonsWidget(widget.dep),
         kSpacerHeight32,
         AboutWidget(
-          text: dep.loginAboutText,
-          onTap: dep.onLoginAboutTextPressed,
-          color: dep.colorAbout,
+          text: widget.dep.loginAboutText,
+          onTap: widget.dep.onLoginAboutTextPressed,
+          color: widget.dep.colorAbout,
         ),
       ],
     );
