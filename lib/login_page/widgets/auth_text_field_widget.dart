@@ -8,12 +8,14 @@ class AuthTextFieldWidget extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.isPassword,
+    this.obscureText = false,
     required this.onChanged,
   });
 
   final FirebaseAuthFlowDependencies dep;
   final String hintText;
   final bool isPassword;
+  final bool obscureText;
   final Function(String) onChanged;
 
   @override
@@ -54,7 +56,7 @@ class AuthTextFieldWidget extends StatelessWidget {
       ),
       autocorrect: false,
       enableSuggestions: isPassword ? false : true,
-      obscureText: isPassword ? true : false,
+      obscureText: obscureText,
       style: style,
       cursorColor: cursorColor.withOpacity(dep.disabledOpacity),
       cursorOpacityAnimates: true,
