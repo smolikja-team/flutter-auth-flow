@@ -171,6 +171,24 @@ abstract class AppLocalizations {
   /// **'Něco se nepovedlo'**
   String get error_universal;
 
+  /// No description provided for @auth_help_password_title.
+  ///
+  /// In cs, this message translates to:
+  /// **'Požadavky'**
+  String get auth_help_password_title;
+
+  /// No description provided for @auth_help_password_content.
+  ///
+  /// In cs, this message translates to:
+  /// **'\n- alespoň 6 znaků.'**
+  String get auth_help_password_content;
+
+  /// No description provided for @auth_help_password_ok.
+  ///
+  /// In cs, this message translates to:
+  /// **'OK'**
+  String get auth_help_password_ok;
+
   /// No description provided for @error_auth_email_in_use.
   ///
   /// In cs, this message translates to:

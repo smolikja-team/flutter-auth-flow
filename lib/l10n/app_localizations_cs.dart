@@ -46,6 +46,15 @@ class AppLocalizationsCs extends AppLocalizations {
   String get error_universal => 'Něco se nepovedlo';
 
   @override
+  String get auth_help_password_title => 'Požadavky';
+
+  @override
+  String get auth_help_password_content => '\n- alespoň 6 znaků.';
+
+  @override
+  String get auth_help_password_ok => 'OK';
+
+  @override
   String get error_auth_email_in_use => 'Účet již existuje';
 
   @override

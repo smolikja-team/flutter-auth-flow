@@ -40,12 +40,12 @@ class LoginPageContent extends ConsumerWidget {
         const SizedBox(height: 16.0),
         PassInputWidget(
           dep,
-          isConfirmating: false,
+          isConfirming: false,
         ),
         if (!isTypeLogin)
           PassInputWidget(
             dep,
-            isConfirmating: true,
+            isConfirming: true,
           ),
         const SizedBox(height: 48.0),
         ButtonsWidget(dep),
