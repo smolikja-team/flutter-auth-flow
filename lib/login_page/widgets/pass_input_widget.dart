@@ -19,7 +19,6 @@ class PassInputWidget extends ConsumerStatefulWidget {
 
 class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
   static const double kSpacing16 = 16.0;
-  static const double kSpacing8 = 8.0;
 
   bool isAuthFieldObscured = true;
 
@@ -78,7 +77,7 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
     return TitleTextWidget(
       text: title,
       style: Theme.of(context).textTheme.titleSmall,
-      padding: const EdgeInsets.symmetric(horizontal: kSpacing8),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
     );
   }
 
@@ -86,16 +85,12 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
     return Row(
       children: [
         _titleWidget(context),
-        const Spacer(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: kSpacing8),
-          child: InkWell(
-            child: _helpIcon(context),
-            onTap: () => _showAlertDialog(
-              context,
-              title: context.l10n.auth_help_password_title,
-              content: context.l10n.auth_help_password_content,
-            ),
+        InkWell(
+          child: _helpIcon(context),
+          onTap: () => _showAlertDialog(
+            context,
+            title: context.l10n.auth_help_password_title,
+            content: context.l10n.auth_help_password_content,
           ),
         ),
       ],
