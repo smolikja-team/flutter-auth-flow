@@ -46,7 +46,7 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kSpacing16),
             child: InkWell(
-              child: _visibilityIcon(context),
+              child: _visibilityIcon(),
               onTap: () => setState(() {
                 isAuthFieldObscured = !isAuthFieldObscured;
               }),
@@ -100,21 +100,17 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
   Icon _helpIcon(BuildContext context) {
     return Icon(
       Icons.help_outline_rounded,
-      color: Theme.of(context)
-          .textTheme
-          .titleSmall
-          ?.color
-          ?.withOpacity(widget.dep.disabledOpacity),
+      color: widget.dep.colorPrimary?.withOpacity(widget.dep.disabledOpacity),
       size: Theme.of(context).textTheme.titleSmall?.fontSize,
     );
   }
 
-  Icon _visibilityIcon(BuildContext context) {
+  Icon _visibilityIcon() {
     return Icon(
       isAuthFieldObscured
           ? Icons.visibility_off_outlined
           : Icons.visibility_outlined,
-      color: Theme.of(context).textTheme.titleSmall?.color,
+      color: widget.dep.colorPrimary,
       size: 24.0,
     );
   }
