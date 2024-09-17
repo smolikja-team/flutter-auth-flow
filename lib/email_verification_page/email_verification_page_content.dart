@@ -36,6 +36,7 @@ class EmailVerificationPageContent extends StatelessWidget {
         ),
         kSpacerHeight64,
         VerificationBottomView(dep),
+        const SizedBox(height: 32.0),
       ],
     );
   }
