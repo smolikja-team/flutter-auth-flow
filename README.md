@@ -77,6 +77,7 @@ class App extends StatelessWidget {
 - `activityIndicator` => Widget that indicates some activity,
 - `loginAboutText` => String navigating to help/support,
 - `onLoginAboutTextPressed` => action for the help/support,
+- `onPrivacyPolicyPressed` => action for providing privacy policy view,
 - `onLoginPressed` => action for logging in,
 - `onRegisterPressed` => action for registration,
 - `onCheckVerificationPressed` => action for checking if email address is verified,
@@ -113,15 +114,14 @@ return FirebaseAuthFlow(
            FirebaseAuthFlowDependencies(
                provider: FirebaseAuthFlowProvider.email,
                activityIndicator: const PlatformActivityIndicator(),
-               loginAboutText: 'more',
-               onLoginAboutTextPressed: () => print('more'), // navigate to more/help
-               onLoginPressed: _login,
-               onRegisterPressed: _registerEmail,
-               onCheckVerificationPressed:
-               _checkEmailVerification,
-               onResendVerificationPressed:
-               _resendEmailVerification,
-               onLogoutPressed: _logout,
+               loginAboutText: 'About',
+               onLoginAboutTextPressed: () {}, // navigate to "about" screen
+               onPrivacyPolicyPressed: () {}, // navigate to privacy policy screen
+               onLoginPressed: AuthenticationHelper().login,
+               onRegisterPressed: AuthenticationHelper().registerEmail,
+               onCheckVerificationPressed: AuthenticationHelper().checkEmailVerification,
+               onResendVerificationPressed: AuthenticationHelper().resendEmailVerification,
+               onLogoutPressed: AuthenticationHelper().logout,
                onLoggedIn: () => {}, // action after user is logged in
                onLoggedOut: () => {}, // action after user is logged out
            ),
@@ -130,228 +130,192 @@ return FirebaseAuthFlow(
 ```
 
 <details>
-<summary>_login</summary>
+<summary>AuthenticationHelper() example</summary>
 
 ``` dart
-Future<void> _login({
-    required String email,
-    required String password,
-    required void Function({String? errorCode, bool? isEmailVerified})
-    onLoginDone,
-}) async {
-    try {
-        await _signIntoFirebase(email: email, password: password);
-        await FirebaseAuth.instance.currentUser?.reload();
-        onLoginDone(errorCode: null, isEmailVerified: isEmailVerified);
-    } catch (errorCode) {
-        onLoginDone(
-            errorCode: errorCode.toString(),
-        );
-    }
-}
 
-Future<void> _signIntoFirebase({
-    required String email,
-    required String password,
-}) async {
-    try {
-        await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
-        Logging.log.info('$runtimeType -> _signIntoFirebase: signed in');
-    } on FirebaseAuthException catch (e, stackTrace) {
-        Logging.log.severe(
-            '$runtimeType -> _signIntoFirebase: ${e.toString()}',
-            e,
-            stackTrace,
-        );
-        return Future.error(e.code);
-    } catch (e, stackTrace) {
-        Logging.log.severe(
-            '$runtimeType -> _signIntoFirebase: ${e.toString()}',
-            e,
-            stackTrace,
-        );
-        return Future.error(FirebaseAuthFlowError.universal.code);
-    }
-}
-```
+class AuthenticationHelper {
+  factory AuthenticationHelper() {
+    return _authenticationHelper;
+  }
 
-</details>
+  AuthenticationHelper._internal();
+  static final AuthenticationHelper _authenticationHelper =
+      AuthenticationHelper._internal();
 
-<details>
-<summary>_registerEmail</summary>
+  User? get user => FirebaseAuth.instance.currentUser;
+  bool? get isEmailVerified => user?.emailVerified;
 
-``` dart
-Future<void> _registerEmail({
+  Future<void> registerEmail({
     required String email,
     required String password,
     required void Function({String? errorCode}) onRegisterDone,
-}) async {
+  }) async {
     try {
-        await _createFirebaseAccount(
-            email: email,
-            password: password,
-        );
-        await _sendEmailVerification();
-        onRegisterDone(errorCode: null);
+      await _createFirebaseAccount(
+        email: email,
+        password: password,
+      );
+      await _sendEmailVerification();
+      onRegisterDone();
     } catch (errorCode) {
-        onRegisterDone(
-            errorCode: errorCode.toString(),
-        );
+      onRegisterDone(
+        errorCode: errorCode.toString(),
+      );
     }
-}
+  }
 
-Future<void> _createFirebaseAccount({
+  Future<void> login({
     required String email,
     required String password,
-}) async {
-    try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: email,
-            password: password,
-        );
-        Logging.log.info('$runtimeType -> _createFirebaseAccount: created');
-    } on FirebaseAuthException catch (e, stackTrace) {
-        Logging.log.severe(
-            '$runtimeType -> _createFirebaseAccountOut: ${e.toString()}',
-            e,
-            stackTrace,
-        );
-        return Future.error(e.code);
-    } catch (e, stackTrace) {
-        Logging.log.severe(
-            '$runtimeType -> _createFirebaseAccountOut: ${e.toString()}',
-            e,
-            stackTrace,
-        );
-        return Future.error(FirebaseAuthFlowError.universal.code);
-    }
-}
-
-Future<void> _sendEmailVerification() async {
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user != null && !user.emailVerified) {
-        await user.sendEmailVerification();
-        Logging.log.info('$runtimeType -> sendEmailVerification: sent');
-    } else {
-        return Future.error(FirebaseAuthFlowError.userLoggedOut.code);
-    }
-}
-```
-
-</details>
-
-<details>
-<summary>_checkEmailVerification</summary>
-
-``` dart
-Future<void> _checkEmailVerification({
     required void Function({String? errorCode, bool? isEmailVerified})
-    onCheckDone,
-}) async {
+        onLoginDone,
+  }) async {
     try {
-        final isEmailVerified = await _isEmailVerified();
-        if (!isEmailVerified) {
-            Logging.log.info(
-                '$runtimeType -> checkEmailVerification: email is not verified',
-            );
-            onCheckDone(errorCode: FirebaseAuthFlowError.emailNotVerified.code);
-        } else {
-            Logging.log.info(
-                '$runtimeType -> checkEmailVerification: email is verified',
-            );
-            onCheckDone(errorCode: null, isEmailVerified: true);
-        }
-    } catch (errorCode, stackTrace) {
-        Logging.log.severe(
-            '$runtimeType -> checkEmailConfirmation: ${errorCode.toString()}',
-            errorCode,
-            stackTrace,
-        );
-        onCheckDone(
-            errorCode: errorCode.toString(),
-        );
+      await _signIntoFirebase(email: email, password: password);
+      onLoginDone(isEmailVerified: isEmailVerified);
+    } catch (errorCode) {
+      onLoginDone(
+        errorCode: errorCode.toString(),
+      );
     }
-}
+  }
 
-Future<bool> _isEmailVerified() async {
-    await FirebaseAuth.instance.currentUser?.reload();
-    if (isEmailVerified == null) {
-        Logging.log.severe(
-            '$runtimeType -> _isEmailVerified: user: $user, emailVerified: $isEmailVerified',
-        );
-        return Future.error(FirebaseAuthFlowError.userLoggedOut.code);
-    }
-    Logging.log.info(
-        '$runtimeType -> _isEmailVerified: is emailVerified: $isEmailVerified',
-    );
-    return isEmailVerified ?? false;
-}
-```
-
-</details>
-
-<details>
-<summary>_resendEmailVerification</summary>
-
-``` dart
-Future<void> _resendEmailVerification({
-    required void Function({String? errorCode}) onResendDone,
-}) async {
-    try {
-        await _sendEmailVerification();
-        Logging.log.info(
-            '$runtimeType -> resendEmailConfirmation: email confirmation resent',
-        );
-        onResendDone(errorCode: null);
-    } catch (errorCode, stackTrace) {
-        Logging.log.severe(
-            '$runtimeType -> resendEmailConfirmation: ${errorCode.toString()}',
-            errorCode,
-            stackTrace,
-        );
-        onResendDone(
-            errorCode: errorCode.toString(),
-        );
-    }
-}
-
-Future<void> _sendEmailVerification() async {
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user != null && !user.emailVerified) {
-        await user.sendEmailVerification();
-        Logging.log.info('$runtimeType -> sendEmailVerification: sent');
-    } else {
-        return Future.error(FirebaseAuthFlowError.userLoggedOut.code);
-    }
-}
-```
-
-</details>
-
-<details>
-<summary>_logout</summary>
-
-``` dart
-Future<void> _logout({
+  Future<void> logout({
     required void Function({String? errorCode}) onLogoutDone,
-}) async {
+  }) async {
     try {
-        await FirebaseAuth.instance.signOut();
-        Logging.log.info('$runtimeType -> logOut: logged out');
-        onLogoutDone(errorCode: null);
+      await FirebaseAuth.instance.signOut();
+      await user?.reload();
+      Logging.log.info('$runtimeType -> logOut: logged out');
+      onLogoutDone();
     } catch (errorCode, stackTrace) {
-        Logging.log.severe(
-            '$runtimeType -> logOut: ${errorCode.toString()}',
-            errorCode,
-            stackTrace,
-        );
-        onLogoutDone(
-            errorCode: errorCode.toString(),
-        );
+      Logging.log.severe(
+        '$runtimeType -> logOut: ${errorCode.toString()}',
+        errorCode,
+        stackTrace,
+      );
+      onLogoutDone(
+        errorCode: errorCode.toString(),
+      );
     }
+  }
+
+  Future<void> checkEmailVerification({
+    required void Function({String? errorCode, bool? isEmailVerified})
+        onCheckDone,
+  }) async {
+    try {
+      await user?.reload();
+      if (isEmailVerified != true) {
+        Logging.log.info(
+          '$runtimeType -> checkEmailVerification: email is not verified',
+        );
+        onCheckDone(errorCode: FirebaseAuthFlowError.emailNotVerified.code);
+      } else {
+        Logging.log.info(
+          '$runtimeType -> checkEmailVerification: email is verified',
+        );
+        onCheckDone(isEmailVerified: true);
+      }
+    } catch (errorCode, stackTrace) {
+      Logging.log.severe(
+        '$runtimeType -> checkEmailConfirmation: ${errorCode.toString()}',
+        errorCode,
+        stackTrace,
+      );
+      onCheckDone(
+        errorCode: errorCode.toString(),
+      );
+    }
+  }
+
+  Future<void> resendEmailVerification({
+    required void Function({String? errorCode}) onResendDone,
+  }) async {
+    try {
+      await _sendEmailVerification();
+      Logging.log.info(
+        '$runtimeType -> resendEmailConfirmation: email confirmation resent',
+      );
+      onResendDone();
+    } catch (errorCode, stackTrace) {
+      Logging.log.severe(
+        '$runtimeType -> resendEmailConfirmation: ${errorCode.toString()}',
+        errorCode,
+        stackTrace,
+      );
+      onResendDone(
+        errorCode: errorCode.toString(),
+      );
+    }
+  }
+
+  Future<void> _sendEmailVerification() async {
+    final currentUser = user;
+
+    if (currentUser != null && !currentUser.emailVerified) {
+      await currentUser.sendEmailVerification();
+      await user?.reload();
+      Logging.log.info('$runtimeType -> sendEmailVerification: sent');
+    } else {
+      return Future.error(FirebaseAuthFlowError.userLoggedOut.code);
+    }
+  }
+
+  Future<void> _createFirebaseAccount({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      await user?.reload();
+      Logging.log.info('$runtimeType -> _createFirebaseAccount: created');
+    } on FirebaseAuthException catch (e, stackTrace) {
+      Logging.log.severe(
+        '$runtimeType -> _createFirebaseAccountOut: ${e.toString()}',
+        e,
+        stackTrace,
+      );
+      return Future.error(e.code);
+    } catch (e, stackTrace) {
+      Logging.log.severe(
+        '$runtimeType -> _createFirebaseAccountOut: ${e.toString()}',
+        e,
+        stackTrace,
+      );
+      return Future.error(FirebaseAuthFlowError.universal.code);
+    }
+  }
+
+  Future<void> _signIntoFirebase({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      await user?.reload();
+      Logging.log.info('$runtimeType -> _signIntoFirebase: signed in');
+    } on FirebaseAuthException catch (e, stackTrace) {
+      Logging.log.severe(
+        '$runtimeType -> _signIntoFirebase: ${e.toString()}',
+        e,
+        stackTrace,
+      );
+      return Future.error(e.code);
+    } catch (e, stackTrace) {
+      Logging.log.severe(
+        '$runtimeType -> _signIntoFirebase: ${e.toString()}',
+        e,
+        stackTrace,
+      );
+      return Future.error(FirebaseAuthFlowError.universal.code);
+    }
+  }
 }
 ```
 
