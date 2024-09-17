@@ -7,7 +7,7 @@ class FirebaseAuthFlowDependencies {
     required this.activityIndicator,
     required this.loginAboutText,
     required this.onLoginAboutTextPressed,
-    required this.onPrivacyPoliciesPressed,
+    required this.onPrivacyPolicyPressed,
     required this.onLoginPressed,
     required this.onRegisterPressed,
     required this.onCheckVerificationPressed,
@@ -31,7 +31,7 @@ class FirebaseAuthFlowDependencies {
   final String loginAboutText;
 
   final void Function() onLoginAboutTextPressed;
-  final void Function() onPrivacyPoliciesPressed;
+  final void Function() onPrivacyPolicyPressed;
   final void Function({
     required String email,
     required String password,

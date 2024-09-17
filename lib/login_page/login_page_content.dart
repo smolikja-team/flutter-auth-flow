@@ -80,7 +80,7 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent>
           _kSpacerHeight16,
           TapabletextWidget(
             text: context.l10n.auth_title_privacy_policy,
-            onTap: widget.dep.onPrivacyPoliciesPressed,
+            onTap: widget.dep.onPrivacyPolicyPressed,
             color: widget.dep.colorPrimary,
             opacity: widget.dep.disabledOpacity,
             alignment: Alignment.centerLeft,
