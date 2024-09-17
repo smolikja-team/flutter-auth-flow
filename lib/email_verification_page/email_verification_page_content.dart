@@ -30,9 +30,10 @@ class EmailVerificationPageContent extends StatelessWidget {
         Text(
           context.l10n.verification_subtitle,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: dep.colorPrimary,
-          ),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: dep.colorPrimary),
         ),
         kSpacerHeight64,
         VerificationBottomView(dep),
