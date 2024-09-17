@@ -22,13 +22,13 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent>
     with SingleTickerProviderStateMixin {
   static const SizedBox kSpacerHeight32 = SizedBox(height: 32.0);
 
-  late AnimationController _controller;
+  late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    _animationController = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
@@ -36,23 +36,26 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent>
     _fadeAnimation = Tween<double>(
       begin: 0,
       end: 1,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+    ).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
+    );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final isTypeLogin = ref.watch(loginProvider).isTypeLogin;
-    ref.read(loginProvider.notifier).addListener((state) {
-      if (state.isTypeLogin) {
-        _controller.reverse();
+
+    ref.listen(loginProvider, (prev, now) {
+      if (now.isTypeLogin) {
+        _animationController.reverse();
       } else {
-        _controller.forward();
+        _animationController.forward();
       }
     });
 
