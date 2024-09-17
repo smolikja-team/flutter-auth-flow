@@ -30,6 +30,8 @@
   "auth_help_password_content": "\n- alespoň 6 znaků.",
   "@auth_help_password_ok": {},
   "auth_help_password_ok": "OK",
+  "@auth_title_privacy_policy": {},
+  "auth_title_privacy_policy": "* Registrací souhlasím se zásadami ochany osobních údajů.",
   "@error_universal": {},
   "error_auth_email_in_use": "Účet již existuje",
   "@error_auth_email_in_use": {},

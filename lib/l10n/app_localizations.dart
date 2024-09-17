@@ -189,6 +189,12 @@ abstract class AppLocalizations {
   /// **'OK'**
   String get auth_help_password_ok;
 
+  /// No description provided for @auth_title_privacy_policy.
+  ///
+  /// In cs, this message translates to:
+  /// **'* Registrací souhlasím se zásadami ochany osobních údajů.'**
+  String get auth_title_privacy_policy;
+
   /// No description provided for @error_auth_email_in_use.
   ///
   /// In cs, this message translates to:

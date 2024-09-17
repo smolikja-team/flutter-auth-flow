@@ -20,7 +20,8 @@ class LoginPageContent extends ConsumerStatefulWidget {
 
 class _LoginPageContentState extends ConsumerState<LoginPageContent>
     with SingleTickerProviderStateMixin {
-  static const SizedBox kSpacerHeight32 = SizedBox(height: 32.0);
+  static const SizedBox _kSpacerHeight32 = SizedBox(height: 32.0);
+  static const SizedBox _kSpacerHeight16 = SizedBox(height: 16.0);
 
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
@@ -69,31 +70,46 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent>
           ?.copyWith(color: widget.dep.colorPrimary),
     );
 
+    Widget confirmationRegWidget() {
+      return Column(
+        children: [
+          PassInputWidget(
+            widget.dep,
+            isConfirming: true,
+          ),
+          _kSpacerHeight16,
+          TapabletextWidget(
+            text: context.l10n.auth_title_privacy_policy,
+            onTap: widget.dep.onPrivacyPoliciesPressed,
+            color: widget.dep.colorPrimary,
+            opacity: widget.dep.disabledOpacity,
+            alignment: Alignment.centerLeft,
+          ),
+        ],
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         title,
-        kSpacerHeight32,
+        _kSpacerHeight32,
         EmailInputWidget(widget.dep),
-        const SizedBox(height: 16.0),
+        _kSpacerHeight16,
         PassInputWidget(
           widget.dep,
           isConfirming: false,
         ),
         FadeTransition(
           opacity: _fadeAnimation,
-          child: isTypeLogin
-              ? const SizedBox.shrink()
-              : PassInputWidget(
-                  widget.dep,
-                  isConfirming: true,
-                ),
+          child:
+              isTypeLogin ? const SizedBox.shrink() : confirmationRegWidget(),
         ),
-        const SizedBox(height: 48.0),
+        if (isTypeLogin) const SizedBox(height: 48.0) else _kSpacerHeight32,
         ButtonsWidget(widget.dep),
-        kSpacerHeight32,
-        AboutWidget(
+        _kSpacerHeight32,
+        TapabletextWidget(
           text: widget.dep.loginAboutText,
           onTap: widget.dep.onLoginAboutTextPressed,
           color: widget.dep.colorAbout,
