@@ -137,6 +137,10 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
             child: TitleTextWidget(
               text: context.l10n.auth_help_password_ok,
               alignment: Alignment.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(color: widget.dep.colorPrimary),
             ),
           ),
         ],
