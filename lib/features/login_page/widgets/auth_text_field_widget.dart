@@ -1,5 +1,5 @@
+import 'package:firebase_auth_flow/core/extensions/text_style_extension.dart';
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
-import 'package:firebase_auth_flow/extensions/text_style_extension.dart';
 import 'package:flutter/material.dart';
 
 class AuthTextFieldWidget extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/core/firebase_auth_flow_state.dart';
 import 'package:firebase_auth_flow/core/providers/core_provider.dart';
-import 'package:firebase_auth_flow/email_verification_page/email_verification_page.dart';
-import 'package:firebase_auth_flow/login_page/login_page.dart';
+import 'package:firebase_auth_flow/features/email_verification_page/email_verification_page.dart';
+import 'package:firebase_auth_flow/features/login_page/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

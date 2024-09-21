@@ -1,4 +1,4 @@
-import 'package:firebase_auth_flow/login_page/widgets/title_text_widget.dart';
+import 'package:firebase_auth_flow/core/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CustomFilledButton extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_error.dart';
 import 'package:firebase_auth_flow/core/firebase_auth_flow_state.dart';
 import 'package:firebase_auth_flow/core/providers/core_provider.dart';
-import 'package:firebase_auth_flow/login_page/providers/login_state.dart';
+import 'package:firebase_auth_flow/features/login_page/providers/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(

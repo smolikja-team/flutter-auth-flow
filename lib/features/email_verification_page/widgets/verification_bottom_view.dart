@@ -3,7 +3,7 @@ import 'package:firebase_auth_flow/core/firebase_auth_flow_error.dart';
 import 'package:firebase_auth_flow/core/widgets/custom_filled_button.dart';
 import 'package:firebase_auth_flow/core/widgets/custom_outlined_button.dart';
 import 'package:firebase_auth_flow/core/widgets/custom_snack_bars.dart';
-import 'package:firebase_auth_flow/email_verification_page/providers/email_verification_provider.dart';
+import 'package:firebase_auth_flow/features/email_verification_page/providers/email_verification_provider.dart';
 import 'package:firebase_auth_flow/l10n/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

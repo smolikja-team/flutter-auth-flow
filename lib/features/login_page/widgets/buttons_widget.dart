@@ -1,9 +1,9 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/core/firebase_auth_flow_error.dart';
 import 'package:firebase_auth_flow/core/widgets/custom_snack_bars.dart';
-import 'package:firebase_auth_flow/login_page/providers/login_provider.dart';
-import 'package:firebase_auth_flow/login_page/widgets/action_button.dart';
-import 'package:firebase_auth_flow/login_page/widgets/auth_switch_button.dart';
+import 'package:firebase_auth_flow/features/login_page/providers/login_provider.dart';
+import 'package:firebase_auth_flow/features/login_page/widgets/action_button.dart';
+import 'package:firebase_auth_flow/features/login_page/widgets/auth_switch_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

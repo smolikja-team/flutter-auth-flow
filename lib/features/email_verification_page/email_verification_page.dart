@@ -1,18 +1,18 @@
 import 'package:firebase_auth_flow/core/firebase_auth_flow_dependencies.dart';
 import 'package:firebase_auth_flow/core/widgets/main_scaffold.dart';
-import 'package:firebase_auth_flow/login_page/login_page_content.dart';
-import 'package:firebase_auth_flow/login_page/providers/login_provider.dart';
+import 'package:firebase_auth_flow/features/email_verification_page/email_verification_page_content.dart';
+import 'package:firebase_auth_flow/features/email_verification_page/providers/email_verification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginPage extends ConsumerWidget {
-  const LoginPage(this.dep, {super.key});
+class EmailVerificationPage extends ConsumerWidget {
+  const EmailVerificationPage(this.dep, {super.key});
 
   final FirebaseAuthFlowDependencies dep;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoading = ref.watch(loginProvider).isLoading;
+    final isLoading = ref.watch(emailVerificationProvider).isLoading;
 
     return MainScaffold(
       body: Stack(
@@ -20,7 +20,7 @@ class LoginPage extends ConsumerWidget {
         children: [
           AbsorbPointer(
             absorbing: isLoading,
-            child: LoginPageContent(dep),
+            child: EmailVerificationPageContent(dep),
           ),
           if (isLoading)
             Center(
