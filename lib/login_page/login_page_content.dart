@@ -93,7 +93,6 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent>
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _kSpacerHeight32,
         title,
         _kSpacerHeight32,
         EmailInputWidget(widget.dep),
@@ -115,7 +114,6 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent>
           onTap: widget.dep.onLoginAboutTextPressed,
           color: widget.dep.colorAbout,
         ),
-        _kSpacerHeight32,
       ],
     );
   }
