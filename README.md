@@ -26,7 +26,7 @@ Flutter widget package for handling a Firebase Authentication Flow.
 <summary>Get localization work!</summary>
 
 ``` dart
-import 'package:firebase_auth_flow/l10n/app_localizations.dart'
+import 'package:firebase_auth_flow/firebase_auth_flow.dart'
     as firebase_auth_flow;
 
 class App extends StatelessWidget {
