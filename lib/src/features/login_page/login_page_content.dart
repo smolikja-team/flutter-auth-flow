@@ -40,6 +40,10 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent>
     ).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(loginProvider.notifier).switchToLogin();
+    });
   }
 
   @override
