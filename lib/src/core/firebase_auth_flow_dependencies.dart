@@ -17,8 +17,8 @@ class FirebaseAuthFlowDependencies {
     required this.onLoggedOut,
     this.disabledOpacity = 0.65,
     this.borderRadius = 12.0,
-    this.colorPrimary = Colors.black, // TODO: remove mock colors
-    this.colorOnSecondary = Colors.grey,
+    this.colorPrimary,
+    this.colorOnSecondary,
     this.colorAbout = const Color(0xff2a64c5),
     this.colorError,
     this.colorSuccess,
