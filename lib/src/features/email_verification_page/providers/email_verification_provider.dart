@@ -16,6 +16,7 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
 
   // MARK: - action
 
+  /// Called when the user presses the action button.
   void onActionPressed(
     void Function({
       required void Function({String? errorCode}) onActionDone,
@@ -51,6 +52,10 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
 
   // MARK: - check verification
 
+  /// Called when the user presses the check verification button.
+  /// This will check if the email is verified.
+  /// If the email is verified, the user will be logged in.
+  /// If the email is not verified, the user will be redirected to the email verification page.
   void onCheckVerificationPressed(
     void Function({
       required void Function({String? errorCode, bool? isEmailVerified})
@@ -95,6 +100,9 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
 
   // MARK: - log out
 
+  /// Called when the user presses the log out button.
+  /// This will log out the user.
+  /// If the log out is successful, the user will be redirected to the login page.
   void onLogoutPressed(
     void Function({
       required void Function({String? errorCode}) onLogoutDone,

@@ -22,6 +22,8 @@ enum FirebaseAuthFlowError {
   const FirebaseAuthFlowError(this.code);
   final String code;
 
+  /// Returns the [FirebaseAuthFlowError] from the given [code].
+  /// If the [code] is not found, [FirebaseAuthFlowError.universal] is returned.
   static FirebaseAuthFlowError fromCode(String code) {
     return FirebaseAuthFlowError.values.firstWhere(
       (error) => error.code == code,
@@ -29,6 +31,7 @@ enum FirebaseAuthFlowError {
     );
   }
 
+  /// Returns the error message for the given [context].
   String message(BuildContext context) {
     switch (this) {
       case FirebaseAuthFlowError.universal:

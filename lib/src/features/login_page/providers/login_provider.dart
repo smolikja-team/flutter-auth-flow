@@ -13,28 +13,36 @@ class LoginNotifier extends StateNotifier<LoginState> {
 
   final Ref ref;
 
+  /// Sets the email.
   void setEmail(String email) {
     state = state.copyWith(email: email);
   }
 
+  /// Sets the password.
   void setPassword(String newPass) {
     state = state.copyWith(password: newPass);
   }
 
+  /// Sets the password confirmation.
   void setPasswordConf(String newPass) {
     state = state.copyWith(passwordConf: newPass);
   }
 
+  /// Switches to the register page.
   void switchToRegister() {
     state = state.copyWith(isTypeLogin: false);
   }
 
+  /// Switches to the login page.
   void switchToLogin() {
     state = state.copyWith(isTypeLogin: true);
   }
 
   // MARK: - register
 
+  /// Called when the user presses the register button.
+  /// This will register the user.
+  /// If the registration is successful, the user will be redirected to the email verification page.
   void onRegisterPressed(
     void Function({
       required String email,
@@ -74,6 +82,10 @@ class LoginNotifier extends StateNotifier<LoginState> {
 
   // MARK: - login
 
+  /// Called when the user presses the login button.
+  /// This will log in the user.
+  /// If the login is successful, the user will be redirected to the email verification page if the email is not verified.
+  /// If the email is verified, the user will be logged in.
   void onLoginPressed(
     void Function({
       required String email,
