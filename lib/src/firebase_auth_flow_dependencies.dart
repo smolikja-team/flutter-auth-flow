@@ -21,6 +21,7 @@ class FirebaseAuthFlowDependencies {
     this.colorOnSecondary,
     this.colorAbout = const Color(0xff2a64c5),
     this.colorError,
+    this.colorOnError,
     this.colorSuccess,
   });
 
@@ -119,6 +120,10 @@ class FirebaseAuthFlowDependencies {
   /// The color that is used for the error messages.
   /// Default is Theme.of(context).colorScheme.error.
   final Color? colorError;
+
+  /// The color that is used for the error messages.
+  /// Default is Theme.of(context).colorScheme.onError.
+  final Color? colorOnError;
 
   /// The color that is used for the success messages.
   /// Default is Theme.of(context).colorScheme.success.
