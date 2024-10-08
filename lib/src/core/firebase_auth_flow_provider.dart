@@ -1,1 +1,0 @@
-enum FirebaseAuthFlowProvider { email }

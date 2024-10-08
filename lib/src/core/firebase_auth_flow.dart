@@ -1,5 +1,4 @@
-import 'package:firebase_auth_flow/src/core/firebase_auth_flow_dependencies.dart';
-import 'package:firebase_auth_flow/src/core/firebase_auth_flow_state.dart';
+import 'package:firebase_auth_flow/firebase_auth_flow.dart';
 import 'package:firebase_auth_flow/src/core/providers/core_provider.dart';
 import 'package:firebase_auth_flow/src/features/email_verification_page/email_verification_page.dart';
 import 'package:firebase_auth_flow/src/features/login_page/login_page.dart';

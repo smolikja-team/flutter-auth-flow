@@ -1,5 +1,4 @@
-import 'package:firebase_auth_flow/src/core/firebase_auth_flow_dependencies.dart';
-import 'package:firebase_auth_flow/src/core/firebase_auth_flow_error.dart';
+import 'package:firebase_auth_flow/firebase_auth_flow.dart';
 import 'package:firebase_auth_flow/src/core/widgets/custom_snack_bars.dart';
 import 'package:firebase_auth_flow/src/features/login_page/providers/login_provider.dart';
 import 'package:firebase_auth_flow/src/features/login_page/widgets/action_button.dart';

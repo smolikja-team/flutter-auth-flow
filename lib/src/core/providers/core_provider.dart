@@ -1,4 +1,4 @@
-import 'package:firebase_auth_flow/src/core/firebase_auth_flow_state.dart';
+import 'package:firebase_auth_flow/firebase_auth_flow.dart';
 import 'package:firebase_auth_flow/src/core/providers/core_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

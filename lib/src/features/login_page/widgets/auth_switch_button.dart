@@ -1,4 +1,4 @@
-import 'package:firebase_auth_flow/src/core/firebase_auth_flow_dependencies.dart';
+import 'package:firebase_auth_flow/firebase_auth_flow.dart';
 import 'package:firebase_auth_flow/src/core/widgets/custom_outlined_button.dart';
 import 'package:firebase_auth_flow/src/l10n/extension.dart';
 import 'package:flutter/material.dart';

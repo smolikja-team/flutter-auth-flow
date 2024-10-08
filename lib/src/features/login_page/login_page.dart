@@ -1,4 +1,4 @@
-import 'package:firebase_auth_flow/src/core/firebase_auth_flow_dependencies.dart';
+import 'package:firebase_auth_flow/firebase_auth_flow.dart';
 import 'package:firebase_auth_flow/src/core/widgets/main_scaffold.dart';
 import 'package:firebase_auth_flow/src/features/login_page/login_page_content.dart';
 import 'package:firebase_auth_flow/src/features/login_page/providers/login_provider.dart';

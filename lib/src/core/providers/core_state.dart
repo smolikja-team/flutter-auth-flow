@@ -1,4 +1,4 @@
-import 'package:firebase_auth_flow/src/core/firebase_auth_flow_state.dart';
+import 'package:firebase_auth_flow/firebase_auth_flow.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'core_state.freezed.dart';
