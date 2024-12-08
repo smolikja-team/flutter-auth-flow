@@ -1,4 +1,4 @@
-library firebase_auth_flow;
+library;
 
 export 'package:firebase_auth_flow/src/core/firebase_auth_flow.dart'
     show FirebaseAuthFlow;
