@@ -21,14 +21,14 @@ class EmailVerificationPageContent extends StatelessWidget {
         kSpacerHeight64,
         TitleTextWidget(
           text: context.l10n.verification_title,
-          style: TextStyles.headlineMedium.copyWith(color: dep.colorPrimary),
+          style: TextStyles.headlineMedium.copyWith(color: dep.colorOnPrimary),
           alignment: Alignment.center,
         ),
         const SizedBox(height: 16.0),
         Text(
           context.l10n.verification_subtitle,
           textAlign: TextAlign.center,
-          style: TextStyles.bodyMedium.copyWith(color: dep.colorPrimary),
+          style: TextStyles.bodyMedium.copyWith(color: dep.colorOnPrimary),
         ),
         kSpacerHeight64,
         VerificationBottomView(dep),
