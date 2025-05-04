@@ -15,6 +15,7 @@ class EmailVerificationPage extends ConsumerWidget {
     final isLoading = ref.watch(emailVerificationProvider).isLoading;
 
     return MainScaffold(
+      backgroundColor: dep.colorPrimary,
       body: Stack(
         alignment: Alignment.center,
         children: [

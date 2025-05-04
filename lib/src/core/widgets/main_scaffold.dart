@@ -4,13 +4,16 @@ class MainScaffold extends StatelessWidget {
   const MainScaffold({
     super.key,
     required this.body,
+    required this.backgroundColor,
   });
 
   final Widget body;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(

@@ -1,5 +1,6 @@
 import 'package:firebase_auth_flow/firebase_auth_flow.dart';
 import 'package:firebase_auth_flow/src/core/extensions/text_style_extension.dart';
+import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class AuthTextFieldWidget extends StatelessWidget {
@@ -20,11 +21,9 @@ class AuthTextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hintStyle = Theme.of(context)
-        .textTheme
-        .labelLarge
-        ?.copyWith(color: dep.colorPrimary)
-        .withOpacity(dep.disabledOpacity);
+    final hintStyle = TextStyles.labelLarge
+        .copyWith(color: dep.colorPrimary)
+        .withAlpha((dep.disabledOpacity * 255).round());
 
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(dep.borderRadius),
@@ -34,16 +33,12 @@ class AuthTextFieldWidget extends StatelessWidget {
       ),
     );
 
-    final fillColor =
-        dep.colorOnSecondary ?? Theme.of(context).colorScheme.onSecondary;
+    final fillColor = dep.colorOnSecondary;
 
-    final style = Theme.of(context)
-        .textTheme
-        .labelLarge
-        ?.copyWith(color: dep.colorPrimary);
+    final style = TextStyles.labelLarge.copyWith(color: dep.colorPrimary);
 
     final cursorColor =
-        dep.colorPrimary ?? Theme.of(context).colorScheme.primary;
+        dep.colorPrimary.withAlpha((dep.disabledOpacity * 255).round());
 
     return TextField(
       decoration: InputDecoration(
@@ -58,7 +53,7 @@ class AuthTextFieldWidget extends StatelessWidget {
       enableSuggestions: isPassword ? false : true,
       obscureText: obscureText,
       style: style,
-      cursorColor: cursorColor.withOpacity(dep.disabledOpacity),
+      cursorColor: cursorColor,
       cursorOpacityAnimates: true,
       cursorWidth: 1.5,
       onChanged: onChanged,

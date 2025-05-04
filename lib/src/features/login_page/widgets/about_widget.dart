@@ -1,3 +1,4 @@
+import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class TapabletextWidget extends StatelessWidget {
@@ -28,10 +29,7 @@ class TapabletextWidget extends StatelessWidget {
             alignment: alignment,
             child: Text(
               text,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelMedium
-                  ?.copyWith(color: color),
+              style: TextStyles.labelLarge.copyWith(color: color),
             ),
           ),
         ),

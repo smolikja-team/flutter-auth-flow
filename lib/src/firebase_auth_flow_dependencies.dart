@@ -17,12 +17,15 @@ class FirebaseAuthFlowDependencies {
     required this.onLoggedOut,
     this.disabledOpacity = 0.65,
     this.borderRadius = 12.0,
-    this.colorPrimary,
-    this.colorOnSecondary,
-    this.colorAbout = const Color(0xff2a64c5),
-    this.colorError,
-    this.colorOnError,
-    this.colorSuccess,
+    required this.colorPrimary,
+    required this.colorOnPrimary,
+    required this.colorSecondary,
+    required this.colorOnSecondary,
+    required this.colorAbout,
+    required this.colorError,
+    required this.colorOnError,
+    required this.colorSuccess,
+    required this.colorOnSuccess,
   });
 
   // MARK: - required
@@ -106,26 +109,29 @@ class FirebaseAuthFlowDependencies {
   final double borderRadius;
 
   /// The primary color that is used for the buttons.
-  /// Default is Theme.of(context).colorScheme.primary.
-  final Color? colorPrimary;
+  final Color colorPrimary;
+
+  /// The color that is used for the text on the primary color.
+  final Color colorOnPrimary;
+
+  /// The secondary color that is used for the buttons.
+  final Color colorSecondary;
 
   /// The color that is used for the text on the secondary color.
-  /// Default is Theme.of(context).colorScheme.onSecondary.
-  final Color? colorOnSecondary;
+  final Color colorOnSecondary;
 
   /// The color that is used for the about text.
-  /// Default is Color(0xff2a64c5).
-  final Color? colorAbout;
+  final Color colorAbout;
 
   /// The color that is used for the error messages.
-  /// Default is Theme.of(context).colorScheme.error.
-  final Color? colorError;
+  final Color colorError;
 
   /// The color that is used for the error messages.
-  /// Default is Theme.of(context).colorScheme.onError.
-  final Color? colorOnError;
+  final Color colorOnError;
 
   /// The color that is used for the success messages.
-  /// Default is Theme.of(context).colorScheme.success.
-  final Color? colorSuccess;
+  final Color colorSuccess;
+
+  /// The color that is used for the success messages.
+  final Color colorOnSuccess;
 }
