@@ -1,3 +1,4 @@
+import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:firebase_auth_flow/src/core/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class CustomOutlinedButton extends StatelessWidget {
 
   final String title;
   final void Function() onPressed;
-  final Color? contentColor;
+  final Color contentColor;
   final double borderRadius;
 
   @override
@@ -26,16 +27,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         side: BorderSide(
-          color: contentColor ?? Theme.of(context).colorScheme.primary,
+          color: contentColor,
         ),
       ),
       child: TitleTextWidget(
         text: title,
         alignment: Alignment.center,
-        style: Theme.of(context)
-            .textTheme
-            .titleMedium
-            ?.copyWith(color: contentColor),
+        style: TextStyles.titleMedium.copyWith(color: contentColor),
       ),
     );
   }

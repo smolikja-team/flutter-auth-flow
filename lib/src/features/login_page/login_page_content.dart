@@ -71,7 +71,7 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent>
       style: Theme.of(context)
           .textTheme
           .headlineMedium
-          ?.copyWith(color: widget.dep.colorPrimary),
+          ?.copyWith(color: widget.dep.colorOnPrimary),
     );
 
     Widget confirmationRegWidget() {

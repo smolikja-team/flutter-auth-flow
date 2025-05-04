@@ -1,4 +1,5 @@
 import 'package:firebase_auth_flow/firebase_auth_flow.dart';
+import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:firebase_auth_flow/src/core/widgets/title_text_widget.dart';
 import 'package:firebase_auth_flow/src/features/login_page/providers/login_provider.dart';
 import 'package:firebase_auth_flow/src/features/login_page/widgets/auth_text_field_widget.dart';
@@ -76,7 +77,7 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
 
     return TitleTextWidget(
       text: title,
-      style: Theme.of(context).textTheme.titleSmall,
+      style: TextStyles.titleSmall.copyWith(color: widget.dep.colorOnPrimary),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
     );
   }
@@ -100,8 +101,9 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
   Icon _helpIcon(BuildContext context) {
     return Icon(
       Icons.help_outline_rounded,
-      color: widget.dep.colorPrimary?.withOpacity(widget.dep.disabledOpacity),
-      size: Theme.of(context).textTheme.titleSmall?.fontSize,
+      color: widget.dep.colorOnPrimary
+          .withAlpha((widget.dep.disabledOpacity * 255).round()),
+      size: TextStyles.titleSmall.fontSize,
     );
   }
 
@@ -110,7 +112,7 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
       isAuthFieldObscured
           ? Icons.visibility_off_outlined
           : Icons.visibility_outlined,
-      color: widget.dep.colorPrimary,
+      color: widget.dep.colorOnSecondary,
       size: 24.0,
     );
   }
@@ -137,10 +139,8 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
             child: TitleTextWidget(
               text: context.l10n.auth_help_password_ok,
               alignment: Alignment.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(color: widget.dep.colorPrimary),
+              style: TextStyles.titleMedium
+                  .copyWith(color: widget.dep.colorOnPrimary),
             ),
           ),
         ],

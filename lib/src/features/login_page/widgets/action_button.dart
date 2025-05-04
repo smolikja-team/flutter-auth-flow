@@ -17,14 +17,13 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = dep.colorPrimary ?? Theme.of(context).colorScheme.primary;
-
     return CustomFilledButton(
       title: isTypeLogin
           ? context.l10n.auth_button_action_login
           : context.l10n.auth_button_action_register,
       onPressed: onPressed,
-      backgroundColor: bgColor,
+      textColor: dep.colorPrimary,
+      backgroundColor: dep.colorOnPrimary,
       borderRadius: dep.borderRadius,
     );
   }

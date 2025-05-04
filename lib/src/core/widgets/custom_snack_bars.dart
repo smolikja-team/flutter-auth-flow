@@ -1,4 +1,5 @@
 import 'package:firebase_auth_flow/firebase_auth_flow.dart';
+import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:firebase_auth_flow/src/core/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -7,11 +8,8 @@ SnackBar errorSnackBar({
   required BuildContext context,
   required FirebaseAuthFlowDependencies dependencies,
 }) {
-  final titleColor =
-      dependencies.colorOnError ?? Theme.of(context).colorScheme.onError;
-
-  final backgroundColor =
-      dependencies.colorError ?? Theme.of(context).colorScheme.error;
+  final titleColor = dependencies.colorOnError;
+  final backgroundColor = dependencies.colorError;
 
   return _snackBar(
     message: message,
@@ -27,10 +25,8 @@ SnackBar successSnackBar({
   required BuildContext context,
   required FirebaseAuthFlowDependencies dependencies,
 }) {
-  final titleColor = Theme.of(context).colorScheme.onPrimary;
-
-  final backgroundColor =
-      dependencies.colorSuccess ?? Theme.of(context).colorScheme.primary;
+  final titleColor = dependencies.colorOnSuccess;
+  final backgroundColor = dependencies.colorSuccess;
 
   return _snackBar(
     message: message,
@@ -51,10 +47,9 @@ SnackBar _snackBar({
   return SnackBar(
     content: TitleTextWidget(
       text: message,
-      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: titleColor,
-            fontWeight: FontWeight.bold,
-          ),
+      style: TextStyles.labelLargeBold.copyWith(
+        color: titleColor,
+      ),
       alignment: Alignment.center,
     ),
     backgroundColor: backgroundColor,

@@ -1,4 +1,5 @@
 import 'package:firebase_auth_flow/firebase_auth_flow.dart';
+import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:firebase_auth_flow/src/core/widgets/custom_filled_button.dart';
 import 'package:firebase_auth_flow/src/core/widgets/custom_outlined_button.dart';
 import 'package:firebase_auth_flow/src/core/widgets/custom_snack_bars.dart';
@@ -45,10 +46,7 @@ class VerificationBottomView extends ConsumerWidget {
       ),
       child: Text(
         context.l10n.verification_button_logout,
-        style: Theme.of(context)
-            .textTheme
-            .labelMedium
-            ?.copyWith(color: dep.colorAbout),
+        style: TextStyles.labelLarge.copyWith(color: dep.colorAbout),
       ),
     );
 
@@ -63,7 +61,8 @@ class VerificationBottomView extends ConsumerWidget {
             onError: showErrorSnackBar,
             onLoggedIn: dep.onLoggedIn,
           ),
-          backgroundColor: dep.colorPrimary,
+          textColor: dep.colorPrimary,
+          backgroundColor: dep.colorOnPrimary,
           borderRadius: dep.borderRadius,
         ),
         const SizedBox(height: 16.0),
@@ -75,7 +74,7 @@ class VerificationBottomView extends ConsumerWidget {
             onError: showErrorSnackBar,
             onSuccess: showResendSnackBar,
           ),
-          contentColor: dep.colorPrimary,
+          contentColor: dep.colorOnPrimary,
           borderRadius: dep.borderRadius,
         ),
         const SizedBox(height: 32.0),

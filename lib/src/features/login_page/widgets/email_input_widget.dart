@@ -1,4 +1,5 @@
 import 'package:firebase_auth_flow/firebase_auth_flow.dart';
+import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:firebase_auth_flow/src/core/widgets/title_text_widget.dart';
 import 'package:firebase_auth_flow/src/features/login_page/providers/login_provider.dart';
 import 'package:firebase_auth_flow/src/features/login_page/widgets/auth_text_field_widget.dart';
@@ -17,10 +18,7 @@ class EmailInputWidget extends ConsumerWidget {
       children: [
         TitleTextWidget(
           text: context.l10n.auth_label_email,
-          style: Theme.of(context)
-              .textTheme
-              .titleSmall
-              ?.copyWith(color: dep.colorPrimary),
+          style: TextStyles.titleSmall.copyWith(color: dep.colorOnPrimary),
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
         ),
         const SizedBox(height: 8.0),

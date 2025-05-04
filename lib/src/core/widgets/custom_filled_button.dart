@@ -1,3 +1,4 @@
+import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:firebase_auth_flow/src/core/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -6,13 +7,15 @@ class CustomFilledButton extends StatelessWidget {
     super.key,
     required this.title,
     required this.onPressed,
-    this.backgroundColor,
+    required this.textColor,
+    required this.backgroundColor,
     required this.borderRadius,
   });
 
   final String title;
   final void Function() onPressed;
-  final Color? backgroundColor;
+  final Color textColor;
+  final Color backgroundColor;
   final double borderRadius;
 
   @override
@@ -29,9 +32,9 @@ class CustomFilledButton extends StatelessWidget {
       child: TitleTextWidget(
         text: title,
         alignment: Alignment.center,
-        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Theme.of(context).scaffoldBackgroundColor,
-            ),
+        style: TextStyles.titleMedium.copyWith(
+          color: textColor,
+        ),
       ),
     );
   }

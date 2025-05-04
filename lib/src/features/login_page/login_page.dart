@@ -15,6 +15,7 @@ class LoginPage extends ConsumerWidget {
     final isLoading = ref.watch(loginProvider).isLoading;
 
     return MainScaffold(
+      backgroundColor: dep.colorPrimary,
       body: Stack(
         alignment: Alignment.center,
         children: [
