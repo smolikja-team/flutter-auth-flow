@@ -1,31 +1,41 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
 # Firebase Auth Flow
 
-Flutter widget package for handling a Firebase Authentication Flow.
+Flutter widget package for handling a Firebase Authentication Flow. This package provides a complete authentication flow for Firebase Authentication, including login, registration, and email verification.
 
 ![Firebase Auth Flow preview](assets/docs/preview.jpg "preview")
 
+## Features
+
+- Email and password authentication
+- Email verification flow
+- Customizable UI components
+- Localization support (English and Czech)
+- Responsive design
+- Error handling with user-friendly messages
+- Text styles without colors (colors are added using copyWith)
+
 ## Getting started
 
-- Add Firebase Auth Flow's `localizationsDelegates` to your `MaterialApp`'s ones,
-- make sure that app's supported locales are also `firebase_auth_flow`'s supported locales. If not, contribute to Firebase Auth Flow, please.
+### Installation
+
+Add the package to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  firebase_auth_flow:
+    git:
+      url: https://github.com/smolikja/firebase-auth-flow
+      ref: 1.3.1  # Use the latest version
+```
+
+### Setup Localization
+
+Add Firebase Auth Flow's `localizationsDelegates` to your `MaterialApp` and ensure your app's supported locales are also supported by `firebase_auth_flow`.
 
 <details>
-<summary>Get localization work!</summary>
+<summary>Localization Setup Example</summary>
 
-``` dart
+```dart
 import 'package:firebase_auth_flow/firebase_auth_flow.dart'
     as firebase_auth_flow;
 
@@ -67,65 +77,80 @@ class App extends StatelessWidget {
 
 </details>
 
+## Core Components
+
 ### FirebaseAuthFlowProvider
 
-- `email`.
+Authentication provider type:
+
+- `email` - Email and password authentication
 
 ### FirebaseAuthFlowDependencies
 
-- `provider` => The type of authentication provider,
-- `activityIndicator` => Widget that indicates some activity,
-- `loginAboutText` => String navigating to help/support,
-- `onLoginAboutTextPressed` => action for the help/support,
-- `onPrivacyPolicyPressed` => action for providing privacy policy view,
-- `onLoginPressed` => action for logging in,
-- `onRegisterPressed` => action for registration,
-- `onCheckVerificationPressed` => action for checking if email address is verified,
-- `onResendVerificationPressed` => action for sending email verification,
-- `onLogoutPressed` => action for logout,
-- `onLoggedIn` => callback when user logs in,
-- `onLoggedOut` => callback when user logs out,
-- `disabledOpacity` => opt. opacity of disabled,
-- `borderRadius` => opt. border radius,
-- `colorPrimary` => opt. primary color,
-- `colorOnSecondary` => opt. on secondary color,
-- `colorAbout` => opt. color of `loginAboutText`,
-- `colorError` => opt. Error sanck bar color,
-- `colorSuccess` => opt. Success snack bar color.
+Configuration object for the Firebase Auth Flow:
+
+- `provider` - The type of authentication provider
+- `activityIndicator` - Widget that indicates loading activity
+- `loginAboutText` - String for help/support link
+- `onLoginAboutTextPressed` - Action for the help/support link
+- `onPrivacyPolicyPressed` - Action for showing privacy policy
+- `onLoginPressed` - Action for handling login
+- `onRegisterPressed` - Action for handling registration
+- `onCheckVerificationPressed` - Action for checking email verification status
+- `onResendVerificationPressed` - Action for resending verification email
+- `onLogoutPressed` - Action for handling logout
+- `onLoggedIn` - Callback when user successfully logs in
+- `onLoggedOut` - Callback when user logs out
+- `disabledOpacity` - Optional opacity for disabled elements (default: 0.65)
+- `borderRadius` - Optional border radius for UI elements (default: 12.0)
+- `colorPrimary` - Optional primary color
+- `colorOnPrimary` - Optional color for text/icons on primary color
+- `colorSecondary` - Optional secondary color
+- `colorOnSecondary` - Optional color for text/icons on secondary color
+- `colorAbout` - Optional color for the about text
+- `colorError` - Optional color for error messages
+- `colorOnError` - Optional color for text on error background
+- `colorSuccess` - Optional color for success messages
+- `colorOnSuccess` - Optional color for text on success background
 
 ### FirebaseAuthFlowState
 
-- `login` => login page,
-- `emailVerification` => email verification page.
+Flow state enum:
 
-## Firebase Auth Flow Usage
+- `login` - Shows the login page
+- `emailVerification` - Shows the email verification page
 
-``` dart
+## Usage Example
+
+```dart
 final FirebaseAuthFlowState firebaseAuthFlowState;
 
-// create Firebase Auth Flow state
+// Determine the initial state based on user verification status
 if (FirebaseAuth.instance.currentUser?.emailVerified == null) {
     firebaseAuthFlowState = FirebaseAuthFlowState.login;
 } else {
     firebaseAuthFlowState = FirebaseAuthFlowState.emailVerification;
 }
 
+// Create the Firebase Auth Flow widget
 return FirebaseAuthFlow(
-           FirebaseAuthFlowDependencies(
-               provider: FirebaseAuthFlowProvider.email,
-               activityIndicator: const PlatformActivityIndicator(),
-               loginAboutText: 'About',
-               onLoginAboutTextPressed: () {}, // navigate to "about" screen
-               onPrivacyPolicyPressed: () {}, // navigate to privacy policy screen
-               onLoginPressed: AuthenticationHelper().login,
-               onRegisterPressed: AuthenticationHelper().registerEmail,
-               onCheckVerificationPressed: AuthenticationHelper().checkEmailVerification,
-               onResendVerificationPressed: AuthenticationHelper().resendEmailVerification,
-               onLogoutPressed: AuthenticationHelper().logout,
-               onLoggedIn: () => {}, // action after user is logged in
-               onLoggedOut: () => {}, // action after user is logged out
-           ),
-          state: firebaseAuthFlowState,
+    FirebaseAuthFlowDependencies(
+        provider: FirebaseAuthFlowProvider.email,
+        activityIndicator: const PlatformActivityIndicator(),
+        loginAboutText: 'About',
+        onLoginAboutTextPressed: () {}, // Navigate to "about" screen
+        onPrivacyPolicyPressed: () {}, // Navigate to privacy policy screen
+        onLoginPressed: AuthenticationHelper().login,
+        onRegisterPressed: AuthenticationHelper().registerEmail,
+        onCheckVerificationPressed: AuthenticationHelper().checkEmailVerification,
+        onResendVerificationPressed: AuthenticationHelper().resendEmailVerification,
+        onLogoutPressed: AuthenticationHelper().logout,
+        onLoggedIn: () => {}, // Action after user is logged in
+        onLoggedOut: () => {}, // Action after user is logged out
+        colorPrimary: Colors.blue, // Optional: customize colors
+        colorOnPrimary: Colors.white,
+    ),
+    state: firebaseAuthFlowState,
 );
 ```
 
@@ -321,12 +346,40 @@ class AuthenticationHelper {
 
 </details>
 
-## Contribution
+## Development and Contribution
 
-### build runner
+### Text Styles
 
-`flutter packages pub run build_runner build --verbose --delete-conflicting-outputs`
+The package uses a consistent text styling approach:
 
-### loca gen
+- Text styles are defined without colors in the `TextStyles` class
+- Colors are added when using the styles with `copyWith(color: ...)`
+- Only text styles that are actually used in the codebase are kept in the `TextStyles` class
 
-`flutter gen-l10n`
+### Code Generation
+
+Generate code for freezed models and riverpod providers:
+
+```bash
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+### Localization
+
+Generate localization files:
+
+```bash
+flutter gen-l10n
+```
+
+### Testing
+
+Run tests to ensure everything works correctly:
+
+```bash
+flutter test
+```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
