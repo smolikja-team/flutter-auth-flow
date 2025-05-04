@@ -101,7 +101,7 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
   Icon _helpIcon(BuildContext context) {
     return Icon(
       Icons.help_outline_rounded,
-      color: widget.dep.colorPrimary
+      color: widget.dep.colorOnPrimary
           .withAlpha((widget.dep.disabledOpacity * 255).round()),
       size: TextStyles.titleSmall.fontSize,
     );
@@ -140,7 +140,7 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
               text: context.l10n.auth_help_password_ok,
               alignment: Alignment.center,
               style: TextStyles.titleMedium
-                  .copyWith(color: widget.dep.colorPrimary),
+                  .copyWith(color: widget.dep.colorOnPrimary),
             ),
           ),
         ],
