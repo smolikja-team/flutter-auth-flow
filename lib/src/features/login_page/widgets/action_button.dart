@@ -22,8 +22,8 @@ class ActionButton extends StatelessWidget {
           ? context.l10n.auth_button_action_login
           : context.l10n.auth_button_action_register,
       onPressed: onPressed,
-      textColor: dep.colorOnPrimary,
-      backgroundColor: dep.colorPrimary,
+      textColor: dep.colorPrimary,
+      backgroundColor: dep.colorOnPrimary,
       borderRadius: dep.borderRadius,
     );
   }

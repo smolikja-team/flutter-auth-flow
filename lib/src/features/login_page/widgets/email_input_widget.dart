@@ -18,7 +18,7 @@ class EmailInputWidget extends ConsumerWidget {
       children: [
         TitleTextWidget(
           text: context.l10n.auth_label_email,
-          style: TextStyles.titleSmall.copyWith(color: dep.colorPrimary),
+          style: TextStyles.titleSmall.copyWith(color: dep.colorOnPrimary),
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
         ),
         const SizedBox(height: 8.0),

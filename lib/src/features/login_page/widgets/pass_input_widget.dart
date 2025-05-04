@@ -77,7 +77,7 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
 
     return TitleTextWidget(
       text: title,
-      style: TextStyles.titleSmall.copyWith(color: widget.dep.colorPrimary),
+      style: TextStyles.titleSmall.copyWith(color: widget.dep.colorOnPrimary),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
     );
   }
@@ -112,7 +112,7 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
       isAuthFieldObscured
           ? Icons.visibility_off_outlined
           : Icons.visibility_outlined,
-      color: widget.dep.colorPrimary,
+      color: widget.dep.colorOnSecondary,
       size: 24.0,
     );
   }

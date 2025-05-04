@@ -22,7 +22,7 @@ class AuthSwitchButton extends StatelessWidget {
           ? context.l10n.auth_button_switch_register
           : context.l10n.auth_button_switch_login,
       onPressed: onPressed,
-      contentColor: dep.colorPrimary,
+      contentColor: dep.colorOnPrimary,
       borderRadius: dep.borderRadius,
     );
   }
