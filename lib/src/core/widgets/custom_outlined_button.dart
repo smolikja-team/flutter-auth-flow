@@ -13,7 +13,7 @@ class CustomOutlinedButton extends StatelessWidget {
 
   final String title;
   final void Function() onPressed;
-  final Color? contentColor;
+  final Color contentColor;
   final double borderRadius;
 
   @override
@@ -27,7 +27,7 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         side: BorderSide(
-          color: contentColor ?? Theme.of(context).colorScheme.primary,
+          color: contentColor,
         ),
       ),
       child: TitleTextWidget(

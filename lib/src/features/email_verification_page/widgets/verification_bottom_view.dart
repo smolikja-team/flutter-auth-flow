@@ -61,6 +61,7 @@ class VerificationBottomView extends ConsumerWidget {
             onError: showErrorSnackBar,
             onLoggedIn: dep.onLoggedIn,
           ),
+          textColor: dep.colorOnPrimary,
           backgroundColor: dep.colorPrimary,
           borderRadius: dep.borderRadius,
         ),

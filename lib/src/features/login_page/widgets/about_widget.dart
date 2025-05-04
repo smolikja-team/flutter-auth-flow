@@ -6,14 +6,14 @@ class TapabletextWidget extends StatelessWidget {
     super.key,
     required this.text,
     required this.onTap,
-    this.color,
+    required this.color,
     this.opacity,
     this.alignment = Alignment.center,
   });
 
   final String text;
   final void Function() onTap;
-  final Color? color;
+  final Color color;
   final double? opacity;
   final AlignmentGeometry alignment;
 

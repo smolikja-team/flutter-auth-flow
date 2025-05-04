@@ -7,13 +7,15 @@ class CustomFilledButton extends StatelessWidget {
     super.key,
     required this.title,
     required this.onPressed,
-    this.backgroundColor,
+    required this.textColor,
+    required this.backgroundColor,
     required this.borderRadius,
   });
 
   final String title;
   final void Function() onPressed;
-  final Color? backgroundColor;
+  final Color textColor;
+  final Color backgroundColor;
   final double borderRadius;
 
   @override
@@ -31,7 +33,7 @@ class CustomFilledButton extends StatelessWidget {
         text: title,
         alignment: Alignment.center,
         style: TextStyles.titleMedium.copyWith(
-          color: Theme.of(context).scaffoldBackgroundColor,
+          color: textColor,
         ),
       ),
     );
