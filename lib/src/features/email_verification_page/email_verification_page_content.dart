@@ -1,8 +1,8 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
-import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
-import 'package:firebase_auth_flow/src/core/widgets/title_text_widget.dart';
-import 'package:firebase_auth_flow/src/features/email_verification_page/widgets/verification_bottom_view.dart';
-import 'package:firebase_auth_flow/src/l10n/extension.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
+import 'package:flutter_auth_flow/src/core/widgets/title_text_widget.dart';
+import 'package:flutter_auth_flow/src/features/email_verification_page/widgets/verification_bottom_view.dart';
+import 'package:flutter_auth_flow/src/l10n/extension.dart';
 import 'package:flutter/material.dart';
 
 class EmailVerificationPageContent extends StatelessWidget {
@@ -10,7 +10,7 @@ class EmailVerificationPageContent extends StatelessWidget {
 
   static const SizedBox kSpacerHeight64 = SizedBox(height: 64.0);
 
-  final FirebaseAuthFlowDependencies dep;
+  final AuthFlowDependencies dep;
 
   @override
   Widget build(BuildContext context) {

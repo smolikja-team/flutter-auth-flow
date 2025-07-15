@@ -1,12 +1,12 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
-import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
-import 'package:firebase_auth_flow/src/core/widgets/title_text_widget.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
+import 'package:flutter_auth_flow/src/core/widgets/title_text_widget.dart';
 import 'package:flutter/material.dart';
 
 SnackBar errorSnackBar({
   required String message,
   required BuildContext context,
-  required FirebaseAuthFlowDependencies dependencies,
+  required AuthFlowDependencies dependencies,
 }) {
   final titleColor = dependencies.colorOnError;
   final backgroundColor = dependencies.colorError;
@@ -23,7 +23,7 @@ SnackBar errorSnackBar({
 SnackBar successSnackBar({
   required String message,
   required BuildContext context,
-  required FirebaseAuthFlowDependencies dependencies,
+  required AuthFlowDependencies dependencies,
 }) {
   final titleColor = dependencies.colorOnSuccess;
   final backgroundColor = dependencies.colorSuccess;

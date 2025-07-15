@@ -1,6 +1,6 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
-import 'package:firebase_auth_flow/src/core/providers/core_provider.dart';
-import 'package:firebase_auth_flow/src/features/login_page/providers/login_state.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/providers/core_provider.dart';
+import 'package:flutter_auth_flow/src/features/login_page/providers/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(
@@ -48,7 +48,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
       required String password,
       required void Function({String? errorCode}) onRegisterDone,
     }) onRegisterPressed, {
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function({required AuthFlowError error}) onError,
   }) {
     if (state.password == state.passwordConf) {
       state = state.copyWith(isLoading: true);
@@ -60,23 +60,23 @@ class LoginNotifier extends StateNotifier<LoginState> {
         },
       );
     } else {
-      onError(error: FirebaseAuthFlowError.passwordNotMatching);
+      onError(error: AuthFlowError.passwordNotMatching);
     }
   }
 
   void _onRegisterDone({
     String? errorCode,
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function({required AuthFlowError error}) onError,
   }) {
     state = state.copyWith(isLoading: false);
     if (errorCode != null) {
-      final error = FirebaseAuthFlowError.fromCode(errorCode);
+      final error = AuthFlowError.fromCode(errorCode);
       onError(error: error);
       return;
     }
     ref
         .read(coreProvider.notifier)
-        .setState(FirebaseAuthFlowState.emailVerification);
+        .setState(AuthFlowState.emailVerification);
   }
 
   // MARK: - login
@@ -92,7 +92,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
       required void Function({String? errorCode, bool? isEmailVerified})
           onLoginDone,
     }) onLoginPressed, {
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function({required AuthFlowError error}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: true);
@@ -113,12 +113,12 @@ class LoginNotifier extends StateNotifier<LoginState> {
   void _onLoginDone({
     String? errorCode,
     bool? isEmailVerified,
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function({required AuthFlowError error}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: false);
     if (errorCode != null) {
-      final error = FirebaseAuthFlowError.fromCode(errorCode);
+      final error = AuthFlowError.fromCode(errorCode);
       onError(error: error);
       return;
     }
@@ -127,7 +127,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
     } else {
       ref
           .read(coreProvider.notifier)
-          .setState(FirebaseAuthFlowState.emailVerification);
+          .setState(AuthFlowState.emailVerification);
     }
   }
 }

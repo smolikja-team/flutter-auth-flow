@@ -1,5 +1,5 @@
-/// The state of the Firebase Auth Flow.
-enum FirebaseAuthFlowState {
+/// The state of the Auth Flow.
+enum AuthFlowState {
   /// The user is on the login page.
   login,
 

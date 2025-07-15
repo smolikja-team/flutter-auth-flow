@@ -1,6 +1,6 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
-import 'package:firebase_auth_flow/src/core/extensions/text_style_extension.dart';
-import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/extensions/text_style_extension.dart';
+import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class AuthTextFieldWidget extends StatelessWidget {
@@ -13,7 +13,7 @@ class AuthTextFieldWidget extends StatelessWidget {
     required this.onChanged,
   });
 
-  final FirebaseAuthFlowDependencies dep;
+  final AuthFlowDependencies dep;
   final String hintText;
   final bool isPassword;
   final bool obscureText;

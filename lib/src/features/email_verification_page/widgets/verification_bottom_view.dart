@@ -1,24 +1,24 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
-import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
-import 'package:firebase_auth_flow/src/core/widgets/custom_filled_button.dart';
-import 'package:firebase_auth_flow/src/core/widgets/custom_outlined_button.dart';
-import 'package:firebase_auth_flow/src/core/widgets/custom_snack_bars.dart';
-import 'package:firebase_auth_flow/src/features/email_verification_page/providers/email_verification_provider.dart';
-import 'package:firebase_auth_flow/src/l10n/extension.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
+import 'package:flutter_auth_flow/src/core/widgets/custom_filled_button.dart';
+import 'package:flutter_auth_flow/src/core/widgets/custom_outlined_button.dart';
+import 'package:flutter_auth_flow/src/core/widgets/custom_snack_bars.dart';
+import 'package:flutter_auth_flow/src/features/email_verification_page/providers/email_verification_provider.dart';
+import 'package:flutter_auth_flow/src/l10n/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class VerificationBottomView extends ConsumerWidget {
   const VerificationBottomView(this.dep, {super.key});
 
-  final FirebaseAuthFlowDependencies dep;
+  final AuthFlowDependencies dep;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final emailVerificationNotifier =
         ref.read(emailVerificationProvider.notifier);
 
-    void showErrorSnackBar({required FirebaseAuthFlowError error}) {
+    void showErrorSnackBar({required AuthFlowError error}) {
       ScaffoldMessenger.of(context).showSnackBar(
         errorSnackBar(
           message: error.message(context),

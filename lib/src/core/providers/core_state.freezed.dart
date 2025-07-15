@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CoreState {
-  FirebaseAuthFlowState get flowState => throw _privateConstructorUsedError;
+  AuthFlowState get flowState => throw _privateConstructorUsedError;
 
   /// Create a copy of CoreState
   /// with the given fields replaced by the non-null parameter values.
@@ -30,7 +30,7 @@ abstract class $CoreStateCopyWith<$Res> {
   factory $CoreStateCopyWith(CoreState value, $Res Function(CoreState) then) =
       _$CoreStateCopyWithImpl<$Res, CoreState>;
   @useResult
-  $Res call({FirebaseAuthFlowState flowState});
+  $Res call({AuthFlowState flowState});
 }
 
 /// @nodoc
@@ -54,7 +54,7 @@ class _$CoreStateCopyWithImpl<$Res, $Val extends CoreState>
       flowState: null == flowState
           ? _value.flowState
           : flowState // ignore: cast_nullable_to_non_nullable
-              as FirebaseAuthFlowState,
+              as AuthFlowState,
     ) as $Val);
   }
 }
@@ -67,7 +67,7 @@ abstract class _$$CoreStateImplCopyWith<$Res>
       __$$CoreStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({FirebaseAuthFlowState flowState});
+  $Res call({AuthFlowState flowState});
 }
 
 /// @nodoc
@@ -89,7 +89,7 @@ class __$$CoreStateImplCopyWithImpl<$Res>
       flowState: null == flowState
           ? _value.flowState
           : flowState // ignore: cast_nullable_to_non_nullable
-              as FirebaseAuthFlowState,
+              as AuthFlowState,
     ));
   }
 }
@@ -97,11 +97,11 @@ class __$$CoreStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CoreStateImpl implements _CoreState {
-  _$CoreStateImpl({this.flowState = FirebaseAuthFlowState.login});
+  _$CoreStateImpl({this.flowState = AuthFlowState.login});
 
   @override
   @JsonKey()
-  final FirebaseAuthFlowState flowState;
+  final AuthFlowState flowState;
 
   @override
   String toString() {
@@ -130,10 +130,10 @@ class _$CoreStateImpl implements _CoreState {
 }
 
 abstract class _CoreState implements CoreState {
-  factory _CoreState({final FirebaseAuthFlowState flowState}) = _$CoreStateImpl;
+  factory _CoreState({final AuthFlowState flowState}) = _$CoreStateImpl;
 
   @override
-  FirebaseAuthFlowState get flowState;
+  AuthFlowState get flowState;
 
   /// Create a copy of CoreState
   /// with the given fields replaced by the non-null parameter values.

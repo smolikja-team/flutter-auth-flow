@@ -1,16 +1,16 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
-import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
-import 'package:firebase_auth_flow/src/core/widgets/title_text_widget.dart';
-import 'package:firebase_auth_flow/src/features/login_page/providers/login_provider.dart';
-import 'package:firebase_auth_flow/src/features/login_page/widgets/auth_text_field_widget.dart';
-import 'package:firebase_auth_flow/src/l10n/extension.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
+import 'package:flutter_auth_flow/src/core/widgets/title_text_widget.dart';
+import 'package:flutter_auth_flow/src/features/login_page/providers/login_provider.dart';
+import 'package:flutter_auth_flow/src/features/login_page/widgets/auth_text_field_widget.dart';
+import 'package:flutter_auth_flow/src/l10n/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EmailInputWidget extends ConsumerWidget {
   const EmailInputWidget(this.dep, {super.key});
 
-  final FirebaseAuthFlowDependencies dep;
+  final AuthFlowDependencies dep;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

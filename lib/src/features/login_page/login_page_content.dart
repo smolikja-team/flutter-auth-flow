@@ -1,18 +1,18 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
-import 'package:firebase_auth_flow/src/core/widgets/title_text_widget.dart';
-import 'package:firebase_auth_flow/src/features/login_page/providers/login_provider.dart';
-import 'package:firebase_auth_flow/src/features/login_page/widgets/about_widget.dart';
-import 'package:firebase_auth_flow/src/features/login_page/widgets/buttons_widget.dart';
-import 'package:firebase_auth_flow/src/features/login_page/widgets/email_input_widget.dart';
-import 'package:firebase_auth_flow/src/features/login_page/widgets/pass_input_widget.dart';
-import 'package:firebase_auth_flow/src/l10n/extension.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/widgets/title_text_widget.dart';
+import 'package:flutter_auth_flow/src/features/login_page/providers/login_provider.dart';
+import 'package:flutter_auth_flow/src/features/login_page/widgets/about_widget.dart';
+import 'package:flutter_auth_flow/src/features/login_page/widgets/buttons_widget.dart';
+import 'package:flutter_auth_flow/src/features/login_page/widgets/email_input_widget.dart';
+import 'package:flutter_auth_flow/src/features/login_page/widgets/pass_input_widget.dart';
+import 'package:flutter_auth_flow/src/l10n/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginPageContent extends ConsumerStatefulWidget {
   const LoginPageContent(this.dep, {super.key});
 
-  final FirebaseAuthFlowDependencies dep;
+  final AuthFlowDependencies dep;
 
   @override
   ConsumerState<LoginPageContent> createState() => _LoginPageContentState();

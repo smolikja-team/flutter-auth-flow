@@ -1,4 +1,4 @@
-import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
+import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class TapabletextWidget extends StatelessWidget {

@@ -1,9 +1,7 @@
-import 'package:firebase_auth_flow/src/firebase_auth_flow_provider.dart';
 import 'package:flutter/material.dart';
 
-class FirebaseAuthFlowDependencies {
-  const FirebaseAuthFlowDependencies({
-    required this.provider,
+class AuthFlowDependencies {
+  const AuthFlowDependencies({
     required this.activityIndicator,
     required this.loginAboutText,
     required this.onLoginAboutTextPressed,
@@ -30,8 +28,6 @@ class FirebaseAuthFlowDependencies {
 
   // MARK: - required
 
-  /// The provider that is used to access the FirebaseAuthFlow state.
-  final FirebaseAuthFlowProvider provider;
 
   /// The activity indicator that is shown when the user is waiting for a response.
   final Widget activityIndicator;
