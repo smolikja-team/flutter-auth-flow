@@ -6,6 +6,6 @@ part 'core_state.freezed.dart';
 @freezed
 class CoreState with _$CoreState {
   factory CoreState({
-    @Default(AuthFlowState.login) AuthFlowState flowState,
+    @Default(FlutterAuthFlowState.login) FlutterAuthFlowState flowState,
   }) = _CoreState;
 }

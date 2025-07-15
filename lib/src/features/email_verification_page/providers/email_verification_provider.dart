@@ -20,7 +20,7 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
     void Function({
       required void Function({String? errorCode}) onActionDone,
     }) onActionPressed, {
-    required void Function({required AuthFlowError error}) onError,
+    required void Function({required FlutterAuthFlowError error}) onError,
     required void Function() onSuccess,
   }) {
     state = state.copyWith(isLoading: true);
@@ -37,12 +37,12 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
 
   void _onActionDone({
     String? errorCode,
-    required void Function({required AuthFlowError error}) onError,
+    required void Function({required FlutterAuthFlowError error}) onError,
     required void Function() onSuccess,
   }) {
     state = state.copyWith(isLoading: false);
     if (errorCode != null) {
-      final error = AuthFlowError.fromCode(errorCode);
+      final error = FlutterAuthFlowError.fromCode(errorCode);
       onError(error: error);
       return;
     }
@@ -60,7 +60,7 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
       required void Function({String? errorCode, bool? isEmailVerified})
           onCheckDone,
     }) onCheckVerificationPressed, {
-    required void Function({required AuthFlowError error}) onError,
+    required void Function({required FlutterAuthFlowError error}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: true);
@@ -79,12 +79,12 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   void _onCheckDone({
     String? errorCode,
     bool? isEmailVerified,
-    required void Function({required AuthFlowError error}) onError,
+    required void Function({required FlutterAuthFlowError error}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: false);
     if (errorCode != null) {
-      final error = AuthFlowError.fromCode(errorCode);
+      final error = FlutterAuthFlowError.fromCode(errorCode);
       onError(error: error);
       return;
     }
@@ -93,7 +93,7 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
     } else {
       ref
           .read(coreProvider.notifier)
-          .setState(AuthFlowState.emailVerification);
+          .setState(FlutterAuthFlowState.emailVerification);
     }
   }
 
@@ -106,7 +106,7 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
     void Function({
       required void Function({String? errorCode}) onLogoutDone,
     }) onLogoutPressed, {
-    required void Function({required AuthFlowError error}) onError,
+    required void Function({required FlutterAuthFlowError error}) onError,
     required void Function() onLoggedOut,
   }) {
     state = state.copyWith(isLoading: true);
@@ -123,16 +123,16 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
 
   void _onLoggedOut({
     String? errorCode,
-    required void Function({required AuthFlowError error}) onError,
+    required void Function({required FlutterAuthFlowError error}) onError,
     required void Function() onLoggedOut,
   }) {
     state = state.copyWith(isLoading: false);
     if (errorCode != null) {
-      final error = AuthFlowError.fromCode(errorCode);
+      final error = FlutterAuthFlowError.fromCode(errorCode);
       onError(error: error);
       return;
     }
-    ref.read(coreProvider.notifier).setState(AuthFlowState.login);
+    ref.read(coreProvider.notifier).setState(FlutterAuthFlowState.login);
     onLoggedOut();
   }
 }

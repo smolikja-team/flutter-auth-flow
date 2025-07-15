@@ -48,7 +48,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
       required String password,
       required void Function({String? errorCode}) onRegisterDone,
     }) onRegisterPressed, {
-    required void Function({required AuthFlowError error}) onError,
+    required void Function({required FlutterAuthFlowError error}) onError,
   }) {
     if (state.password == state.passwordConf) {
       state = state.copyWith(isLoading: true);
@@ -60,23 +60,23 @@ class LoginNotifier extends StateNotifier<LoginState> {
         },
       );
     } else {
-      onError(error: AuthFlowError.passwordNotMatching);
+      onError(error: FlutterAuthFlowError.passwordNotMatching);
     }
   }
 
   void _onRegisterDone({
     String? errorCode,
-    required void Function({required AuthFlowError error}) onError,
+    required void Function({required FlutterAuthFlowError error}) onError,
   }) {
     state = state.copyWith(isLoading: false);
     if (errorCode != null) {
-      final error = AuthFlowError.fromCode(errorCode);
+      final error = FlutterAuthFlowError.fromCode(errorCode);
       onError(error: error);
       return;
     }
     ref
         .read(coreProvider.notifier)
-        .setState(AuthFlowState.emailVerification);
+        .setState(FlutterAuthFlowState.emailVerification);
   }
 
   // MARK: - login
@@ -92,7 +92,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
       required void Function({String? errorCode, bool? isEmailVerified})
           onLoginDone,
     }) onLoginPressed, {
-    required void Function({required AuthFlowError error}) onError,
+    required void Function({required FlutterAuthFlowError error}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: true);
@@ -113,12 +113,12 @@ class LoginNotifier extends StateNotifier<LoginState> {
   void _onLoginDone({
     String? errorCode,
     bool? isEmailVerified,
-    required void Function({required AuthFlowError error}) onError,
+    required void Function({required FlutterAuthFlowError error}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: false);
     if (errorCode != null) {
-      final error = AuthFlowError.fromCode(errorCode);
+      final error = FlutterAuthFlowError.fromCode(errorCode);
       onError(error: error);
       return;
     }
@@ -127,7 +127,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
     } else {
       ref
           .read(coreProvider.notifier)
-          .setState(AuthFlowState.emailVerification);
+          .setState(FlutterAuthFlowState.emailVerification);
     }
   }
 }

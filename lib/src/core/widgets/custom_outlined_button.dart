@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:flutter_auth_flow/src/core/widgets/title_text_widget.dart';
-import 'package:flutter/material.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   const CustomOutlinedButton({

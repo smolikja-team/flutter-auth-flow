@@ -1,10 +1,10 @@
-/// Authentication flow errors with standardized error codes
+/// Flutter Auth Flow errors with standardized error codes
 library;
 
-import 'package:flutter_auth_flow/src/l10n/extension.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_auth_flow/src/l10n/extension.dart';
 
-enum AuthFlowError {
+enum FlutterAuthFlowError {
   universal('auth-error'),
   weakPassword('weak-password'),
   emailInUse('email-in-use'),
@@ -18,44 +18,44 @@ enum AuthFlowError {
   emailNotVerified('email-not-verified'),
   userLoggedOut('user-logged-out');
 
-  const AuthFlowError(this.code);
+  const FlutterAuthFlowError(this.code);
   final String code;
 
-  /// Returns the [AuthFlowError] from the given [code].
-  /// If the [code] is not found, [AuthFlowError.universal] is returned.
-  static AuthFlowError fromCode(String code) {
-    return AuthFlowError.values.firstWhere(
+  /// Returns the [FlutterAuthFlowError] from the given [code].
+  /// If the [code] is not found, [FlutterAuthFlowError.universal] is returned.
+  static FlutterAuthFlowError fromCode(String code) {
+    return FlutterAuthFlowError.values.firstWhere(
       (error) => error.code == code,
-      orElse: () => AuthFlowError.universal,
+      orElse: () => FlutterAuthFlowError.universal,
     );
   }
 
   /// Returns the error message for the given [context].
   String message(BuildContext context) {
     switch (this) {
-      case AuthFlowError.universal:
+      case FlutterAuthFlowError.universal:
         return context.l10n.error_universal;
-      case AuthFlowError.weakPassword:
+      case FlutterAuthFlowError.weakPassword:
         return context.l10n.error_auth_weak_password;
-      case AuthFlowError.emailInUse:
+      case FlutterAuthFlowError.emailInUse:
         return context.l10n.error_auth_email_in_use;
-      case AuthFlowError.userNotFound:
+      case FlutterAuthFlowError.userNotFound:
         return context.l10n.error_auth_user_not_found;
-      case AuthFlowError.wrongPassword:
+      case FlutterAuthFlowError.wrongPassword:
         return context.l10n.error_auth_wrong_password;
-      case AuthFlowError.emailInvalid:
+      case FlutterAuthFlowError.emailInvalid:
         return context.l10n.error_auth_email_invalid;
-      case AuthFlowError.passwordNotMatching:
+      case FlutterAuthFlowError.passwordNotMatching:
         return context.l10n.error_auth_pass_not_matching;
-      case AuthFlowError.operationNotAllowed:
+      case FlutterAuthFlowError.operationNotAllowed:
         return context.l10n.error_auth_operation_not_allowed;
-      case AuthFlowError.userDisabled:
+      case FlutterAuthFlowError.userDisabled:
         return context.l10n.error_auth_user_disabled;
-      case AuthFlowError.invalidCredential:
+      case FlutterAuthFlowError.invalidCredential:
         return context.l10n.error_auth_invalid_credential;
-      case AuthFlowError.emailNotVerified:
+      case FlutterAuthFlowError.emailNotVerified:
         return context.l10n.error_email_not_verified;
-      case AuthFlowError.userLoggedOut:
+      case FlutterAuthFlowError.userLoggedOut:
         return context.l10n.error_user_logged_out;
     }
   }

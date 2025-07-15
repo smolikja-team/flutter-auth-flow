@@ -1,5 +1,5 @@
-/// The state of the Auth Flow.
-enum AuthFlowState {
+/// The state of the Flutter Auth Flow.
+enum FlutterAuthFlowState {
   /// The user is on the login page.
   login,
 

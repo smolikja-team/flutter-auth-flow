@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_auth_flow/flutter_auth_flow.dart';
 import 'package:flutter_auth_flow/src/core/widgets/custom_filled_button.dart';
 import 'package:flutter_auth_flow/src/l10n/extension.dart';
-import 'package:flutter/material.dart';
 
 class ActionButton extends StatelessWidget {
   const ActionButton(
@@ -11,7 +11,7 @@ class ActionButton extends StatelessWidget {
     required this.onPressed,
   });
 
-  final AuthFlowDependencies dep;
+  final FlutterAuthFlowDependencies dep;
   final bool isTypeLogin;
   final Function() onPressed;
 

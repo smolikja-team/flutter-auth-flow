@@ -81,7 +81,7 @@ class App extends StatelessWidget {
 
 ## Core Components
 
-### AuthFlowDependencies
+### FlutterAuthFlowDependencies
 
 Configuration object for the Flutter Auth Flow. This is where you provide your authentication logic:
 
@@ -108,14 +108,14 @@ Configuration object for the Flutter Auth Flow. This is where you provide your a
 - `colorSuccess` - Optional color for success messages
 - `colorOnSuccess` - Optional color for text on success background
 
-### AuthFlowState
+### FlutterAuthFlowState
 
 Flow state enum:
 
 - `login` - Shows the login page
 - `emailVerification` - Shows the email verification page
 
-### AuthFlowError
+### FlutterAuthFlowError
 
 Standardized error codes that work with any authentication provider:
 
@@ -137,18 +137,18 @@ Standardized error codes that work with any authentication provider:
 ### Basic Usage
 
 ```dart
-final AuthFlowState authFlowState;
+final FlutterAuthFlowState authFlowState;
 
 // Determine the initial state based on user verification status
 if (yourAuthService.currentUser?.emailVerified == null) {
-    authFlowState = AuthFlowState.login;
+    authFlowState = FlutterAuthFlowState.login;
 } else {
-    authFlowState = AuthFlowState.emailVerification;
+    authFlowState = FlutterAuthFlowState.emailVerification;
 }
 
 // Create the Flutter Auth Flow widget
 return FlutterAuthFlow(
-    AuthFlowDependencies(
+    FlutterAuthFlowDependencies(
         activityIndicator: const CircularProgressIndicator(),
         loginAboutText: 'About',
         onLoginAboutTextPressed: () {}, // Navigate to "about" screen
@@ -347,9 +347,9 @@ The package uses standardized error codes that work across different authenticat
 1. **Package name**: `firebase_auth_flow` → `flutter_auth_flow`
 2. **Class names**:
    - `FirebaseAuthFlow` → `FlutterAuthFlow`
-   - `FirebaseAuthFlowDependencies` → `AuthFlowDependencies`
-   - `FirebaseAuthFlowState` → `AuthFlowState`
-   - `FirebaseAuthFlowError` → `AuthFlowError`
+   - `FirebaseAuthFlowDependencies` → `FlutterAuthFlowDependencies`
+   - `FirebaseAuthFlowState` → `FlutterAuthFlowState`
+   - `FirebaseAuthFlowError` → `FlutterAuthFlowError`
 3. **Removed**: `FirebaseAuthFlowProvider` enum (no longer needed)
 4. **Error codes**: Some error codes were generalized (e.g., `email-already-in-use` → `email-in-use`)
 

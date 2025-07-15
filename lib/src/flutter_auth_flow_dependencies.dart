@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AuthFlowDependencies {
-  const AuthFlowDependencies({
+class FlutterAuthFlowDependencies {
+  const FlutterAuthFlowDependencies({
     required this.activityIndicator,
     required this.loginAboutText,
     required this.onLoginAboutTextPressed,

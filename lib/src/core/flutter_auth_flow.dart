@@ -1,19 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_auth_flow/flutter_auth_flow.dart';
 import 'package:flutter_auth_flow/src/core/providers/core_provider.dart';
 import 'package:flutter_auth_flow/src/features/email_verification_page/email_verification_page.dart';
 import 'package:flutter_auth_flow/src/features/login_page/login_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FlutterAuthFlow extends ConsumerStatefulWidget {
   const FlutterAuthFlow(this.dep, {required this.state, super.key});
 
   /// FlutterAuthFlow dependencies
-  final AuthFlowDependencies dep;
+  final FlutterAuthFlowDependencies dep;
 
   /// FlutterAuthFlow state
-  final AuthFlowState state;
+  final FlutterAuthFlowState state;
 
   @override
   FlutterAuthFlowViewState createState() => FlutterAuthFlowViewState();
@@ -32,9 +32,9 @@ class FlutterAuthFlowViewState extends ConsumerState<FlutterAuthFlow> {
   Widget build(BuildContext context) {
     ConsumerWidget getPage() {
       switch (ref.watch(coreProvider).flowState) {
-        case AuthFlowState.login:
+        case FlutterAuthFlowState.login:
           return LoginPage(widget.dep);
-        case AuthFlowState.emailVerification:
+        case FlutterAuthFlowState.emailVerification:
           return EmailVerificationPage(widget.dep);
       }
     }

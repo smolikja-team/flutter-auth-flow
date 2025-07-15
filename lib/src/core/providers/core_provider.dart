@@ -9,7 +9,7 @@ final coreProvider = StateNotifierProvider<CoreNotifier, CoreState>(
 class CoreNotifier extends StateNotifier<CoreState> {
   CoreNotifier() : super(CoreState());
 
-  void setState(AuthFlowState toState) {
+  void setState(FlutterAuthFlowState toState) {
     state = state.copyWith(flowState: toState);
   }
 }
