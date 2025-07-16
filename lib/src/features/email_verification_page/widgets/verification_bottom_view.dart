@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/flutter_auth_flow_error.dart';
 import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:flutter_auth_flow/src/core/widgets/custom_filled_button.dart';
 import 'package:flutter_auth_flow/src/core/widgets/custom_outlined_button.dart';
@@ -69,7 +70,10 @@ class VerificationBottomView extends ConsumerWidget {
         CustomOutlinedButton(
           title: context.l10n.verification_button_resend,
           onPressed: () => emailVerificationNotifier.onActionPressed(
-            ({required void Function({String? errorCode}) onActionDone}) =>
+            ({
+              required void Function({FlutterAuthFlowError? error})
+                  onActionDone,
+            }) =>
                 dep.onResendVerificationPressed(onResendDone: onActionDone),
             onError: showErrorSnackBar,
             onSuccess: showResendSnackBar,

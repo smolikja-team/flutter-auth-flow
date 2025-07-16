@@ -12,7 +12,7 @@ A flexible Flutter widget package for handling authentication flows. This packag
 - Customizable UI components
 - Localization support (English and Czech)
 - Responsive design
-- Comprehensive error handling with user-friendly messages
+- User-friendly error messages
 - Clean separation of UI and business logic
 - Text styles without colors (colors are added using copyWith)
 
@@ -115,23 +115,6 @@ Flow state enum:
 - `login` - Shows the login page
 - `emailVerification` - Shows the email verification page
 
-### FlutterAuthFlowError
-
-Standardized error codes that work with any authentication provider:
-
-- `universal` - Generic error
-- `weakPassword` - Password doesn't meet requirements
-- `emailInUse` - Email already registered
-- `userNotFound` - User doesn't exist
-- `wrongPassword` - Invalid password
-- `emailInvalid` - Invalid email format
-- `passwordNotMatching` - Password confirmation doesn't match
-- `operationNotAllowed` - Operation not supported
-- `userDisabled` - User account disabled
-- `invalidCredential` - Invalid credentials
-- `emailNotVerified` - Email not verified
-- `userLoggedOut` - User not logged in
-
 ## Usage Examples
 
 ### Basic Usage
@@ -167,179 +150,6 @@ return FlutterAuthFlow(
 );
 ```
 
-### Firebase Implementation Example
-
-<details>
-<summary>Firebase AuthService Implementation</summary>
-
-```dart
-class FirebaseAuthService {
-  User? get user => FirebaseAuth.instance.currentUser;
-  bool? get isEmailVerified => user?.emailVerified;
-
-  Future<void> register({
-    required String email,
-    required String password,
-    required void Function({String? errorCode}) onRegisterDone,
-  }) async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      await user?.sendEmailVerification();
-      onRegisterDone();
-    } on FirebaseAuthException catch (e) {
-      onRegisterDone(errorCode: e.code);
-    } catch (e) {
-      onRegisterDone(errorCode: 'auth-error');
-    }
-  }
-
-  Future<void> login({
-    required String email,
-    required String password,
-    required void Function({String? errorCode, bool? isEmailVerified}) onLoginDone,
-  }) async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      onLoginDone(isEmailVerified: isEmailVerified);
-    } on FirebaseAuthException catch (e) {
-      onLoginDone(errorCode: e.code);
-    } catch (e) {
-      onLoginDone(errorCode: 'auth-error');
-    }
-  }
-
-  Future<void> logout({
-    required void Function({String? errorCode}) onLogoutDone,
-  }) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      onLogoutDone();
-    } catch (e) {
-      onLogoutDone(errorCode: 'auth-error');
-    }
-  }
-
-  Future<void> checkEmailVerification({
-    required void Function({String? errorCode, bool? isEmailVerified}) onCheckDone,
-  }) async {
-    try {
-      await user?.reload();
-      if (isEmailVerified != true) {
-        onCheckDone(errorCode: 'email-not-verified');
-      } else {
-        onCheckDone(isEmailVerified: true);
-      }
-    } catch (e) {
-      onCheckDone(errorCode: 'auth-error');
-    }
-  }
-
-  Future<void> resendEmailVerification({
-    required void Function({String? errorCode}) onResendDone,
-  }) async {
-    try {
-      await user?.sendEmailVerification();
-      onResendDone();
-    } catch (e) {
-      onResendDone(errorCode: 'auth-error');
-    }
-  }
-}
-```
-
-</details>
-
-### Strapi Implementation Example
-
-<details>
-<summary>Strapi AuthService Implementation</summary>
-
-```dart
-class StrapiAuthService {
-  final Dio _dio = Dio(BaseOptions(baseUrl: 'https://your-strapi-api.com'));
-  
-  Future<void> register({
-    required String email,
-    required String password,
-    required void Function({String? errorCode}) onRegisterDone,
-  }) async {
-    try {
-      final response = await _dio.post('/auth/local/register', data: {
-        'username': email,
-        'email': email,
-        'password': password,
-      });
-      
-      if (response.statusCode == 200) {
-        onRegisterDone();
-      } else {
-        onRegisterDone(errorCode: 'auth-error');
-      }
-    } on DioException catch (e) {
-      String errorCode = 'auth-error';
-      if (e.response?.data['error']['message']?.contains('email') == true) {
-        errorCode = 'email-in-use';
-      }
-      onRegisterDone(errorCode: errorCode);
-    }
-  }
-
-  Future<void> login({
-    required String email,
-    required String password,
-    required void Function({String? errorCode, bool? isEmailVerified}) onLoginDone,
-  }) async {
-    try {
-      final response = await _dio.post('/auth/local', data: {
-        'identifier': email,
-        'password': password,
-      });
-      
-      if (response.statusCode == 200) {
-        final user = response.data['user'];
-        onLoginDone(isEmailVerified: user['confirmed'] ?? false);
-      } else {
-        onLoginDone(errorCode: 'auth-error');
-      }
-    } on DioException catch (e) {
-      String errorCode = 'auth-error';
-      if (e.response?.status == 400) {
-        errorCode = 'invalid-credential';
-      }
-      onLoginDone(errorCode: errorCode);
-    }
-  }
-
-  // ... implement other methods similarly
-}
-```
-
-</details>
-
-## Error Handling
-
-The package uses standardized error codes that work across different authentication providers. Your authentication service should map provider-specific errors to these standard codes:
-
-```dart
-// Firebase -> Standard mapping
-'weak-password' -> 'weak-password'
-'email-already-in-use' -> 'email-in-use'
-'user-not-found' -> 'user-not-found'
-'wrong-password' -> 'wrong-password'
-'invalid-email' -> 'email-invalid'
-
-// Strapi -> Standard mapping
-'Email already taken' -> 'email-in-use'
-'Invalid credentials' -> 'invalid-credential'
-// ... etc
-```
-
 ## Migration from 2.x to 3.x
 
 ### Breaking Changes
@@ -349,9 +159,7 @@ The package uses standardized error codes that work across different authenticat
    - `FirebaseAuthFlow` → `FlutterAuthFlow`
    - `FirebaseAuthFlowDependencies` → `FlutterAuthFlowDependencies`
    - `FirebaseAuthFlowState` → `FlutterAuthFlowState`
-   - `FirebaseAuthFlowError` → `FlutterAuthFlowError`
 3. **Removed**: `FirebaseAuthFlowProvider` enum (no longer needed)
-4. **Error codes**: Some error codes were generalized (e.g., `email-already-in-use` → `email-in-use`)
 
 ### Migration Steps
 
@@ -359,7 +167,6 @@ The package uses standardized error codes that work across different authenticat
 2. Update imports: `package:firebase_auth_flow` → `package:flutter_auth_flow`
 3. Update class names in your code
 4. Remove any references to `FirebaseAuthFlowProvider`
-5. Update error code mappings if needed
 
 ## Development and Contribution
 

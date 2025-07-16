@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/flutter_auth_flow_error.dart';
 import 'package:flutter_auth_flow/src/core/widgets/custom_snack_bars.dart';
 import 'package:flutter_auth_flow/src/features/login_page/providers/login_provider.dart';
 import 'package:flutter_auth_flow/src/features/login_page/widgets/action_button.dart';

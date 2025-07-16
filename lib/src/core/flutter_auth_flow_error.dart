@@ -1,35 +1,25 @@
-/// Flutter Auth Flow errors with standardized error codes
+/// Flutter Auth Flow errors - pure enum without string codes
 library;
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_auth_flow/src/l10n/extension.dart';
 
 enum FlutterAuthFlowError {
-  universal('auth-error'),
-  weakPassword('weak-password'),
-  emailInUse('email-in-use'),
-  userNotFound('user-not-found'),
-  wrongPassword('wrong-password'),
-  emailInvalid('email-invalid'),
-  passwordNotMatching('password-not-matching'),
-  operationNotAllowed('operation-not-allowed'),
-  userDisabled('user-disabled'),
-  invalidCredential('invalid-credential'),
-  emailNotVerified('email-not-verified'),
-  userLoggedOut('user-logged-out');
+  universal,
+  weakPassword,
+  emailInUse,
+  userNotFound,
+  wrongPassword,
+  emailInvalid,
+  passwordNotMatching,
+  operationNotAllowed,
+  userDisabled,
+  invalidCredential,
+  emailNotVerified,
+  userLoggedOut,
+}
 
-  const FlutterAuthFlowError(this.code);
-  final String code;
-
-  /// Returns the [FlutterAuthFlowError] from the given [code].
-  /// If the [code] is not found, [FlutterAuthFlowError.universal] is returned.
-  static FlutterAuthFlowError fromCode(String code) {
-    return FlutterAuthFlowError.values.firstWhere(
-      (error) => error.code == code,
-      orElse: () => FlutterAuthFlowError.universal,
-    );
-  }
-
+extension FlutterAuthFlowErrorExtension on FlutterAuthFlowError {
   /// Returns the error message for the given [context].
   String message(BuildContext context) {
     switch (this) {

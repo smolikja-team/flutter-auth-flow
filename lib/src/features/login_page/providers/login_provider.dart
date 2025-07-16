@@ -46,7 +46,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
     void Function({
       required String email,
       required String password,
-      required void Function({String? errorCode}) onRegisterDone,
+      required void Function({FlutterAuthFlowError? error}) onRegisterDone,
     }) onRegisterPressed, {
     required void Function({required FlutterAuthFlowError error}) onError,
   }) {
@@ -55,8 +55,8 @@ class LoginNotifier extends StateNotifier<LoginState> {
       onRegisterPressed(
         email: state.email,
         password: state.password,
-        onRegisterDone: ({String? errorCode}) {
-          _onRegisterDone(errorCode: errorCode, onError: onError);
+        onRegisterDone: ({FlutterAuthFlowError? error}) {
+          _onRegisterDone(error: error, onError: onError);
         },
       );
     } else {
@@ -65,12 +65,11 @@ class LoginNotifier extends StateNotifier<LoginState> {
   }
 
   void _onRegisterDone({
-    String? errorCode,
+    FlutterAuthFlowError? error,
     required void Function({required FlutterAuthFlowError error}) onError,
   }) {
     state = state.copyWith(isLoading: false);
-    if (errorCode != null) {
-      final error = FlutterAuthFlowError.fromCode(errorCode);
+    if (error != null) {
       onError(error: error);
       return;
     }
@@ -89,8 +88,10 @@ class LoginNotifier extends StateNotifier<LoginState> {
     void Function({
       required String email,
       required String password,
-      required void Function({String? errorCode, bool? isEmailVerified})
-          onLoginDone,
+      required void Function({
+        FlutterAuthFlowError? error,
+        bool? isEmailVerified,
+      }) onLoginDone,
     }) onLoginPressed, {
     required void Function({required FlutterAuthFlowError error}) onError,
     required void Function() onLoggedIn,
@@ -99,9 +100,9 @@ class LoginNotifier extends StateNotifier<LoginState> {
     onLoginPressed(
       email: state.email,
       password: state.password,
-      onLoginDone: ({String? errorCode, bool? isEmailVerified}) {
+      onLoginDone: ({FlutterAuthFlowError? error, bool? isEmailVerified}) {
         _onLoginDone(
-          errorCode: errorCode,
+          error: error,
           isEmailVerified: isEmailVerified,
           onError: onError,
           onLoggedIn: onLoggedIn,
@@ -111,14 +112,13 @@ class LoginNotifier extends StateNotifier<LoginState> {
   }
 
   void _onLoginDone({
-    String? errorCode,
+    FlutterAuthFlowError? error,
     bool? isEmailVerified,
     required void Function({required FlutterAuthFlowError error}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: false);
-    if (errorCode != null) {
-      final error = FlutterAuthFlowError.fromCode(errorCode);
+    if (error != null) {
       onError(error: error);
       return;
     }

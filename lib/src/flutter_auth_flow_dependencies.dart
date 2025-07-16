@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_flow/src/core/flutter_auth_flow_error.dart';
 
 class FlutterAuthFlowDependencies {
   const FlutterAuthFlowDependencies({
@@ -50,7 +51,7 @@ class FlutterAuthFlowDependencies {
   final void Function({
     required String email,
     required String password,
-    required void Function({String? errorCode, bool? isEmailVerified})
+    required void Function({FlutterAuthFlowError? error, bool? isEmailVerified})
         onLoginDone,
   }) onLoginPressed;
 
@@ -61,14 +62,14 @@ class FlutterAuthFlowDependencies {
   final void Function({
     required String email,
     required String password,
-    required void Function({String? errorCode}) onRegisterDone,
+    required void Function({FlutterAuthFlowError? error}) onRegisterDone,
   }) onRegisterPressed;
 
   /// The function that is called when the user presses the check verification button.
   /// This will check if the email is verified.
   /// If the email is verified, the user will be logged in.
   final void Function({
-    required void Function({String? errorCode, bool? isEmailVerified})
+    required void Function({FlutterAuthFlowError? error, bool? isEmailVerified})
         onCheckDone,
   }) onCheckVerificationPressed;
 
@@ -77,7 +78,7 @@ class FlutterAuthFlowDependencies {
   /// If the email verification is successful, the user will be shown a success message.
   /// If the email verification is unsuccessful, the user will be shown an error message.
   final void Function({
-    required void Function({String? errorCode}) onResendDone,
+    required void Function({FlutterAuthFlowError? error}) onResendDone,
   }) onResendVerificationPressed;
 
   /// The function that is called when the user presses the log out button.
@@ -85,7 +86,7 @@ class FlutterAuthFlowDependencies {
   /// If the log out is successful, the user will be redirected to the login page.
   /// If the log out is unsuccessful, the user will be shown an error message.
   final void Function({
-    required void Function({String? errorCode}) onLogoutDone,
+    required void Function({FlutterAuthFlowError? error}) onLogoutDone,
   }) onLogoutPressed;
 
   /// The function that is called when the user is logged in.
