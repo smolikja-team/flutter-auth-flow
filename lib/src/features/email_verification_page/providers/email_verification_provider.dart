@@ -18,16 +18,16 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   /// Called when the user presses the action button.
   void onActionPressed(
     void Function({
-      required void Function({FlutterAuthFlowError? error}) onActionDone,
+      required void Function({String? errorMessage}) onActionDone,
     }) onActionPressed, {
-    required void Function({required FlutterAuthFlowError error}) onError,
+    required void Function({required String errorMessage}) onError,
     required void Function() onSuccess,
   }) {
     state = state.copyWith(isLoading: true);
     onActionPressed(
-      onActionDone: ({FlutterAuthFlowError? error}) {
+      onActionDone: ({String? errorMessage}) {
         _onActionDone(
-          error: error,
+          errorMessage: errorMessage,
           onError: onError,
           onSuccess: onSuccess,
         );
@@ -36,13 +36,13 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   }
 
   void _onActionDone({
-    FlutterAuthFlowError? error,
-    required void Function({required FlutterAuthFlowError error}) onError,
+    String? errorMessage,
+    required void Function({required String errorMessage}) onError,
     required void Function() onSuccess,
   }) {
     state = state.copyWith(isLoading: false);
-    if (error != null) {
-      onError(error: error);
+    if (errorMessage != null) {
+      onError(errorMessage: errorMessage);
       return;
     }
     onSuccess();
@@ -56,17 +56,17 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   /// If the email is not verified, the user will be redirected to the email verification page.
   void onCheckVerificationPressed(
     void Function({
-      required void Function({FlutterAuthFlowError? error, bool? isEmailVerified})
+      required void Function({String? errorMessage, bool? isEmailVerified})
           onCheckDone,
     }) onCheckVerificationPressed, {
-    required void Function({required FlutterAuthFlowError error}) onError,
+    required void Function({required String errorMessage}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: true);
     onCheckVerificationPressed(
-      onCheckDone: ({FlutterAuthFlowError? error, bool? isEmailVerified}) {
+      onCheckDone: ({String? errorMessage, bool? isEmailVerified}) {
         _onCheckDone(
-          error: error,
+          errorMessage: errorMessage,
           isEmailVerified: isEmailVerified,
           onError: onError,
           onLoggedIn: onLoggedIn,
@@ -76,14 +76,14 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   }
 
   void _onCheckDone({
-    FlutterAuthFlowError? error,
+    String? errorMessage,
     bool? isEmailVerified,
-    required void Function({required FlutterAuthFlowError error}) onError,
+    required void Function({required String errorMessage}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: false);
-    if (error != null) {
-      onError(error: error);
+    if (errorMessage != null) {
+      onError(errorMessage: errorMessage);
       return;
     }
     if (isEmailVerified == true) {
@@ -102,16 +102,16 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   /// If the log out is successful, the user will be redirected to the login page.
   void onLogoutPressed(
     void Function({
-      required void Function({FlutterAuthFlowError? error}) onLogoutDone,
+      required void Function({String? errorMessage}) onLogoutDone,
     }) onLogoutPressed, {
-    required void Function({required FlutterAuthFlowError error}) onError,
+    required void Function({required String errorMessage}) onError,
     required void Function() onLoggedOut,
   }) {
     state = state.copyWith(isLoading: true);
     onLogoutPressed(
-      onLogoutDone: ({FlutterAuthFlowError? error}) {
+      onLogoutDone: ({String? errorMessage}) {
         _onLoggedOut(
-          error: error,
+          errorMessage: errorMessage,
           onError: onError,
           onLoggedOut: onLoggedOut,
         );
@@ -120,13 +120,13 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   }
 
   void _onLoggedOut({
-    FlutterAuthFlowError? error,
-    required void Function({required FlutterAuthFlowError error}) onError,
+    String? errorMessage,
+    required void Function({required String errorMessage}) onError,
     required void Function() onLoggedOut,
   }) {
     state = state.copyWith(isLoading: false);
-    if (error != null) {
-      onError(error: error);
+    if (errorMessage != null) {
+      onError(errorMessage: errorMessage);
       return;
     }
     ref.read(coreProvider.notifier).setState(FlutterAuthFlowState.login);

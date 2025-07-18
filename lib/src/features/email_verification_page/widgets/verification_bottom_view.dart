@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_flow/flutter_auth_flow.dart';
-import 'package:flutter_auth_flow/src/core/flutter_auth_flow_error.dart';
 import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
 import 'package:flutter_auth_flow/src/core/widgets/custom_filled_button.dart';
 import 'package:flutter_auth_flow/src/core/widgets/custom_outlined_button.dart';
@@ -19,10 +18,10 @@ class VerificationBottomView extends ConsumerWidget {
     final emailVerificationNotifier =
         ref.read(emailVerificationProvider.notifier);
 
-    void showErrorSnackBar({required FlutterAuthFlowError error}) {
+    void showErrorSnackBar({required String errorMessage}) {
       ScaffoldMessenger.of(context).showSnackBar(
         errorSnackBar(
-          message: error.message(context),
+          message: errorMessage,
           context: context,
           dependencies: dep,
         ),
@@ -71,8 +70,7 @@ class VerificationBottomView extends ConsumerWidget {
           title: context.l10n.verification_button_resend,
           onPressed: () => emailVerificationNotifier.onActionPressed(
             ({
-              required void Function({FlutterAuthFlowError? error})
-                  onActionDone,
+              required void Function({String? errorMessage}) onActionDone,
             }) =>
                 dep.onResendVerificationPressed(onResendDone: onActionDone),
             onError: showErrorSnackBar,
