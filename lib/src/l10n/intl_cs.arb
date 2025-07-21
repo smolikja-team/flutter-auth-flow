@@ -26,7 +26,7 @@
   "@auth_help_password_title": {},
   "auth_help_password_title": "Požadavky",
   "@auth_help_password_content": {},
-  "auth_help_password_content": "\n- alespoň 8 znaků.",
+  "auth_help_password_content": "\n- alespoň 6 znaků.",
   "@auth_help_password_ok": {},
   "auth_help_password_ok": "OK",
   "@auth_title_privacy_policy": {},
