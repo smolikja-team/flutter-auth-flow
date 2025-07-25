@@ -37,6 +37,11 @@ class LoginNotifier extends StateNotifier<LoginState> {
     state = state.copyWith(isTypeLogin: true);
   }
 
+  /// Resets the state to initial values.
+  void _resetState() {
+    state = LoginState();
+  }
+
   // MARK: - register
 
   /// Called when the user presses the register button.
@@ -74,6 +79,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
       onError(errorMessage: errorMessage);
       return;
     }
+    _resetState();
     ref
         .read(coreProvider.notifier)
         .setState(FlutterAuthFlowState.emailVerification);
@@ -123,6 +129,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
       onError(errorMessage: errorMessage);
       return;
     }
+    _resetState();
     if (isEmailVerified == true) {
       onLoggedIn();
     } else {
