@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
 
-class TapabletextWidget extends StatelessWidget {
-  const TapabletextWidget({
+class TapableTextWidget extends StatelessWidget {
+  const TapableTextWidget({
     super.key,
     required this.text,
     required this.onTap,
@@ -21,7 +21,7 @@ class TapabletextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: InkWell(
+      child: GestureDetector(
         onTap: onTap,
         child: Opacity(
           opacity: opacity ?? 1.0,

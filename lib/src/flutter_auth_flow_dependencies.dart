@@ -11,6 +11,7 @@ class FlutterAuthFlowDependencies {
     required this.onCheckVerificationPressed,
     required this.onResendVerificationPressed,
     required this.onLogoutPressed,
+    required this.onResetPasswordPressed,
     required this.onLoggedIn,
     required this.onLoggedOut,
     this.disabledOpacity = 0.65,
@@ -86,6 +87,14 @@ class FlutterAuthFlowDependencies {
   final void Function({
     required void Function({String? errorMessage}) onLogoutDone,
   }) onLogoutPressed;
+
+  /// The function that is called when the user presses the reset password button.
+  /// This will reset the user's password.
+  /// If the reset is successful, the user will be shown a success message.
+  /// If the reset is unsuccessful, the user will be shown an error message.
+  final void Function({
+    required void Function({String? errorMessage}) onResetDone,
+  }) onResetPasswordPressed;
 
   /// The function that is called when the user is logged in.
   final void Function() onLoggedIn;

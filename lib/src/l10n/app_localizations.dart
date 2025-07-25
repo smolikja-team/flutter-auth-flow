@@ -166,12 +166,6 @@ abstract class AppLocalizations {
   /// **'Již mám účet'**
   String get auth_button_switch_login;
 
-  /// No description provided for @error_universal.
-  ///
-  /// In cs, this message translates to:
-  /// **'Něco se nepovedlo'**
-  String get error_universal;
-
   /// No description provided for @auth_help_password_title.
   ///
   /// In cs, this message translates to:
@@ -196,71 +190,17 @@ abstract class AppLocalizations {
   /// **'* Registrací souhlasím se zásadami ochany osobních údajů.'**
   String get auth_title_privacy_policy;
 
-  /// No description provided for @error_auth_email_in_use.
-  ///
-  /// In cs, this message translates to:
-  /// **'Účet již existuje'**
-  String get error_auth_email_in_use;
-
-  /// No description provided for @error_auth_email_invalid.
-  ///
-  /// In cs, this message translates to:
-  /// **'Nesprávný email'**
-  String get error_auth_email_invalid;
-
   /// No description provided for @error_auth_pass_not_matching.
   ///
   /// In cs, this message translates to:
   /// **'Neshodná hesla'**
   String get error_auth_pass_not_matching;
 
-  /// No description provided for @error_auth_user_not_found.
+  /// No description provided for @auth_button_reset_password.
   ///
   /// In cs, this message translates to:
-  /// **'Uživatel nenalezen'**
-  String get error_auth_user_not_found;
-
-  /// No description provided for @error_auth_weak_password.
-  ///
-  /// In cs, this message translates to:
-  /// **'Slabé heslo'**
-  String get error_auth_weak_password;
-
-  /// No description provided for @error_auth_wrong_password.
-  ///
-  /// In cs, this message translates to:
-  /// **'Nesprávné heslo'**
-  String get error_auth_wrong_password;
-
-  /// No description provided for @error_auth_operation_not_allowed.
-  ///
-  /// In cs, this message translates to:
-  /// **'Operace nepodporována'**
-  String get error_auth_operation_not_allowed;
-
-  /// No description provided for @error_auth_user_disabled.
-  ///
-  /// In cs, this message translates to:
-  /// **'Uživatel zablokován'**
-  String get error_auth_user_disabled;
-
-  /// No description provided for @error_auth_invalid_credential.
-  ///
-  /// In cs, this message translates to:
-  /// **'Neplatné údaje'**
-  String get error_auth_invalid_credential;
-
-  /// No description provided for @error_email_not_verified.
-  ///
-  /// In cs, this message translates to:
-  /// **'Email neověřen'**
-  String get error_email_not_verified;
-
-  /// No description provided for @error_user_logged_out.
-  ///
-  /// In cs, this message translates to:
-  /// **'Jste odhlášeni'**
-  String get error_user_logged_out;
+  /// **'Zapomenuté heslo'**
+  String get auth_button_reset_password;
 
   /// No description provided for @success_email_verification_sent.
   ///

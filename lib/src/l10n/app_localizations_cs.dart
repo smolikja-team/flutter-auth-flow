@@ -45,9 +45,6 @@ class AppLocalizationsCs extends AppLocalizations {
   String get auth_button_switch_login => 'Již mám účet';
 
   @override
-  String get error_universal => 'Něco se nepovedlo';
-
-  @override
   String get auth_help_password_title => 'Požadavky';
 
   @override
@@ -61,37 +58,10 @@ class AppLocalizationsCs extends AppLocalizations {
       '* Registrací souhlasím se zásadami ochany osobních údajů.';
 
   @override
-  String get error_auth_email_in_use => 'Účet již existuje';
-
-  @override
-  String get error_auth_email_invalid => 'Nesprávný email';
-
-  @override
   String get error_auth_pass_not_matching => 'Neshodná hesla';
 
   @override
-  String get error_auth_user_not_found => 'Uživatel nenalezen';
-
-  @override
-  String get error_auth_weak_password => 'Slabé heslo';
-
-  @override
-  String get error_auth_wrong_password => 'Nesprávné heslo';
-
-  @override
-  String get error_auth_operation_not_allowed => 'Operace nepodporována';
-
-  @override
-  String get error_auth_user_disabled => 'Uživatel zablokován';
-
-  @override
-  String get error_auth_invalid_credential => 'Neplatné údaje';
-
-  @override
-  String get error_email_not_verified => 'Email neověřen';
-
-  @override
-  String get error_user_logged_out => 'Jste odhlášeni';
+  String get auth_button_reset_password => 'Zapomenuté heslo';
 
   @override
   String get success_email_verification_sent => 'Odesláno na email';

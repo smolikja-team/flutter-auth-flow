@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auth_flow/flutter_auth_flow.dart';
 import 'package:flutter_auth_flow/src/core/widgets/title_text_widget.dart';
 import 'package:flutter_auth_flow/src/features/login_page/providers/login_provider.dart';
-import 'package:flutter_auth_flow/src/features/login_page/widgets/about_widget.dart';
 import 'package:flutter_auth_flow/src/features/login_page/widgets/buttons_widget.dart';
 import 'package:flutter_auth_flow/src/features/login_page/widgets/email_input_widget.dart';
 import 'package:flutter_auth_flow/src/features/login_page/widgets/pass_input_widget.dart';
+import 'package:flutter_auth_flow/src/features/login_page/widgets/reset_password_widget.dart';
+import 'package:flutter_auth_flow/src/features/login_page/widgets/tapable_text_widget.dart';
 import 'package:flutter_auth_flow/src/l10n/extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,51 +19,23 @@ class LoginPageContent extends ConsumerStatefulWidget {
   ConsumerState<LoginPageContent> createState() => _LoginPageContentState();
 }
 
-class _LoginPageContentState extends ConsumerState<LoginPageContent>
-    with SingleTickerProviderStateMixin {
+class _LoginPageContentState extends ConsumerState<LoginPageContent> {
   static const SizedBox _kSpacerHeight32 = SizedBox(height: 32.0);
   static const SizedBox _kSpacerHeight16 = SizedBox(height: 16.0);
-
-  late AnimationController _animationController;
-  late Animation<double> _fadeAnimation;
+  static const ValueKey _kResetPasswordKey = ValueKey('reset_password');
+  static const ValueKey _kConfirmationRegKey = ValueKey('confirmation_reg');
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 500),
-      vsync: this,
-    );
-
-    _fadeAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
-    );
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(loginProvider.notifier).switchToLogin();
     });
   }
 
   @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final isTypeLogin = ref.watch(loginProvider).isTypeLogin;
-
-    ref.listen(loginProvider, (prev, now) {
-      if (now.isTypeLogin) {
-        _animationController.reverse();
-      } else {
-        _animationController.forward();
-      }
-    });
 
     final title = TitleTextWidget(
       text: isTypeLogin
@@ -82,7 +55,7 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent>
             isConfirming: true,
           ),
           _kSpacerHeight16,
-          TapabletextWidget(
+          TapableTextWidget(
             text: context.l10n.auth_title_privacy_policy,
             onTap: widget.dep.onPrivacyPolicyPressed,
             color: widget.dep.colorPrimary,
@@ -105,15 +78,40 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent>
           widget.dep,
           isConfirming: false,
         ),
-        FadeTransition(
-          opacity: _fadeAnimation,
-          child:
-              isTypeLogin ? const SizedBox.shrink() : confirmationRegWidget(),
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 400),
+          switchInCurve: Curves.easeInOut,
+          switchOutCurve: Curves.easeInOut,
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: ScaleTransition(
+                scale: Tween<double>(
+                  begin: 0.95,
+                  end: 1.0,
+                ).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOut,
+                )),
+                child: child,
+              ),
+            );
+          },
+          child: isTypeLogin
+              ? ResetPasswordWidget(
+                  key: _kResetPasswordKey,
+                  onTap: () {},
+                  color: widget.dep.colorOnPrimary,
+                )
+              : Container(
+                  key: _kConfirmationRegKey,
+                  child: confirmationRegWidget(),
+                ),
         ),
         if (isTypeLogin) const SizedBox(height: 48.0) else _kSpacerHeight32,
         ButtonsWidget(widget.dep),
         _kSpacerHeight32,
-        TapabletextWidget(
+        TapableTextWidget(
           text: widget.dep.loginAboutText,
           onTap: widget.dep.onLoginAboutTextPressed,
           color: widget.dep.colorAbout,
