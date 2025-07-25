@@ -54,6 +54,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get auth_help_password_ok => 'OK';
 
   @override
+  String get auth_help_password_cancel => 'Zrušit';
+
+  @override
   String get auth_title_privacy_policy =>
       '* Registrací souhlasím se zásadami ochany osobních údajů.';
 
@@ -62,6 +65,10 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get auth_button_reset_password => 'Zapomenuté heslo';
+
+  @override
+  String get auth_message_reset_password =>
+      'Vygenerujeme nové heslo a pošleme ho na váš email.';
 
   @override
   String get success_email_verification_sent => 'Odesláno na email';

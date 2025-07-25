@@ -138,4 +138,38 @@ class LoginNotifier extends StateNotifier<LoginState> {
           .setState(FlutterAuthFlowState.emailVerification);
     }
   }
+
+  // MARK: - reset password
+
+  /// Called when the user presses the reset password button.
+  /// This will reset the user's password.
+  /// If the reset is successful, the user will be shown a success message.
+  /// If the reset is unsuccessful, the user will be shown an error message.
+  void onResetPasswordPressed(
+    void Function({
+      required String email,
+      required void Function({String? errorMessage}) onResetDone,
+    }) onResetPasswordPressed, {
+    required void Function({required String errorMessage}) onError,
+  }) {
+    onResetPasswordPressed(
+      email: state.email,
+      onResetDone: ({String? errorMessage}) {
+        _onResetPasswordDone(
+          errorMessage: errorMessage,
+          onError: onError,
+        );
+      },
+    );
+  }
+
+  void _onResetPasswordDone({
+    String? errorMessage,
+    required void Function({required String errorMessage}) onError,
+  }) {
+    if (errorMessage != null) {
+      onError(errorMessage: errorMessage);
+      return;
+    }
+  }
 }

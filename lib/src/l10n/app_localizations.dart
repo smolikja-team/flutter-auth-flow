@@ -184,6 +184,12 @@ abstract class AppLocalizations {
   /// **'OK'**
   String get auth_help_password_ok;
 
+  /// No description provided for @auth_help_password_cancel.
+  ///
+  /// In cs, this message translates to:
+  /// **'Zrušit'**
+  String get auth_help_password_cancel;
+
   /// No description provided for @auth_title_privacy_policy.
   ///
   /// In cs, this message translates to:
@@ -201,6 +207,12 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Zapomenuté heslo'**
   String get auth_button_reset_password;
+
+  /// No description provided for @auth_message_reset_password.
+  ///
+  /// In cs, this message translates to:
+  /// **'Vygenerujeme nové heslo a pošleme ho na váš email.'**
+  String get auth_message_reset_password;
 
   /// No description provided for @success_email_verification_sent.
   ///

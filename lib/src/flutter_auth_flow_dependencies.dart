@@ -93,6 +93,7 @@ class FlutterAuthFlowDependencies {
   /// If the reset is successful, the user will be shown a success message.
   /// If the reset is unsuccessful, the user will be shown an error message.
   final void Function({
+    required String email,
     required void Function({String? errorMessage}) onResetDone,
   }) onResetPasswordPressed;
 

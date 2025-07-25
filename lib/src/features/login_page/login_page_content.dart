@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
+import 'package:flutter_auth_flow/src/core/widgets/custom_snack_bars.dart';
 import 'package:flutter_auth_flow/src/core/widgets/title_text_widget.dart';
 import 'package:flutter_auth_flow/src/features/login_page/providers/login_provider.dart';
 import 'package:flutter_auth_flow/src/features/login_page/widgets/buttons_widget.dart';
@@ -89,10 +92,12 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent> {
                 scale: Tween<double>(
                   begin: 0.95,
                   end: 1.0,
-                ).animate(CurvedAnimation(
-                  parent: animation,
-                  curve: Curves.easeInOut,
-                )),
+                ).animate(
+                  CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeInOut,
+                  ),
+                ),
                 child: child,
               ),
             );
@@ -100,7 +105,13 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent> {
           child: isTypeLogin
               ? ResetPasswordWidget(
                   key: _kResetPasswordKey,
-                  onTap: () {},
+                  onTap: () => _showResetPasswordDialog(
+                    () =>
+                        ref.read(loginProvider.notifier).onResetPasswordPressed(
+                              widget.dep.onResetPasswordPressed,
+                              onError: _showSnackBar,
+                            ),
+                  ),
                   color: widget.dep.colorOnPrimary,
                 )
               : Container(
@@ -117,6 +128,53 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent> {
           color: widget.dep.colorAbout,
         ),
       ],
+    );
+  }
+
+  void _showSnackBar({required String errorMessage}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      errorSnackBar(
+        message: errorMessage,
+        context: context,
+        dependencies: widget.dep,
+      ),
+    );
+  }
+
+  void _showResetPasswordDialog(
+    void Function() onResetPassword,
+  ) {
+    showCupertinoDialog<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: TitleTextWidget(
+          text: context.l10n.auth_button_reset_password,
+          alignment: Alignment.center,
+        ),
+        content: Text(context.l10n.auth_message_reset_password),
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              context.l10n.auth_help_password_cancel,
+              style:
+                  TextStyles.titleMedium.copyWith(color: widget.dep.colorError),
+            ),
+          ),
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            onPressed: () {
+              onResetPassword();
+              Navigator.pop(context);
+            },
+            child: Text(
+              context.l10n.auth_help_password_ok,
+              style: TextStyles.titleMedium
+                  .copyWith(color: widget.dep.colorOnPrimary),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

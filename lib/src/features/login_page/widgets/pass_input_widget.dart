@@ -86,13 +86,13 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
     return Row(
       children: [
         _titleWidget(context),
-        InkWell(
-          child: _helpIcon(context),
+        GestureDetector(
           onTap: () => _showAlertDialog(
             context,
             title: context.l10n.auth_help_password_title,
             content: context.l10n.auth_help_password_content,
           ),
+          child: _helpIcon(context),
         ),
       ],
     );
