@@ -1,9 +1,7 @@
-import 'package:firebase_auth_flow/src/firebase_auth_flow_provider.dart';
 import 'package:flutter/material.dart';
 
-class FirebaseAuthFlowDependencies {
-  const FirebaseAuthFlowDependencies({
-    required this.provider,
+class FlutterAuthFlowDependencies {
+  const FlutterAuthFlowDependencies({
     required this.activityIndicator,
     required this.loginAboutText,
     required this.onLoginAboutTextPressed,
@@ -13,6 +11,7 @@ class FirebaseAuthFlowDependencies {
     required this.onCheckVerificationPressed,
     required this.onResendVerificationPressed,
     required this.onLogoutPressed,
+    required this.onResetPasswordPressed,
     required this.onLoggedIn,
     required this.onLoggedOut,
     this.disabledOpacity = 0.65,
@@ -29,9 +28,6 @@ class FirebaseAuthFlowDependencies {
   });
 
   // MARK: - required
-
-  /// The provider that is used to access the FirebaseAuthFlow state.
-  final FirebaseAuthFlowProvider provider;
 
   /// The activity indicator that is shown when the user is waiting for a response.
   final Widget activityIndicator;
@@ -54,7 +50,7 @@ class FirebaseAuthFlowDependencies {
   final void Function({
     required String email,
     required String password,
-    required void Function({String? errorCode, bool? isEmailVerified})
+    required void Function({String? errorMessage, bool? isEmailVerified})
         onLoginDone,
   }) onLoginPressed;
 
@@ -65,14 +61,14 @@ class FirebaseAuthFlowDependencies {
   final void Function({
     required String email,
     required String password,
-    required void Function({String? errorCode}) onRegisterDone,
+    required void Function({String? errorMessage}) onRegisterDone,
   }) onRegisterPressed;
 
   /// The function that is called when the user presses the check verification button.
   /// This will check if the email is verified.
   /// If the email is verified, the user will be logged in.
   final void Function({
-    required void Function({String? errorCode, bool? isEmailVerified})
+    required void Function({String? errorMessage, bool? isEmailVerified})
         onCheckDone,
   }) onCheckVerificationPressed;
 
@@ -81,7 +77,7 @@ class FirebaseAuthFlowDependencies {
   /// If the email verification is successful, the user will be shown a success message.
   /// If the email verification is unsuccessful, the user will be shown an error message.
   final void Function({
-    required void Function({String? errorCode}) onResendDone,
+    required void Function({String? errorMessage}) onResendDone,
   }) onResendVerificationPressed;
 
   /// The function that is called when the user presses the log out button.
@@ -89,8 +85,17 @@ class FirebaseAuthFlowDependencies {
   /// If the log out is successful, the user will be redirected to the login page.
   /// If the log out is unsuccessful, the user will be shown an error message.
   final void Function({
-    required void Function({String? errorCode}) onLogoutDone,
+    required void Function({String? errorMessage}) onLogoutDone,
   }) onLogoutPressed;
+
+  /// The function that is called when the user presses the reset password button.
+  /// This will reset the user's password.
+  /// If the reset is successful, the user will be shown a success message.
+  /// If the reset is unsuccessful, the user will be shown an error message.
+  final void Function({
+    required String email,
+    required void Function({String? errorMessage}) onResetDone,
+  }) onResetPasswordPressed;
 
   /// The function that is called when the user is logged in.
   final void Function() onLoggedIn;

@@ -1,6 +1,6 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
-import 'package:firebase_auth_flow/src/core/providers/core_provider.dart';
-import 'package:firebase_auth_flow/src/features/login_page/providers/login_state.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/providers/core_provider.dart';
+import 'package:flutter_auth_flow/src/features/login_page/providers/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(
@@ -37,6 +37,11 @@ class LoginNotifier extends StateNotifier<LoginState> {
     state = state.copyWith(isTypeLogin: true);
   }
 
+  /// Resets the state to initial values.
+  void _resetState() {
+    state = LoginState();
+  }
+
   // MARK: - register
 
   /// Called when the user presses the register button.
@@ -46,37 +51,38 @@ class LoginNotifier extends StateNotifier<LoginState> {
     void Function({
       required String email,
       required String password,
-      required void Function({String? errorCode}) onRegisterDone,
+      required void Function({String? errorMessage}) onRegisterDone,
     }) onRegisterPressed, {
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function({required String errorMessage}) onError,
+    required String passNotMatchingMessage,
   }) {
     if (state.password == state.passwordConf) {
       state = state.copyWith(isLoading: true);
       onRegisterPressed(
         email: state.email,
         password: state.password,
-        onRegisterDone: ({String? errorCode}) {
-          _onRegisterDone(errorCode: errorCode, onError: onError);
+        onRegisterDone: ({String? errorMessage}) {
+          _onRegisterDone(errorMessage: errorMessage, onError: onError);
         },
       );
     } else {
-      onError(error: FirebaseAuthFlowError.passwordNotMatching);
+      onError(errorMessage: passNotMatchingMessage);
     }
   }
 
   void _onRegisterDone({
-    String? errorCode,
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    String? errorMessage,
+    required void Function({required String errorMessage}) onError,
   }) {
     state = state.copyWith(isLoading: false);
-    if (errorCode != null) {
-      final error = FirebaseAuthFlowError.fromCode(errorCode);
-      onError(error: error);
+    if (errorMessage != null) {
+      onError(errorMessage: errorMessage);
       return;
     }
+    _resetState();
     ref
         .read(coreProvider.notifier)
-        .setState(FirebaseAuthFlowState.emailVerification);
+        .setState(FlutterAuthFlowState.emailVerification);
   }
 
   // MARK: - login
@@ -89,19 +95,21 @@ class LoginNotifier extends StateNotifier<LoginState> {
     void Function({
       required String email,
       required String password,
-      required void Function({String? errorCode, bool? isEmailVerified})
-          onLoginDone,
+      required void Function({
+        String? errorMessage,
+        bool? isEmailVerified,
+      }) onLoginDone,
     }) onLoginPressed, {
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function({required String errorMessage}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: true);
     onLoginPressed(
       email: state.email,
       password: state.password,
-      onLoginDone: ({String? errorCode, bool? isEmailVerified}) {
+      onLoginDone: ({String? errorMessage, bool? isEmailVerified}) {
         _onLoginDone(
-          errorCode: errorCode,
+          errorMessage: errorMessage,
           isEmailVerified: isEmailVerified,
           onError: onError,
           onLoggedIn: onLoggedIn,
@@ -111,23 +119,57 @@ class LoginNotifier extends StateNotifier<LoginState> {
   }
 
   void _onLoginDone({
-    String? errorCode,
+    String? errorMessage,
     bool? isEmailVerified,
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function({required String errorMessage}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: false);
-    if (errorCode != null) {
-      final error = FirebaseAuthFlowError.fromCode(errorCode);
-      onError(error: error);
+    if (errorMessage != null) {
+      onError(errorMessage: errorMessage);
       return;
     }
+    _resetState();
     if (isEmailVerified == true) {
       onLoggedIn();
     } else {
       ref
           .read(coreProvider.notifier)
-          .setState(FirebaseAuthFlowState.emailVerification);
+          .setState(FlutterAuthFlowState.emailVerification);
+    }
+  }
+
+  // MARK: - reset password
+
+  /// Called when the user presses the reset password button.
+  /// This will reset the user's password.
+  /// If the reset is successful, the user will be shown a success message.
+  /// If the reset is unsuccessful, the user will be shown an error message.
+  void onResetPasswordPressed(
+    void Function({
+      required String email,
+      required void Function({String? errorMessage}) onResetDone,
+    }) onResetPasswordPressed, {
+    required void Function({required String errorMessage}) onError,
+  }) {
+    onResetPasswordPressed(
+      email: state.email,
+      onResetDone: ({String? errorMessage}) {
+        _onResetPasswordDone(
+          errorMessage: errorMessage,
+          onError: onError,
+        );
+      },
+    );
+  }
+
+  void _onResetPasswordDone({
+    String? errorMessage,
+    required void Function({required String errorMessage}) onError,
+  }) {
+    if (errorMessage != null) {
+      onError(errorMessage: errorMessage);
+      return;
     }
   }
 }

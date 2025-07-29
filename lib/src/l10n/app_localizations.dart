@@ -61,7 +61,8 @@ import 'app_localizations_cs.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -69,7 +70,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -81,7 +83,8 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -89,9 +92,7 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('cs')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('cs')];
 
   /// No description provided for @auth_title_login.
   ///
@@ -165,12 +166,6 @@ abstract class AppLocalizations {
   /// **'Již mám účet'**
   String get auth_button_switch_login;
 
-  /// No description provided for @error_universal.
-  ///
-  /// In cs, this message translates to:
-  /// **'Něco se nepovedlo'**
-  String get error_universal;
-
   /// No description provided for @auth_help_password_title.
   ///
   /// In cs, this message translates to:
@@ -189,23 +184,17 @@ abstract class AppLocalizations {
   /// **'OK'**
   String get auth_help_password_ok;
 
+  /// No description provided for @auth_help_password_cancel.
+  ///
+  /// In cs, this message translates to:
+  /// **'Zrušit'**
+  String get auth_help_password_cancel;
+
   /// No description provided for @auth_title_privacy_policy.
   ///
   /// In cs, this message translates to:
   /// **'* Registrací souhlasím se zásadami ochany osobních údajů.'**
   String get auth_title_privacy_policy;
-
-  /// No description provided for @error_auth_email_in_use.
-  ///
-  /// In cs, this message translates to:
-  /// **'Účet již existuje'**
-  String get error_auth_email_in_use;
-
-  /// No description provided for @error_auth_email_invalid.
-  ///
-  /// In cs, this message translates to:
-  /// **'Nesprávný email'**
-  String get error_auth_email_invalid;
 
   /// No description provided for @error_auth_pass_not_matching.
   ///
@@ -213,53 +202,17 @@ abstract class AppLocalizations {
   /// **'Neshodná hesla'**
   String get error_auth_pass_not_matching;
 
-  /// No description provided for @error_auth_user_not_found.
+  /// No description provided for @auth_button_reset_password.
   ///
   /// In cs, this message translates to:
-  /// **'Uživatel nenalezen'**
-  String get error_auth_user_not_found;
+  /// **'Zapomenuté heslo'**
+  String get auth_button_reset_password;
 
-  /// No description provided for @error_auth_weak_password.
+  /// No description provided for @auth_message_reset_password.
   ///
   /// In cs, this message translates to:
-  /// **'Slabé heslo'**
-  String get error_auth_weak_password;
-
-  /// No description provided for @error_auth_wrong_password.
-  ///
-  /// In cs, this message translates to:
-  /// **'Nesprávné heslo'**
-  String get error_auth_wrong_password;
-
-  /// No description provided for @error_auth_operation_not_allowed.
-  ///
-  /// In cs, this message translates to:
-  /// **'Operace nepodporována'**
-  String get error_auth_operation_not_allowed;
-
-  /// No description provided for @error_auth_user_disabled.
-  ///
-  /// In cs, this message translates to:
-  /// **'Uživatel zablokován'**
-  String get error_auth_user_disabled;
-
-  /// No description provided for @error_auth_invalid_credential.
-  ///
-  /// In cs, this message translates to:
-  /// **'Neplatné údaje'**
-  String get error_auth_invalid_credential;
-
-  /// No description provided for @error_email_not_verified.
-  ///
-  /// In cs, this message translates to:
-  /// **'Email neověřen'**
-  String get error_email_not_verified;
-
-  /// No description provided for @error_user_logged_out.
-  ///
-  /// In cs, this message translates to:
-  /// **'Jste odhlášeni'**
-  String get error_user_logged_out;
+  /// **'Vygenerujeme nové heslo a pošleme ho na váš email.'**
+  String get auth_message_reset_password;
 
   /// No description provided for @success_email_verification_sent.
   ///
@@ -298,7 +251,8 @@ abstract class AppLocalizations {
   String get verification_button_logout;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -307,24 +261,23 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['cs'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['cs'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'cs': return AppLocalizationsCs();
+    case 'cs':
+      return AppLocalizationsCs();
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

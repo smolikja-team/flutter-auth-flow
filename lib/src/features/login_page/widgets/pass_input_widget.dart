@@ -1,17 +1,17 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
-import 'package:firebase_auth_flow/src/core/text_styles/text_styles.dart';
-import 'package:firebase_auth_flow/src/core/widgets/title_text_widget.dart';
-import 'package:firebase_auth_flow/src/features/login_page/providers/login_provider.dart';
-import 'package:firebase_auth_flow/src/features/login_page/widgets/auth_text_field_widget.dart';
-import 'package:firebase_auth_flow/src/l10n/extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
+import 'package:flutter_auth_flow/src/core/widgets/title_text_widget.dart';
+import 'package:flutter_auth_flow/src/features/login_page/providers/login_provider.dart';
+import 'package:flutter_auth_flow/src/features/login_page/widgets/auth_text_field_widget.dart';
+import 'package:flutter_auth_flow/src/l10n/extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PassInputWidget extends ConsumerStatefulWidget {
   const PassInputWidget(this.dep, {required this.isConfirming, super.key});
 
-  final FirebaseAuthFlowDependencies dep;
+  final FlutterAuthFlowDependencies dep;
   final bool isConfirming;
 
   @override
@@ -86,13 +86,13 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
     return Row(
       children: [
         _titleWidget(context),
-        InkWell(
-          child: _helpIcon(context),
+        GestureDetector(
           onTap: () => _showAlertDialog(
             context,
             title: context.l10n.auth_help_password_title,
             content: context.l10n.auth_help_password_content,
           ),
+          child: _helpIcon(context),
         ),
       ],
     );

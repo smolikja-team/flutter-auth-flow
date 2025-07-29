@@ -1,4 +1,4 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'core_state.freezed.dart';
@@ -6,6 +6,6 @@ part 'core_state.freezed.dart';
 @freezed
 class CoreState with _$CoreState {
   factory CoreState({
-    @Default(FirebaseAuthFlowState.login) FirebaseAuthFlowState flowState,
+    @Default(FlutterAuthFlowState.login) FlutterAuthFlowState flowState,
   }) = _CoreState;
 }

@@ -1,17 +1,20 @@
-# Firebase Auth Flow
+# Flutter Auth Flow
 
-Flutter widget package for handling a Firebase Authentication Flow. This package provides a complete authentication flow for Firebase Authentication, including login, registration, and email verification.
+A flexible Flutter widget package for handling authentication flows. This package provides a complete, customizable authentication UI that can work with any authentication provider (Firebase, Strapi, Supabase, Auth0, custom backends, etc.).
 
-![Firebase Auth Flow preview](assets/docs/preview.jpg "preview")
+![Flutter Auth Flow preview](assets/docs/preview.jpg "preview")
 
 ## Features
 
-- Email and password authentication
+- **Provider-agnostic** - Works with any authentication backend
+- Email and password authentication UI
 - Email verification flow
+- **Password reset functionality** - Built-in reset password support
 - Customizable UI components
 - Localization support (English and Czech)
 - Responsive design
-- Error handling with user-friendly messages
+- User-friendly error and success messages
+- Clean separation of UI and business logic
 - Text styles without colors (colors are added using copyWith)
 
 ## Getting started
@@ -22,22 +25,22 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  firebase_auth_flow:
+  flutter_auth_flow:
     git:
-      url: https://github.com/smolikja/firebase-auth-flow
-      ref: 1.3.1  # Use the latest version
+      url: https://github.com/smolikja/flutter-auth-flow
+      ref: main  # Use the latest version
 ```
 
 ### Setup Localization
 
-Add Firebase Auth Flow's `localizationsDelegates` to your `MaterialApp` and ensure your app's supported locales are also supported by `firebase_auth_flow`.
+Add Flutter Auth Flow's `localizationsDelegates` to your `MaterialApp` and ensure your app's supported locales are also supported by `flutter_auth_flow`.
 
 <details>
 <summary>Localization Setup Example</summary>
 
 ```dart
-import 'package:firebase_auth_flow/firebase_auth_flow.dart'
-    as firebase_auth_flow;
+import 'package:flutter_auth_flow/flutter_auth_flow.dart'
+    as flutter_auth_flow;
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -57,16 +60,16 @@ class App extends StatelessWidget {
 
   Iterable<LocalizationsDelegate<dynamic>>? get _localizationsDelegates => [
         ...AppLocalizations.localizationsDelegates,
-        ...firebase_auth_flow.AppLocalizations.localizationsDelegates,
+        ...flutter_auth_flow.AppLocalizations.localizationsDelegates,
       ];
 
   Iterable<Locale> get _supportedLocales {
-    // Make sure app's supported locales are also firebase_auth_flow's supported locales
+    // Make sure app's supported locales are also flutter_auth_flow's supported locales
     for (final loca in AppLocalizations.supportedLocales) {
-      if (!firebase_auth_flow.AppLocalizations.supportedLocales
+      if (!flutter_auth_flow.AppLocalizations.supportedLocales
           .contains(loca)) {
         throw UnsupportedError(
-          "Not all app's supported locales are also firebase_auth_flow's supported locales. Head to firebase_auth_flow's doc.",
+          "Not all app's supported locales are also flutter_auth_flow's supported locales. Head to flutter_auth_flow's doc.",
         );
       }
     }
@@ -79,26 +82,20 @@ class App extends StatelessWidget {
 
 ## Core Components
 
-### FirebaseAuthFlowProvider
+### FlutterAuthFlowDependencies
 
-Authentication provider type:
+Configuration object for the Flutter Auth Flow. This is where you provide your authentication logic:
 
-- `email` - Email and password authentication
-
-### FirebaseAuthFlowDependencies
-
-Configuration object for the Firebase Auth Flow:
-
-- `provider` - The type of authentication provider
 - `activityIndicator` - Widget that indicates loading activity
 - `loginAboutText` - String for help/support link
 - `onLoginAboutTextPressed` - Action for the help/support link
 - `onPrivacyPolicyPressed` - Action for showing privacy policy
-- `onLoginPressed` - Action for handling login
-- `onRegisterPressed` - Action for handling registration
+- `onLoginPressed` - Action for handling login (your auth logic)
+- `onRegisterPressed` - Action for handling registration (your auth logic)
 - `onCheckVerificationPressed` - Action for checking email verification status
 - `onResendVerificationPressed` - Action for resending verification email
 - `onLogoutPressed` - Action for handling logout
+- `onResetPasswordPressed` - Action for handling password reset requests
 - `onLoggedIn` - Callback when user successfully logs in
 - `onLoggedOut` - Callback when user logs out
 - `disabledOpacity` - Optional opacity for disabled elements (default: 0.65)
@@ -113,272 +110,266 @@ Configuration object for the Firebase Auth Flow:
 - `colorSuccess` - Optional color for success messages
 - `colorOnSuccess` - Optional color for text on success background
 
-### FirebaseAuthFlowState
+### FlutterAuthFlowState
 
 Flow state enum:
 
 - `login` - Shows the login page
 - `emailVerification` - Shows the email verification page
 
-## Usage Example
+## Usage Examples
+
+### Basic Usage
 
 ```dart
-final FirebaseAuthFlowState firebaseAuthFlowState;
+final FlutterAuthFlowState authFlowState;
 
 // Determine the initial state based on user verification status
-if (FirebaseAuth.instance.currentUser?.emailVerified == null) {
-    firebaseAuthFlowState = FirebaseAuthFlowState.login;
+if (yourAuthService.currentUser?.emailVerified == null) {
+    authFlowState = FlutterAuthFlowState.login;
 } else {
-    firebaseAuthFlowState = FirebaseAuthFlowState.emailVerification;
+    authFlowState = FlutterAuthFlowState.emailVerification;
 }
 
-// Create the Firebase Auth Flow widget
-return FirebaseAuthFlow(
-    FirebaseAuthFlowDependencies(
-        provider: FirebaseAuthFlowProvider.email,
-        activityIndicator: const PlatformActivityIndicator(),
+// Create the Flutter Auth Flow widget
+return FlutterAuthFlow(
+    FlutterAuthFlowDependencies(
+        activityIndicator: const CircularProgressIndicator(),
         loginAboutText: 'About',
         onLoginAboutTextPressed: () {}, // Navigate to "about" screen
         onPrivacyPolicyPressed: () {}, // Navigate to privacy policy screen
-        onLoginPressed: AuthenticationHelper().login,
-        onRegisterPressed: AuthenticationHelper().registerEmail,
-        onCheckVerificationPressed: AuthenticationHelper().checkEmailVerification,
-        onResendVerificationPressed: AuthenticationHelper().resendEmailVerification,
-        onLogoutPressed: AuthenticationHelper().logout,
+        onLoginPressed: YourAuthService().login,
+        onRegisterPressed: YourAuthService().register,
+        onCheckVerificationPressed: YourAuthService().checkEmailVerification,
+        onResendVerificationPressed: YourAuthService().resendEmailVerification,
+        onLogoutPressed: YourAuthService().logout,
+        onResetPasswordPressed: YourAuthService().resetPassword,
         onLoggedIn: () => {}, // Action after user is logged in
         onLoggedOut: () => {}, // Action after user is logged out
         colorPrimary: Colors.blue, // Optional: customize colors
         colorOnPrimary: Colors.white,
     ),
-    state: firebaseAuthFlowState,
+    state: authFlowState,
 );
 ```
 
-<details>
-<summary>AuthenticationHelper() example</summary>
+## Password Reset Feature
 
-``` dart
+The package includes built-in password reset functionality. When users tap the "Forgotten Password" link on the login screen, your `onResetPasswordPressed` callback will be triggered with the entered email address.
 
-class AuthenticationHelper {
-  factory AuthenticationHelper() {
-    return _authenticationHelper;
+### Implementation Example
+
+```dart
+onResetPasswordPressed: ({
+  required String email,
+  required void Function({String? errorMessage}) onResetDone,
+}) async {
+  try {
+    await yourAuthService.sendPasswordResetEmail(email);
+    onResetDone(); // Success - no error message
+  } catch (e) {
+    onResetDone(errorMessage: e.toString()); // Pass error message
   }
-
-  AuthenticationHelper._internal();
-  static final AuthenticationHelper _authenticationHelper =
-      AuthenticationHelper._internal();
-
-  User? get user => FirebaseAuth.instance.currentUser;
-  bool? get isEmailVerified => user?.emailVerified;
-
-  Future<void> registerEmail({
-    required String email,
-    required String password,
-    required void Function({String? errorCode}) onRegisterDone,
-  }) async {
-    try {
-      await _createFirebaseAccount(
-        email: email,
-        password: password,
-      );
-      await _sendEmailVerification();
-      onRegisterDone();
-    } catch (errorCode) {
-      onRegisterDone(
-        errorCode: errorCode.toString(),
-      );
-    }
-  }
-
-  Future<void> login({
-    required String email,
-    required String password,
-    required void Function({String? errorCode, bool? isEmailVerified})
-        onLoginDone,
-  }) async {
-    try {
-      await _signIntoFirebase(email: email, password: password);
-      onLoginDone(isEmailVerified: isEmailVerified);
-    } catch (errorCode) {
-      onLoginDone(
-        errorCode: errorCode.toString(),
-      );
-    }
-  }
-
-  Future<void> logout({
-    required void Function({String? errorCode}) onLogoutDone,
-  }) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      await user?.reload();
-      Logging.log.info('$runtimeType -> logOut: logged out');
-      onLogoutDone();
-    } catch (errorCode, stackTrace) {
-      Logging.log.severe(
-        '$runtimeType -> logOut: ${errorCode.toString()}',
-        errorCode,
-        stackTrace,
-      );
-      onLogoutDone(
-        errorCode: errorCode.toString(),
-      );
-    }
-  }
-
-  Future<void> checkEmailVerification({
-    required void Function({String? errorCode, bool? isEmailVerified})
-        onCheckDone,
-  }) async {
-    try {
-      await user?.reload();
-      if (isEmailVerified != true) {
-        Logging.log.info(
-          '$runtimeType -> checkEmailVerification: email is not verified',
-        );
-        onCheckDone(errorCode: FirebaseAuthFlowError.emailNotVerified.code);
-      } else {
-        Logging.log.info(
-          '$runtimeType -> checkEmailVerification: email is verified',
-        );
-        onCheckDone(isEmailVerified: true);
-      }
-    } catch (errorCode, stackTrace) {
-      Logging.log.severe(
-        '$runtimeType -> checkEmailConfirmation: ${errorCode.toString()}',
-        errorCode,
-        stackTrace,
-      );
-      onCheckDone(
-        errorCode: errorCode.toString(),
-      );
-    }
-  }
-
-  Future<void> resendEmailVerification({
-    required void Function({String? errorCode}) onResendDone,
-  }) async {
-    try {
-      await _sendEmailVerification();
-      Logging.log.info(
-        '$runtimeType -> resendEmailConfirmation: email confirmation resent',
-      );
-      onResendDone();
-    } catch (errorCode, stackTrace) {
-      Logging.log.severe(
-        '$runtimeType -> resendEmailConfirmation: ${errorCode.toString()}',
-        errorCode,
-        stackTrace,
-      );
-      onResendDone(
-        errorCode: errorCode.toString(),
-      );
-    }
-  }
-
-  Future<void> _sendEmailVerification() async {
-    final currentUser = user;
-
-    if (currentUser != null && !currentUser.emailVerified) {
-      await currentUser.sendEmailVerification();
-      await user?.reload();
-      Logging.log.info('$runtimeType -> sendEmailVerification: sent');
-    } else {
-      return Future.error(FirebaseAuthFlowError.userLoggedOut.code);
-    }
-  }
-
-  Future<void> _createFirebaseAccount({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      await user?.reload();
-      Logging.log.info('$runtimeType -> _createFirebaseAccount: created');
-    } on FirebaseAuthException catch (e, stackTrace) {
-      Logging.log.severe(
-        '$runtimeType -> _createFirebaseAccountOut: ${e.toString()}',
-        e,
-        stackTrace,
-      );
-      return Future.error(e.code);
-    } catch (e, stackTrace) {
-      Logging.log.severe(
-        '$runtimeType -> _createFirebaseAccountOut: ${e.toString()}',
-        e,
-        stackTrace,
-      );
-      return Future.error(FirebaseAuthFlowError.universal.code);
-    }
-  }
-
-  Future<void> _signIntoFirebase({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      await user?.reload();
-      Logging.log.info('$runtimeType -> _signIntoFirebase: signed in');
-    } on FirebaseAuthException catch (e, stackTrace) {
-      Logging.log.severe(
-        '$runtimeType -> _signIntoFirebase: ${e.toString()}',
-        e,
-        stackTrace,
-      );
-      return Future.error(e.code);
-    } catch (e, stackTrace) {
-      Logging.log.severe(
-        '$runtimeType -> _signIntoFirebase: ${e.toString()}',
-        e,
-        stackTrace,
-      );
-      return Future.error(FirebaseAuthFlowError.universal.code);
-    }
-  }
-}
+},
 ```
 
-</details>
+The package will automatically show success or error messages using customizable snackbars based on the result.
+
+## Error Handling
+
+The package provides consistent error handling through callback functions. When an error occurs, pass the error message to the completion callback:
+
+- **Success**: Call the completion callback without parameters
+- **Error**: Call the completion callback with `errorMessage` parameter
+
+Error and success messages are displayed using customizable snackbars with colors from your `FlutterAuthFlowDependencies`.
+
+## Migration from 2.x to 3.x
+
+### Breaking Changes
+
+1. **Package name**: `firebase_auth_flow` → `flutter_auth_flow`
+2. **Class names**:
+   - `FirebaseAuthFlow` → `FlutterAuthFlow`
+   - `FirebaseAuthFlowDependencies` → `FlutterAuthFlowDependencies`
+   - `FirebaseAuthFlowState` → `FlutterAuthFlowState`
+3. **Removed**: `FirebaseAuthFlowProvider` enum (no longer needed)
+4. **Added**: `onResetPasswordPressed` callback is now required
+
+### Migration Steps
+
+1. Update your `pubspec.yaml` dependency name
+2. Update imports: `package:firebase_auth_flow` → `package:flutter_auth_flow`
+3. Update class names in your code
+4. Remove any references to `FirebaseAuthFlowProvider`
+5. Add implementation for `onResetPasswordPressed` callback
 
 ## Development and Contribution
 
-### Text Styles
+This section provides comprehensive guidance for developers working on or contributing to the Flutter Auth Flow package.
+
+### Development Workflow
+
+#### 1. Initial Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/smolikja/flutter-auth-flow.git
+cd flutter-auth-flow
+
+# Install dependencies
+flutter pub get
+
+# Generate initial code
+flutter pub run build_runner build --delete-conflicting-outputs
+
+# Generate localization files
+flutter gen-l10n
+```
+
+#### 2. Development Commands
+
+**Code Generation** - Generate freezed models and riverpod providers:
+
+```bash
+# Generate code (run after modifying state classes or providers)
+flutter pub run build_runner build --delete-conflicting-outputs
+
+# Watch mode for continuous generation during development
+flutter pub run build_runner watch --delete-conflicting-outputs
+```
+
+**Localization** - Generate localization files after modifying ARB files:
+
+```bash
+# Generate localization files
+flutter gen-l10n
+
+# This reads from l10n.yaml configuration:
+# - Source: lib/src/l10n/intl_cs.arb (Czech template)
+# - Output: lib/src/l10n/app_localizations.dart
+```
+
+**Testing**:
+
+```bash
+# Run all tests
+flutter test
+
+# Run tests with coverage
+flutter test --coverage
+
+# Run specific test file
+flutter test test/flutter_widget_firebase_auth_test.dart
+```
+
+**Code Quality**:
+
+```bash
+# Analyze code for issues
+flutter analyze
+
+# Format code according to Dart style guide
+dart format .
+
+# Check for unused dependencies
+flutter pub deps
+```
+
+### Project Structure
+
+```text
+lib/
+├── flutter_auth_flow.dart          # Main library export file
+└── src/
+    ├── core/                       # Core utilities and widgets
+    │   ├── extensions/             # Dart extensions
+    │   ├── providers/              # Global state management
+    │   ├── text_styles/            # Typography definitions
+    │   └── widgets/                # Reusable UI components
+    ├── features/                   # Feature-specific modules
+    │   ├── login_page/             # Login/registration functionality
+    │   └── email_verification_page/ # Email verification flow
+    ├── l10n/                       # Generated localization files
+    ├── flutter_auth_flow_dependencies.dart # Dependency injection
+    └── flutter_auth_flow_state.dart        # Flow state definitions
+```
+
+### Development Guidelines
+
+#### Text Styles
 
 The package uses a consistent text styling approach:
 
 - Text styles are defined without colors in the `TextStyles` class
 - Colors are added when using the styles with `copyWith(color: ...)`
 - Only text styles that are actually used in the codebase are kept in the `TextStyles` class
+- This approach ensures color customization flexibility for implementers
 
-### Code Generation
+#### State Management
 
-Generate code for freezed models and riverpod providers:
+- Uses **Riverpod** for state management with code generation
+- State classes use **Freezed** for immutability and code generation
+- Providers are generated using `@riverpod` annotation
 
-```bash
-flutter pub run build_runner build --delete-conflicting-outputs
-```
+#### Localization Workflow
 
-### Localization
+1. **Add new strings** to `lib/src/l10n/intl_cs.arb` (Czech template)
+2. **Run localization generation**: `flutter gen-l10n`
+3. **Use in code** via `context.l10n.your_new_string`
+4. **Configuration** is in `l10n.yaml`:
+   - `arb-dir`: Points to ARB files location
+   - `template-arb-file`: Czech file used as template
+   - `output-localization-file`: Generated Dart file name
 
-Generate localization files:
+#### Code Quality Standards
 
-```bash
-flutter gen-l10n
-```
+The project uses strict linting rules defined in `analysis_options.yaml`:
 
-### Testing
+- **Flutter Lints**: Extends `package:flutter_lints/flutter.yaml`
+- **Required trailing commas**: Enforced for better Git diffs
+- **Package imports**: Always use `package:` imports instead of relative
+- **Const constructors**: Prefer const constructors where possible
+- **Final variables**: Use final for immutable variables
 
-Run tests to ensure everything works correctly:
+#### Adding New Features
 
-```bash
-flutter test
-```
+1. **Create feature folder** under `lib/src/features/`
+2. **Follow the pattern**:
+
+   ```text
+   feature_name/
+   ├── feature_page.dart           # Main page widget
+   ├── feature_page_content.dart   # Page content
+   ├── providers/                  # State management
+   │   ├── feature_provider.dart
+   │   ├── feature_state.dart
+   │   └── feature_state.freezed.dart (generated)
+   └── widgets/                    # Feature-specific widgets
+   ```
+
+3. **Add to main flow** in `FlutterAuthFlow` widget
+4. **Update state enum** if needed
+5. **Add localization strings** and regenerate
+6. **Write tests** for new functionality
+
+#### Testing Guidelines
+
+- **Unit tests** for providers and business logic
+- **Widget tests** for UI components
+- **Integration tests** for complete flows
+- **Test files** follow `*_test.dart` naming convention
+- **Coverage** should be maintained above 80%
+
+### Release Process
+
+1. **Update version** in `pubspec.yaml`
+2. **Update CHANGELOG.md** with new features and breaking changes
+3. **Run full test suite**: `flutter test`
+4. **Generate fresh code**: `flutter pub run build_runner build --delete-conflicting-outputs`
+5. **Update documentation** if needed
+6. **Create Git tag** with version number
+7. **Update README** if API changes occurred
 
 ## License
 

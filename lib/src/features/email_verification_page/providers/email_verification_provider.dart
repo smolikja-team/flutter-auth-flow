@@ -1,6 +1,6 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
-import 'package:firebase_auth_flow/src/core/providers/core_provider.dart';
-import 'package:firebase_auth_flow/src/features/email_verification_page/providers/email_verification_state.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/providers/core_provider.dart';
+import 'package:flutter_auth_flow/src/features/email_verification_page/providers/email_verification_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final emailVerificationProvider =
@@ -18,16 +18,16 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   /// Called when the user presses the action button.
   void onActionPressed(
     void Function({
-      required void Function({String? errorCode}) onActionDone,
+      required void Function({String? errorMessage}) onActionDone,
     }) onActionPressed, {
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function({required String errorMessage}) onError,
     required void Function() onSuccess,
   }) {
     state = state.copyWith(isLoading: true);
     onActionPressed(
-      onActionDone: ({String? errorCode}) {
+      onActionDone: ({String? errorMessage}) {
         _onActionDone(
-          errorCode: errorCode,
+          errorMessage: errorMessage,
           onError: onError,
           onSuccess: onSuccess,
         );
@@ -36,14 +36,13 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   }
 
   void _onActionDone({
-    String? errorCode,
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    String? errorMessage,
+    required void Function({required String errorMessage}) onError,
     required void Function() onSuccess,
   }) {
     state = state.copyWith(isLoading: false);
-    if (errorCode != null) {
-      final error = FirebaseAuthFlowError.fromCode(errorCode);
-      onError(error: error);
+    if (errorMessage != null) {
+      onError(errorMessage: errorMessage);
       return;
     }
     onSuccess();
@@ -57,17 +56,17 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   /// If the email is not verified, the user will be redirected to the email verification page.
   void onCheckVerificationPressed(
     void Function({
-      required void Function({String? errorCode, bool? isEmailVerified})
+      required void Function({String? errorMessage, bool? isEmailVerified})
           onCheckDone,
     }) onCheckVerificationPressed, {
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function({required String errorMessage}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: true);
     onCheckVerificationPressed(
-      onCheckDone: ({String? errorCode, bool? isEmailVerified}) {
+      onCheckDone: ({String? errorMessage, bool? isEmailVerified}) {
         _onCheckDone(
-          errorCode: errorCode,
+          errorMessage: errorMessage,
           isEmailVerified: isEmailVerified,
           onError: onError,
           onLoggedIn: onLoggedIn,
@@ -77,15 +76,14 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   }
 
   void _onCheckDone({
-    String? errorCode,
+    String? errorMessage,
     bool? isEmailVerified,
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function({required String errorMessage}) onError,
     required void Function() onLoggedIn,
   }) {
     state = state.copyWith(isLoading: false);
-    if (errorCode != null) {
-      final error = FirebaseAuthFlowError.fromCode(errorCode);
-      onError(error: error);
+    if (errorMessage != null) {
+      onError(errorMessage: errorMessage);
       return;
     }
     if (isEmailVerified == true) {
@@ -93,7 +91,7 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
     } else {
       ref
           .read(coreProvider.notifier)
-          .setState(FirebaseAuthFlowState.emailVerification);
+          .setState(FlutterAuthFlowState.emailVerification);
     }
   }
 
@@ -104,16 +102,16 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   /// If the log out is successful, the user will be redirected to the login page.
   void onLogoutPressed(
     void Function({
-      required void Function({String? errorCode}) onLogoutDone,
+      required void Function({String? errorMessage}) onLogoutDone,
     }) onLogoutPressed, {
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    required void Function({required String errorMessage}) onError,
     required void Function() onLoggedOut,
   }) {
     state = state.copyWith(isLoading: true);
     onLogoutPressed(
-      onLogoutDone: ({String? errorCode}) {
+      onLogoutDone: ({String? errorMessage}) {
         _onLoggedOut(
-          errorCode: errorCode,
+          errorMessage: errorMessage,
           onError: onError,
           onLoggedOut: onLoggedOut,
         );
@@ -122,17 +120,16 @@ class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
   }
 
   void _onLoggedOut({
-    String? errorCode,
-    required void Function({required FirebaseAuthFlowError error}) onError,
+    String? errorMessage,
+    required void Function({required String errorMessage}) onError,
     required void Function() onLoggedOut,
   }) {
     state = state.copyWith(isLoading: false);
-    if (errorCode != null) {
-      final error = FirebaseAuthFlowError.fromCode(errorCode);
-      onError(error: error);
+    if (errorMessage != null) {
+      onError(errorMessage: errorMessage);
       return;
     }
-    ref.read(coreProvider.notifier).setState(FirebaseAuthFlowState.login);
+    ref.read(coreProvider.notifier).setState(FlutterAuthFlowState.login);
     onLoggedOut();
   }
 }

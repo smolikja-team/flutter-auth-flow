@@ -1,25 +1,25 @@
-import 'package:firebase_auth_flow/firebase_auth_flow.dart';
-import 'package:firebase_auth_flow/src/core/providers/core_provider.dart';
-import 'package:firebase_auth_flow/src/features/email_verification_page/email_verification_page.dart';
-import 'package:firebase_auth_flow/src/features/login_page/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_auth_flow/flutter_auth_flow.dart';
+import 'package:flutter_auth_flow/src/core/providers/core_provider.dart';
+import 'package:flutter_auth_flow/src/features/email_verification_page/email_verification_page.dart';
+import 'package:flutter_auth_flow/src/features/login_page/login_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FirebaseAuthFlow extends ConsumerStatefulWidget {
-  const FirebaseAuthFlow(this.dep, {required this.state, super.key});
+class FlutterAuthFlow extends ConsumerStatefulWidget {
+  const FlutterAuthFlow(this.dep, {required this.state, super.key});
 
-  /// FirebaseAuthFlow dependencies
-  final FirebaseAuthFlowDependencies dep;
+  /// FlutterAuthFlow dependencies
+  final FlutterAuthFlowDependencies dep;
 
-  /// FirebaseAuthFlow state
-  final FirebaseAuthFlowState state;
+  /// FlutterAuthFlow state
+  final FlutterAuthFlowState state;
 
   @override
-  FirebaseAuthFlowViewState createState() => FirebaseAuthFlowViewState();
+  FlutterAuthFlowViewState createState() => FlutterAuthFlowViewState();
 }
 
-class FirebaseAuthFlowViewState extends ConsumerState<FirebaseAuthFlow> {
+class FlutterAuthFlowViewState extends ConsumerState<FlutterAuthFlow> {
   @override
   void initState() {
     super.initState();
@@ -32,9 +32,9 @@ class FirebaseAuthFlowViewState extends ConsumerState<FirebaseAuthFlow> {
   Widget build(BuildContext context) {
     ConsumerWidget getPage() {
       switch (ref.watch(coreProvider).flowState) {
-        case FirebaseAuthFlowState.login:
+        case FlutterAuthFlowState.login:
           return LoginPage(widget.dep);
-        case FirebaseAuthFlowState.emailVerification:
+        case FlutterAuthFlowState.emailVerification:
           return EmailVerificationPage(widget.dep);
       }
     }
