@@ -1,6 +1,6 @@
 name: flutter_auth_flow
 description: "A flexible Flutter UI package for authentication flows"
-version: 2.0.0
+version: 3.0.0
 homepage:
 
 environment:
