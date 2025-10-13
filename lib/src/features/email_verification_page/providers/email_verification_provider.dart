@@ -4,14 +4,13 @@ import 'package:flutter_auth_flow/src/features/email_verification_page/providers
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final emailVerificationProvider =
-    StateNotifierProvider<EmailVerificationNotifier, EmailVerificationState>(
+    NotifierProvider<EmailVerificationNotifier, EmailVerificationState>(
   EmailVerificationNotifier.new,
 );
 
-class EmailVerificationNotifier extends StateNotifier<EmailVerificationState> {
-  EmailVerificationNotifier(this.ref) : super(EmailVerificationState());
-
-  final Ref ref;
+class EmailVerificationNotifier extends Notifier<EmailVerificationState> {
+  @override
+  EmailVerificationState build() => EmailVerificationState();
 
   // MARK: - action
 
