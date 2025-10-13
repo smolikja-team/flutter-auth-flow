@@ -57,7 +57,8 @@ class AppLocalizationsCs extends AppLocalizations {
   String get auth_help_password_ok => 'OK';
 
   @override
-  String get auth_title_privacy_policy => '* Registrací souhlasím se zásadami ochany osobních údajů.';
+  String get auth_title_privacy_policy =>
+      '* Registrací souhlasím se zásadami ochany osobních údajů.';
 
   @override
   String get error_auth_email_in_use => 'Účet již existuje';
@@ -99,7 +100,8 @@ class AppLocalizationsCs extends AppLocalizations {
   String get verification_title => 'Potvrďte prosím email';
 
   @override
-  String get verification_subtitle => 'Email s potvrzením naleznete ve své emailové schránce.';
+  String get verification_subtitle =>
+      'Email s potvrzením naleznete ve své emailové schránce.';
 
   @override
   String get verification_button_check => 'Zkontrolovat';
