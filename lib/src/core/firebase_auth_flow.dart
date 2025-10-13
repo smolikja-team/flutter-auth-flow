@@ -30,14 +30,12 @@ class FirebaseAuthFlowViewState extends ConsumerState<FirebaseAuthFlow> {
 
   @override
   Widget build(BuildContext context) {
-    ConsumerWidget getPage() {
-      switch (ref.watch(coreProvider).flowState) {
-        case FirebaseAuthFlowState.login:
-          return LoginPage(widget.dep);
-        case FirebaseAuthFlowState.emailVerification:
-          return EmailVerificationPage(widget.dep);
-      }
-    }
+    final flowState = ref.watch(coreProvider).flowState;
+    final page = switch (flowState) {
+      FirebaseAuthFlowState.login => LoginPage(widget.dep),
+      FirebaseAuthFlowState.emailVerification =>
+          EmailVerificationPage(widget.dep),
+    };
 
     return ProviderScope(
       child: AnimatedSwitcher(
@@ -53,7 +51,7 @@ class FirebaseAuthFlowViewState extends ConsumerState<FirebaseAuthFlow> {
             child: child,
           );
         },
-        child: getPage(),
+        child: page,
       ),
     );
   }

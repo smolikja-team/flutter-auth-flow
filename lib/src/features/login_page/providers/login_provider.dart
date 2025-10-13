@@ -3,14 +3,13 @@ import 'package:firebase_auth_flow/src/core/providers/core_provider.dart';
 import 'package:firebase_auth_flow/src/features/login_page/providers/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(
+final loginProvider = NotifierProvider<LoginNotifier, LoginState>(
   LoginNotifier.new,
 );
 
-class LoginNotifier extends StateNotifier<LoginState> {
-  LoginNotifier(this.ref) : super(LoginState());
-
-  final Ref ref;
+class LoginNotifier extends Notifier<LoginState> {
+  @override
+  LoginState build() => LoginState();
 
   /// Sets the email.
   void setEmail(String email) {
