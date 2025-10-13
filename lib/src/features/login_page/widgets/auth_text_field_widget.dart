@@ -58,7 +58,7 @@ class AuthTextFieldWidget extends StatelessWidget {
       enableSuggestions: isPassword ? false : true,
       obscureText: obscureText,
       style: style,
-      cursorColor: cursorColor.withOpacity(dep.disabledOpacity),
+      cursorColor: cursorColor.withValues(alpha: dep.disabledOpacity),
       cursorOpacityAnimates: true,
       cursorWidth: 1.5,
       onChanged: onChanged,

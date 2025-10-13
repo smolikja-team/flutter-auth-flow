@@ -100,7 +100,7 @@ class _PassInputWidgetState extends ConsumerState<PassInputWidget> {
   Icon _helpIcon(BuildContext context) {
     return Icon(
       Icons.help_outline_rounded,
-      color: widget.dep.colorPrimary?.withOpacity(widget.dep.disabledOpacity),
+      color: widget.dep.colorPrimary?.withValues(alpha: widget.dep.disabledOpacity),
       size: Theme.of(context).textTheme.titleSmall?.fontSize,
     );
   }
