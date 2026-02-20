@@ -103,17 +103,20 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent> {
             );
           },
           child: isTypeLogin
-              ? ResetPasswordWidget(
-                  key: _kResetPasswordKey,
-                  onTap: () => _showResetPasswordDialog(
-                    () =>
-                        ref.read(loginProvider.notifier).onResetPasswordPressed(
-                              widget.dep.onResetPasswordPressed,
+              ? (widget.dep.onResetPasswordPressed != null
+                  ? ResetPasswordWidget(
+                      key: _kResetPasswordKey,
+                      onTap: () => _showResetPasswordDialog(
+                        () => ref
+                            .read(loginProvider.notifier)
+                            .onResetPasswordPressed(
+                              widget.dep.onResetPasswordPressed!,
                               onError: _showSnackBar,
                             ),
-                  ),
-                  color: widget.dep.colorOnPrimary,
-                )
+                      ),
+                      color: widget.dep.colorOnPrimary,
+                    )
+                  : const SizedBox.shrink())
               : Container(
                   key: _kConfirmationRegKey,
                   child: confirmationRegWidget(),

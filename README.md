@@ -95,7 +95,7 @@ Configuration object for the Flutter Auth Flow. This is where you provide your a
 - `onCheckVerificationPressed` - Action for checking email verification status
 - `onResendVerificationPressed` - Action for resending verification email
 - `onLogoutPressed` - Action for handling logout
-- `onResetPasswordPressed` - Action for handling password reset requests
+- `onResetPasswordPressed` - Optional action for handling password reset requests. If null, the reset password button will not be displayed.
 - `onLoggedIn` - Callback when user successfully logs in
 - `onLoggedOut` - Callback when user logs out
 - `disabledOpacity` - Optional opacity for disabled elements (default: 0.65)
@@ -143,7 +143,7 @@ return FlutterAuthFlow(
         onCheckVerificationPressed: YourAuthService().checkEmailVerification,
         onResendVerificationPressed: YourAuthService().resendEmailVerification,
         onLogoutPressed: YourAuthService().logout,
-        onResetPasswordPressed: YourAuthService().resetPassword,
+        onResetPasswordPressed: YourAuthService().resetPassword, // Optional
         onLoggedIn: () => {}, // Action after user is logged in
         onLoggedOut: () => {}, // Action after user is logged out
         colorPrimary: Colors.blue, // Optional: customize colors
@@ -194,7 +194,7 @@ Error and success messages are displayed using customizable snackbars with color
    - `FirebaseAuthFlowDependencies` → `FlutterAuthFlowDependencies`
    - `FirebaseAuthFlowState` → `FlutterAuthFlowState`
 3. **Removed**: `FirebaseAuthFlowProvider` enum (no longer needed)
-4. **Added**: `onResetPasswordPressed` callback is now required
+4. **Added**: `onResetPasswordPressed` callback is now available (it is optional in 3.x with the implementation of the flexible button layout)
 
 ### Migration Steps
 
@@ -202,7 +202,7 @@ Error and success messages are displayed using customizable snackbars with color
 2. Update imports: `package:firebase_auth_flow` → `package:flutter_auth_flow`
 3. Update class names in your code
 4. Remove any references to `FirebaseAuthFlowProvider`
-5. Add implementation for `onResetPasswordPressed` callback
+5. Consider adding implementation for `onResetPasswordPressed` callback (optional)
 
 ## Development and Contribution
 
