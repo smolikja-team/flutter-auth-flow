@@ -214,6 +214,12 @@ abstract class AppLocalizations {
   /// **'Vygenerujeme nové heslo a pošleme ho na váš email.'**
   String get auth_message_reset_password;
 
+  /// No description provided for @auth_message_reset_password_empty.
+  ///
+  /// In cs, this message translates to:
+  /// **'Zadejte prosím e-mailovou adresu.'**
+  String get auth_message_reset_password_empty;
+
   /// No description provided for @success_email_verification_sent.
   ///
   /// In cs, this message translates to:

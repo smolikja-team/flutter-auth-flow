@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_flow/flutter_auth_flow.dart';
-import 'package:flutter_auth_flow/src/core/text_styles/text_styles.dart';
-import 'package:flutter_auth_flow/src/core/widgets/custom_snack_bars.dart';
 import 'package:flutter_auth_flow/src/core/widgets/title_text_widget.dart';
 import 'package:flutter_auth_flow/src/features/login_page/providers/login_provider.dart';
+import 'package:flutter_auth_flow/src/features/login_page/widgets/auth_flow_animated_switcher.dart';
 import 'package:flutter_auth_flow/src/features/login_page/widgets/buttons_widget.dart';
+import 'package:flutter_auth_flow/src/features/login_page/widgets/confirmation_reg_widget.dart';
 import 'package:flutter_auth_flow/src/features/login_page/widgets/email_input_widget.dart';
 import 'package:flutter_auth_flow/src/features/login_page/widgets/pass_input_widget.dart';
-import 'package:flutter_auth_flow/src/features/login_page/widgets/reset_password_widget.dart';
+import 'package:flutter_auth_flow/src/features/login_page/widgets/reset_password_action_widget.dart';
 import 'package:flutter_auth_flow/src/features/login_page/widgets/tapable_text_widget.dart';
 import 'package:flutter_auth_flow/src/l10n/extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -40,40 +39,19 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent> {
   Widget build(BuildContext context) {
     final isTypeLogin = ref.watch(loginProvider).isTypeLogin;
 
-    final title = TitleTextWidget(
-      text: isTypeLogin
-          ? context.l10n.auth_title_login
-          : context.l10n.auth_title_register,
-      style: Theme.of(context)
-          .textTheme
-          .headlineMedium
-          ?.copyWith(color: widget.dep.colorOnPrimary),
-    );
-
-    Widget confirmationRegWidget() {
-      return Column(
-        children: [
-          PassInputWidget(
-            widget.dep,
-            isConfirming: true,
-          ),
-          _kSpacerHeight16,
-          TapableTextWidget(
-            text: context.l10n.auth_title_privacy_policy,
-            onTap: widget.dep.onPrivacyPolicyPressed,
-            color: widget.dep.colorPrimary,
-            opacity: widget.dep.disabledOpacity,
-            alignment: Alignment.centerLeft,
-          ),
-        ],
-      );
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        title,
+        TitleTextWidget(
+          text: isTypeLogin
+              ? context.l10n.auth_title_login
+              : context.l10n.auth_title_register,
+          style: Theme.of(context)
+              .textTheme
+              .headlineMedium
+              ?.copyWith(color: widget.dep.colorOnPrimary),
+        ),
         _kSpacerHeight32,
         EmailInputWidget(widget.dep),
         _kSpacerHeight16,
@@ -81,45 +59,15 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent> {
           widget.dep,
           isConfirming: false,
         ),
-        AnimatedSwitcher(
-          duration: const Duration(milliseconds: 400),
-          switchInCurve: Curves.easeInOut,
-          switchOutCurve: Curves.easeInOut,
-          transitionBuilder: (Widget child, Animation<double> animation) {
-            return FadeTransition(
-              opacity: animation,
-              child: ScaleTransition(
-                scale: Tween<double>(
-                  begin: 0.95,
-                  end: 1.0,
-                ).animate(
-                  CurvedAnimation(
-                    parent: animation,
-                    curve: Curves.easeInOut,
-                  ),
-                ),
-                child: child,
-              ),
-            );
-          },
+        AuthFlowAnimatedSwitcher(
           child: isTypeLogin
-              ? (widget.dep.onResetPasswordPressed != null
-                  ? ResetPasswordWidget(
-                      key: _kResetPasswordKey,
-                      onTap: () => _showResetPasswordDialog(
-                        () => ref
-                            .read(loginProvider.notifier)
-                            .onResetPasswordPressed(
-                              widget.dep.onResetPasswordPressed!,
-                              onError: _showSnackBar,
-                            ),
-                      ),
-                      color: widget.dep.colorOnPrimary,
-                    )
-                  : const SizedBox.shrink())
+              ? ResetPasswordActionWidget(
+                  widget.dep,
+                  key: _kResetPasswordKey,
+                )
               : Container(
                   key: _kConfirmationRegKey,
-                  child: confirmationRegWidget(),
+                  child: ConfirmationRegWidget(widget.dep),
                 ),
         ),
         if (isTypeLogin) const SizedBox(height: 48.0) else _kSpacerHeight32,
@@ -131,53 +79,6 @@ class _LoginPageContentState extends ConsumerState<LoginPageContent> {
           color: widget.dep.colorAbout,
         ),
       ],
-    );
-  }
-
-  void _showSnackBar({required String errorMessage}) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      errorSnackBar(
-        message: errorMessage,
-        context: context,
-        dependencies: widget.dep,
-      ),
-    );
-  }
-
-  void _showResetPasswordDialog(
-    void Function() onResetPassword,
-  ) {
-    showCupertinoDialog<void>(
-      context: context,
-      builder: (BuildContext context) => CupertinoAlertDialog(
-        title: TitleTextWidget(
-          text: context.l10n.auth_button_reset_password,
-          alignment: Alignment.center,
-        ),
-        content: Text(context.l10n.auth_message_reset_password),
-        actions: <CupertinoDialogAction>[
-          CupertinoDialogAction(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              context.l10n.auth_help_password_cancel,
-              style:
-                  TextStyles.titleMedium.copyWith(color: widget.dep.colorError),
-            ),
-          ),
-          CupertinoDialogAction(
-            isDefaultAction: true,
-            onPressed: () {
-              onResetPassword();
-              Navigator.pop(context);
-            },
-            child: Text(
-              context.l10n.auth_help_password_ok,
-              style: TextStyles.titleMedium
-                  .copyWith(color: widget.dep.colorOnPrimary),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

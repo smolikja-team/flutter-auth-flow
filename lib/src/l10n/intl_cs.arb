@@ -38,6 +38,8 @@
   "auth_button_reset_password": "Zapomenuté heslo",
   "@auth_message_reset_password": {},
   "auth_message_reset_password": "Vygenerujeme nové heslo a pošleme ho na váš email.",
+  "@auth_message_reset_password_empty": {},
+  "auth_message_reset_password_empty": "Zadejte prosím e-mailovou adresu.",
   "@error_auth_pass_not_matching": {},
   "success_email_verification_sent": "Odesláno na email",
   "@success_email_verification_sent": {},

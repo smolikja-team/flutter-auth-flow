@@ -71,6 +71,10 @@ class AppLocalizationsCs extends AppLocalizations {
       'Vygenerujeme nové heslo a pošleme ho na váš email.';
 
   @override
+  String get auth_message_reset_password_empty =>
+      'Zadejte prosím e-mailovou adresu.';
+
+  @override
   String get success_email_verification_sent => 'Odesláno na email';
 
   @override
