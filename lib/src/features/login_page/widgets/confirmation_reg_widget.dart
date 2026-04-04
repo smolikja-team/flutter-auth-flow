@@ -21,7 +21,7 @@ class ConfirmationRegWidget extends StatelessWidget {
         TapableTextWidget(
           text: context.l10n.auth_title_privacy_policy,
           onTap: dep.onPrivacyPolicyPressed,
-          color: dep.colorPrimary,
+          color: dep.colorOnPrimary,
           opacity: dep.disabledOpacity,
           alignment: Alignment.centerLeft,
         ),
