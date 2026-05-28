@@ -39,22 +39,20 @@ class FlutterAuthFlowViewState extends ConsumerState<FlutterAuthFlow> {
       }
     }
 
-    return ProviderScope(
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 400),
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          final offsetAnimation = Tween<Offset>(
-            begin: const Offset(1.0, 0.0), // Obrazovka přijde zprava
-            end: Offset.zero,
-          ).animate(animation);
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 400),
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        final offsetAnimation = Tween<Offset>(
+          begin: const Offset(1.0, 0.0), // Obrazovka přijde zprava
+          end: Offset.zero,
+        ).animate(animation);
 
-          return SlideTransition(
-            position: offsetAnimation,
-            child: child,
-          );
-        },
-        child: getPage(),
-      ),
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+      child: getPage(),
     );
   }
 }
